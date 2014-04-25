@@ -1,0 +1,139 @@
+set $M1 Mod4
+set $M2 Control+Mod4
+set $alt Mod1
+
+# change focus
+bindsym $M1+Left focus left
+bindsym $M1+Down focus down
+bindsym $M1+Up focus up
+bindsym $M1+Right focus right
+bindsym KP_Left focus left
+bindsym KP_Down focus down
+bindsym KP_Up focus up
+bindsym KP_Right focus right
+
+# move focused window
+bindsym $M2+Left move left
+bindsym $M2+Down move down
+bindsym $M2+Up move up
+bindsym $M2+Right move right
+bindsym $M1+KP_Left move left
+bindsym $M1+KP_Down move down
+bindsym $M1+KP_Up move up
+bindsym $M1+KP_Right move right
+
+# enter fullscreen mode for the focused container
+bindsym $M1+f fullscreen
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $M1
+# toggle tiling / floating
+bindsym KP_Begin floating toggle
+
+# focus the parent container
+bindsym $M1+a focus parent
+
+# focus the child container
+bindsym $M1+s focus child
+
+# change split
+bindsym $M1+v layout splitv
+bindsym $M1+h layout splith
+
+# change focus between tiling / floating windows
+bindsym $M1+KP_Begin focus mode_toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $M1+t layout tabbed
+bindsym $M2+t layout stacking
+bindsym $M1+c layout toggle split
+
+
+# change workspace
+bindsym F1 workspace 1
+bindsym F2 workspace 2
+bindsym F3 workspace 3
+bindsym F4 workspace 4
+# Alt+Tab
+bindsym $alt+Tab workspace next_on_output
+bindsym $alt+Shift+Tab workspace prev_on_output
+
+# move to workspace
+bindsym $M1+F1 move container to workspace 1; workspace 1
+bindsym $M1+F2 move container to workspace 2; workspace 2
+bindsym $M1+F3 move container to workspace 3; workspace 3
+bindsym $M1+F4 move container to workspace 4; workspace 4
+bindsym $M2+F1 move container to workspace 1
+bindsym $M2+F2 move container to workspace 2
+bindsym $M2+F3 move container to workspace 3
+bindsym $M2+F4 move container to workspace 4
+
+# start dmenu (a program launcher)
+# bindsym $M1+Return exec dmenu_run
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+bindsym $M1+Return exec --no-startup-id i3-dmenu-desktop
+
+# start a terminal
+bindsym $M2+Return exec i3-sensible-terminal
+bindsym Control+$alt+t exec i3-sensible-terminal
+
+# kill focused window
+bindsym $M1+q kill
+
+# exit i3 (logs you out of your X session)
+#bindsym $M2+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $M2+q exec "i3-msg exit"
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $M2+r restart 
+
+mode "move" {
+	bindsym Left move left
+	bindsym Down move down
+	bindsym Up move up
+	bindsym Right move right
+
+	bindsym F1 move container to workspace 1; workspace 1
+	bindsym F2 move container to workspace 2; workspace 2
+	bindsym F3 move container to workspace 3; workspace 3
+	bindsym F4 move container to workspace 4; workspace 4
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $M1+m mode "move"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $M1+r mode "resize"
+
+
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below. ISO 10646 = Unicode
+# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+# The font above is very space-efficient, that is, it looks good, sharp and
+# clear in small sizes. However, if you need a lot of unicode glyphs or
+# right-to-left text rendering, you should instead use pango for rendering and
+# chose a FreeType font, such as:
+font pango:DejaVu Sans Mono 12
+
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+        status_command i3status
+}
+
+exec nm-applet
+exec "xmodmap -e 'keycode 107 = Super_R NoSymbol Super_R NoSymbol Super_R'"
