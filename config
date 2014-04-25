@@ -2,25 +2,23 @@ set $M1 Mod4
 set $M2 Control+Mod4
 set $alt Mod1
 
+set $upper_left "floating enable; move position 40 px 30 px"
+set $upper_right "floating enable; move position 1520 px 30 px"
+set $lower_left "floating enable; move position 40 px 830 px"
+set $lower_right "floating enable; move position 1520 px 830 px"
+set $center "floating enable; move position center"
+
 # change focus
 bindsym $M1+Left focus left
 bindsym $M1+Down focus down
 bindsym $M1+Up focus up
 bindsym $M1+Right focus right
-bindsym KP_Left focus left
-bindsym KP_Down focus down
-bindsym KP_Up focus up
-bindsym KP_Right focus right
 
 # move focused window
 bindsym $M2+Left move left
 bindsym $M2+Down move down
 bindsym $M2+Up move up
 bindsym $M2+Right move right
-bindsym $M1+KP_Left move left
-bindsym $M1+KP_Down move down
-bindsym $M1+KP_Up move up
-bindsym $M1+KP_Right move right
 
 # enter fullscreen mode for the focused container
 bindsym $M1+f fullscreen
@@ -28,7 +26,15 @@ bindsym $M1+f fullscreen
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $M1
 # toggle tiling / floating
-bindsym KP_Begin floating toggle
+bindsym $M1+KP_5 $center
+bindsym $M1+KP_7 $upper_left
+bindsym $M1+KP_9 $upper_right
+bindsym $M1+KP_1 $lower_left
+bindsym $M1+KP_3 $lower_right
+bindsym $M1+KP_0 floating disable
+
+# max size
+floating_maximum_size 1360 x 768
 
 # focus the parent container
 bindsym $M1+a focus parent
@@ -39,9 +45,6 @@ bindsym $M1+s focus child
 # change split
 bindsym $M1+v layout splitv
 bindsym $M1+h layout splith
-
-# change focus between tiling / floating windows
-bindsym $M1+KP_Begin focus mode_toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $M1+t layout tabbed
@@ -84,10 +87,32 @@ bindsym $M1+q kill
 
 # exit i3 (logs you out of your X session)
 #bindsym $M2+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-bindsym $M2+q exec "i3-msg exit"
+bindsym $M2+q exit
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $M2+r restart 
+
+mode "navigate" {
+	bindsym Left focus left
+	bindsym Down focus down
+	bindsym Up focus up
+	bindsym Right focus right
+
+	# change workspace
+	bindsym F1 workspace 1
+	bindsym F2 workspace 2
+	bindsym F3 workspace 3
+	bindsym F4 workspace 4
+	# Alt+Tab
+	bindsym $alt+Tab workspace next_on_output
+	bindsym $alt+Shift+Tab workspace prev_on_output
+
+	bindsym m mode "move"
+	bindsym r mode "resize"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $M1+n mode "navigate"
 
 mode "move" {
 	bindsym Left move left
@@ -100,6 +125,15 @@ mode "move" {
 	bindsym F3 move container to workspace 3; workspace 3
 	bindsym F4 move container to workspace 4; workspace 4
 
+	bindsym KP_5 $center
+	bindsym KP_7 $upper_left
+	bindsym KP_9 $upper_right
+	bindsym KP_1 $lower_left
+	bindsym KP_3 $lower_right
+	bindsym KP_0 floating disable
+
+	bindsym r mode "resize"
+	bindsym n mode "navigate"
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
@@ -112,12 +146,12 @@ mode "resize" {
         bindsym Up resize shrink height 10 px or 10 ppt
         bindsym Right resize grow width 10 px or 10 ppt
 
+	bindsym n mode "navigate"
+	bindsym m mode "move"
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
 bindsym $M1+r mode "resize"
-
-
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
