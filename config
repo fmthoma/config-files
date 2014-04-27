@@ -98,7 +98,11 @@ mode "run" {
 	bindsym c exec chromium-browser; mode "default"
 	bindsym i exec idea; mode "default"
 	bindsym p exec pstorm; mode "default"
-	bindsym Escape mode "default"
+
+	bindsym h split h
+	bindsym v split v
+
+	bindsym Evhscape mode "default"
 }
 bindsym $M1+Return mode "run"
 
@@ -172,13 +176,13 @@ bindsym $M1+r mode "resize"
 # chose a FreeType font, such as:
 font pango:DejaVu Sans Mono 12
 
-
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
         status_command i3status
 }
 
+# Autostart
 exec --no-startup-id gnome-panel
 exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-application/indicator-application-service
 exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-session/indicator-session-service
