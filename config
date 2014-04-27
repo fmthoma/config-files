@@ -98,11 +98,12 @@ mode "run" {
 	bindsym c exec chromium-browser; mode "default"
 	bindsym i exec idea; mode "default"
 	bindsym p exec pstorm; mode "default"
+	bindsym m exec thunderbird; mode "default"
 
 	bindsym h split h
 	bindsym v split v
 
-	bindsym Evhscape mode "default"
+	bindsym Escape mode "default"
 }
 bindsym $M1+Return mode "run"
 
@@ -111,6 +112,8 @@ mode "navigate" {
 	bindsym Down focus down
 	bindsym Up focus up
 	bindsym Right focus right
+	bindsym a focus parent
+	bindsym s focus child
 
 	# change workspace
 	bindsym F1 workspace 1
@@ -182,8 +185,11 @@ bar {
         status_command i3status
 }
 
+force_focus_wrapping yes
+
 # Autostart
 exec --no-startup-id gnome-panel
+exec --no-startup-id gnome-settings-daemon
 exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-application/indicator-application-service
 exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-session/indicator-session-service
 exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-bluetooth/indicator-bluetooth-service
