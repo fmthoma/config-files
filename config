@@ -169,5 +169,15 @@ bar {
         status_command i3status
 }
 
-exec nm-applet
-exec "xmodmap -e 'keycode 107 = Super_R NoSymbol Super_R NoSymbol Super_R'"
+exec --no-startup-id gnome-panel
+exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-application/indicator-application-service
+exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-session/indicator-session-service
+exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-bluetooth/indicator-bluetooth-service
+exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-datetime/indicator-datetime-service
+exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-keyboard-service
+exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-session/indicator-session-service
+exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-sound/indicator-sound-service
+exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-power/indicator-power-service
+exec --no-startup-id nm-applet
+#exec "xfce4-power-manager --no-daemon &"
+#exec "xmodmap -e 'keycode 107 = Super_R NoSymbol Super_R NoSymbol Super_R'"
