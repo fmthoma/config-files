@@ -82,7 +82,7 @@ bindsym $M2+F4 move container to workspace 4
 bindsym Control+$alt+t exec i3-sensible-terminal
 
 # kill focused window
-bindsym $M1+q kill
+bindsym $M1+d kill
 
 # exit i3 (logs you out of your X session)
 #bindsym $M2+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
