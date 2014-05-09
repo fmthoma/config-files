@@ -185,6 +185,8 @@ bar {
 
 force_focus_wrapping yes
 
+focus_follows_mouse no
+
 # Autostart
 exec --no-startup-id gnome-panel
 exec --no-startup-id gnome-settings-daemon
