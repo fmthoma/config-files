@@ -56,7 +56,6 @@ bindsym $M1+c layout toggle split
 bindsym F1 workspace 1
 bindsym F2 workspace 2
 bindsym F3 workspace 3
-bindsym F4 workspace 4
 # Alt+Tab
 bindsym $alt+Tab workspace next_on_output
 bindsym $alt+Shift+Tab workspace prev_on_output
