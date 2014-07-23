@@ -78,7 +78,7 @@ bindsym $M2+F4 move container to workspace 4
 # bindsym $M1+Return exec --no-startup-id i3-dmenu-desktop
 
 # start a terminal
-bindsym Control+$alt+t exec i3-sensible-terminal
+bindsym Control+$alt+t exec gnome-terminal
 
 # kill focused window
 bindsym $M1+d kill
@@ -93,7 +93,7 @@ bindsym $M2+r restart
 mode "run" {
 	bindsym Return exec --no-startup-id i3-dmenu-desktop; mode "default"
 	bindsym $M1+Return exec --no-startup-id dmenu_run; mode "default"
-	bindsym t exec i3-sensible-terminal; mode "default"
+	bindsym t exec gnome-terminal; mode "default"
 	bindsym f exec firefox; mode "default"
 	bindsym c exec chromium-browser; mode "default"
 	bindsym i exec idea; mode "default"
@@ -169,10 +169,11 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 bindsym $M1+r mode "resize"
-bindsym $M1+plus        resize grow width 10 px or 10 ppt;   resize grow height 10 px or 1 ppt
-bindsym $M1+KP_Add      resize grow width 10 px or 10 ppt;   resize grow height 10 px or 1 ppt
-bindsym $M1+minus       resize shrink width 10 px or 10 ppt; resize shrink height 10 px or 1 ppt
-bindsym $M1+KP_Subtract resize shrink width 10 px or 10 ppt; resize shrink height 10 px or 1 ppt
+
+bindsym $M1+plus        resize grow width 10 px or 10 ppt;   resize grow height 10 px or 10 ppt
+bindsym $M1+KP_Add      resize grow width 10 px or 10 ppt;   resize grow height 10 px or 10 ppt
+bindsym $M1+minus       resize shrink width 10 px or 10 ppt; resize shrink height 10 px or 10 ppt
+bindsym $M1+KP_Subtract resize shrink width 10 px or 10 ppt; resize shrink height 10 px or 10 ppt
 
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 font pango:DejaVu Sans Mono 12
