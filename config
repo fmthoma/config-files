@@ -13,12 +13,20 @@ bindsym $M1+Left focus left
 bindsym $M1+Down focus down
 bindsym $M1+Up focus up
 bindsym $M1+Right focus right
+bindsym $M1+h focus left
+bindsym $M1+j focus down
+bindsym $M1+k focus up
+bindsym $M1+l focus right
 
 # move focused window
 bindsym $M2+Left move left
 bindsym $M2+Down move down
 bindsym $M2+Up move up
 bindsym $M2+Right move right
+bindsym $M2+h move left
+bindsym $M2+j move down
+bindsym $M2+k move up
+bindsym $M2+l move right
 
 # enter fullscreen mode for the focused container
 bindsym $M1+f fullscreen
@@ -43,8 +51,8 @@ bindsym $M1+a focus parent
 bindsym $M1+s focus child
 
 # change split
-bindsym $M1+v split v
-bindsym $M1+h split h
+#bindsym $M1+v split v
+#bindsym $M1+h split h
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $M1+t layout tabbed
