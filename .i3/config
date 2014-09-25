@@ -1,0 +1,212 @@
+set $M1 Mod4
+set $M2 Control+Mod4
+set $alt Mod1
+
+set $upper_left "floating enable; move position 40 px 30 px"
+set $upper_right "floating enable; move position 1520 px 30 px"
+set $lower_left "floating enable; move position 40 px 830 px"
+set $lower_right "floating enable; move position 1520 px 830 px"
+set $center "floating enable; move position center"
+
+# change focus
+bindsym $M1+Left focus left
+bindsym $M1+Down focus down
+bindsym $M1+Up focus up
+bindsym $M1+Right focus right
+bindsym $M1+h focus left
+bindsym $M1+j focus down
+bindsym $M1+k focus up
+bindsym $M1+l focus right
+
+# move focused window
+bindsym $M2+Left move left
+bindsym $M2+Down move down
+bindsym $M2+Up move up
+bindsym $M2+Right move right
+bindsym $M2+h move left
+bindsym $M2+j move down
+bindsym $M2+k move up
+bindsym $M2+l move right
+
+# enter fullscreen mode for the focused container
+bindsym $M1+f fullscreen
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $M1
+# toggle tiling / floating
+bindsym $M1+KP_5 $center
+bindsym $M1+KP_7 $upper_left
+bindsym $M1+KP_9 $upper_right
+bindsym $M1+KP_1 $lower_left
+bindsym $M1+KP_3 $lower_right
+bindsym $M1+KP_0 floating disable
+
+# max size
+floating_maximum_size 1360 x 768
+
+# focus the parent container
+bindsym $M1+a focus parent
+
+# focus the child container
+bindsym $M1+s focus child
+
+# change split
+#bindsym $M1+v split v
+#bindsym $M1+h split h
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $M1+t layout tabbed
+bindsym $M2+t layout stacking
+bindsym $M1+c layout toggle split
+
+
+# change workspace
+bindsym F1 workspace 1
+bindsym F2 workspace 2
+bindsym F3 workspace 3
+# Alt+Tab
+bindsym $alt+Tab workspace next_on_output
+bindsym $alt+Shift+Tab workspace prev_on_output
+
+# move to workspace
+bindsym $M1+F1 move container to workspace 1; workspace 1
+bindsym $M1+F2 move container to workspace 2; workspace 2
+bindsym $M1+F3 move container to workspace 3; workspace 3
+bindsym $M1+F4 move container to workspace 4; workspace 4
+bindsym $M2+F1 move container to workspace 1
+bindsym $M2+F2 move container to workspace 2
+bindsym $M2+F3 move container to workspace 3
+bindsym $M2+F4 move container to workspace 4
+
+# start dmenu (a program launcher)
+# bindsym $M1+Return exec dmenu_run
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+# bindsym $M1+Return exec --no-startup-id i3-dmenu-desktop
+
+# start a terminal
+bindsym Control+$alt+t exec gnome-terminal
+
+# kill focused window
+bindsym $M1+d kill
+
+# exit i3 (logs you out of your X session)
+#bindsym $M2+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $M2+q exit
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $M2+r restart 
+
+mode "run" {
+	bindsym Return exec --no-startup-id i3-dmenu-desktop; mode "default"
+	bindsym $M1+Return exec --no-startup-id dmenu_run; mode "default"
+	bindsym t exec gnome-terminal; mode "default"
+	bindsym f exec firefox; mode "default"
+	bindsym c exec chromium-browser; mode "default"
+	bindsym i exec idea; mode "default"
+	bindsym p exec pstorm; mode "default"
+	bindsym m exec thunderbird; mode "default"
+
+	bindsym h split h
+	bindsym v split v
+
+	bindsym Escape mode "default"
+}
+bindsym $M1+Return mode "run"
+
+mode "navigate" {
+	bindsym Left focus left
+	bindsym Down focus down
+	bindsym Up focus up
+	bindsym Right focus right
+	bindsym a focus parent
+	bindsym s focus child
+
+	# change workspace
+	bindsym F1 workspace 1
+	bindsym F2 workspace 2
+	bindsym F3 workspace 3
+	bindsym F4 workspace 4
+	# Alt+Tab
+	bindsym $alt+Tab workspace next_on_output
+	bindsym $alt+Shift+Tab workspace prev_on_output
+
+	bindsym m mode "move"
+	bindsym r mode "resize"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $M1+n mode "navigate"
+
+mode "move" {
+	bindsym Left move left
+	bindsym Down move down
+	bindsym Up move up
+	bindsym Right move right
+
+	bindsym F1 move container to workspace 1; workspace 1
+	bindsym F2 move container to workspace 2; workspace 2
+	bindsym F3 move container to workspace 3; workspace 3
+	bindsym F4 move container to workspace 4; workspace 4
+
+	bindsym KP_5 $center
+	bindsym KP_7 $upper_left
+	bindsym KP_9 $upper_right
+	bindsym KP_1 $lower_left
+	bindsym KP_3 $lower_right
+	bindsym KP_0 floating disable
+
+	bindsym r mode "resize"
+	bindsym n mode "navigate"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $M1+m mode "move"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+	bindsym n mode "navigate"
+	bindsym m mode "move"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $M1+r mode "resize"
+
+bindsym $M1+plus        resize grow width 10 px or 10 ppt;   resize grow height 10 px or 10 ppt
+bindsym $M1+KP_Add      resize grow width 10 px or 10 ppt;   resize grow height 10 px or 10 ppt
+bindsym $M1+minus       resize shrink width 10 px or 10 ppt; resize shrink height 10 px or 10 ppt
+bindsym $M1+KP_Subtract resize shrink width 10 px or 10 ppt; resize shrink height 10 px or 10 ppt
+
+# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+font pango:DejaVu Sans Mono 12
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+        status_command i3status
+}
+
+force_focus_wrapping yes
+
+focus_follows_mouse no
+
+# Autostart
+exec --no-startup-id gnome-panel
+exec --no-startup-id gnome-settings-daemon
+exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-application/indicator-application-service
+exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-session/indicator-session-service
+exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-bluetooth/indicator-bluetooth-service
+exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-datetime/indicator-datetime-service
+exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-keyboard-service
+exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-session/indicator-session-service
+exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-sound/indicator-sound-service
+exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-power/indicator-power-service
+exec --no-startup-id nm-applet
+#exec "xfce4-power-manager --no-daemon &"
+#exec "xmodmap -e 'keycode 107 = Super_R NoSymbol Super_R NoSymbol Super_R'"
