@@ -1,0 +1,6 @@
+nnoremap <A-Up> gT
+nnoremap <A-Down> gt
+nnoremap <A-Left> gT
+nnoremap <A-Right> gt
+
+set defsearch=google
