@@ -1,6 +1,23 @@
+loadplugins
+
+" Idea-style tab navigation
 nnoremap <A-Up> gT
 nnoremap <A-Down> gt
 nnoremap <A-Left> gT
 nnoremap <A-Right> gt
+nnoremap <A-j> gt
+nnoremap <A-k> gT
+
+" Quick scrolling
+nnoremap J 20j
+nnoremap K 20k
+nnoremap <C-j> <PageDown>
+nnoremap <C-k> <PageUp>
 
 set defsearch=google
+
+" Marks
+qmark h liberator://help/all
+qmark g http://www.google.de
+qmark w http://www.wikipedia.de
+qmark W http://www.wikipedia.org

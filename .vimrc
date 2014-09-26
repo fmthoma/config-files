@@ -1,2 +1,13 @@
-nnoremap <C-l> xep
-nnoremap <C-h> xbP
+" move parentheses to end of parameter list
+nnoremap ) xep
+nnoremap ( xbP
+
+" pgup and pgdown in hjkl
+nnoremap <C-j> <PageDown>
+nnoremap <C-k> <PageUp>
+
+" tabs and line numbers
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set number
