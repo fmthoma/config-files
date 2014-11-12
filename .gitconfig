@@ -3,6 +3,7 @@
  st = status --short
  co = checkout
  up = pull --rebase
+ lg = log --oneline
  last = log -1 HEAD
  c = log -p -w --reverse @{u}..
  b = branch -vv
@@ -16,3 +17,5 @@
 [user]
 	email = franz.thoma@tngtech.com
 	name = Franz Thoma
+[clean]
+        requireForce = false
