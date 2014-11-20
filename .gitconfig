@@ -22,10 +22,10 @@
 [merge]
 	tool = intellij
 [mergetool "intellij"]
-	cmd = idea diff $LOCAL $REMOTE $BASE $MERGED
+	cmd = idea diff \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
 	trustExitCode = true
 [diff]
 	tool = intellij
 [difftool "intellij"]
-	cmd = idea diff $LOCAL $REMOTE
+	cmd = idea diff \"$LOCAL\" \"$REMOTE\"
 	trustExitCode = true
