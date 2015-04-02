@@ -1,6 +1,6 @@
 [alias]
  ci = commit
- st = status --short
+ st = status
  co = checkout
  up = pull --rebase
  lg = log --oneline
@@ -8,6 +8,11 @@
  c = log -p -w --reverse @{u}..
  b = branch -vv
  fix = commit --amend
+ dw = diff --color-words
+ imerge = mergetool --tool=intellij
+ pmerge = mergetool --tool=phpstorrm
+ idiff = difftool --tool=intellij
+ pdiff = difftool --tool=phpstorrm
 [color]
  diff = auto
  status = auto
@@ -20,12 +25,18 @@
 [clean]
         requireForce = false
 [merge]
-	tool = intellij
+	tool = meld
 [mergetool "intellij"]
 	cmd = idea diff \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
 	trustExitCode = true
+[mergetool "phpstorm"]
+	cmd = pstorm diff \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+	trustExitCode = true
 [diff]
-	tool = intellij
+	tool = meld
 [difftool "intellij"]
 	cmd = idea diff \"$LOCAL\" \"$REMOTE\"
+	trustExitCode = true
+[difftool "phpstorm"]
+	cmd = pstorm diff \"$LOCAL\" \"$REMOTE\"
 	trustExitCode = true
