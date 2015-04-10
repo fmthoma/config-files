@@ -123,7 +123,12 @@ if ! shopt -oq posix; then
   fi
 fi
 
-PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
+PS1_ID='[\[\033[01;32m\]\u@\h\[\033[00m\]]'
+PS1_DIR='[\[\033[01;34m\]\w\[\033[00m\]]'
+PS1_GIT='$(__git_ps1 "[\[\033[31m\]%s\[\033[00m\]]")'
+PS1_PROMPT='\[\033[00m\]▶ '
+PS1="\n$PS1_ID $PS1_DIR $PS1_GIT \n$PS1_PROMPT"
+
 GIT_PS1_SHOWDIRTYSTATE=yes
 GIT_PS1_SHOWSTASHSTATE=yes
 GIT_PS1_SHOWUNTRACKEDFILES=yes
