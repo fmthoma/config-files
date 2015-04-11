@@ -123,15 +123,38 @@ if ! shopt -oq posix; then
   fi
 fi
 
-PS1_ID='[\[\033[01;32m\]\u@\h\[\033[00m\]]'
-PS1_DIR='[\[\033[01;34m\]\w\[\033[00m\]]'
-PS1_GIT='$(__git_ps1 "[\[\033[31m\]%s\[\033[00m\]]")'
-PS1_PROMPT='\[\033[00m\]▶ '
-PS1="\n$PS1_ID $PS1_DIR $PS1_GIT \n$PS1_PROMPT"
+export EDITOR=vi
+
+
+## PS1 prompt ###############################
 
 GIT_PS1_SHOWDIRTYSTATE=yes
 GIT_PS1_SHOWSTASHSTATE=yes
 GIT_PS1_SHOWUNTRACKEDFILES=yes
 GIT_PS1_SHOWUPSTREAM=auto
 
-export EDITOR=vi
+function __ps1() {
+  BBlack='\e[1;30m'
+  BGray='\e[38;5;8m'
+  BGreen='\e[1;32m'
+  BRed='\e[1;31m'
+  BYellow='\e[1;33m'
+  BBlue='\e[1;34m'
+  BPurple='\e[1;35m'
+  BCyan='\e[1;36m'
+  BWhite='\e[1;37m'
+  OnBlack='\e[40m'
+  OnRed='\e[101m'
+  OnGray='\e[48;5;8m'
+  Reset='\e[0m'
+
+  PS1_ID="\[$BWhite\][\[$BGreen\]\u@\h\[$BWhite\]] "
+  PS1_DIR="\[$BWhite\][\[$BBlue\]$(pwd)\[$BWhite\]] "
+  PS1_GIT=$(__git_ps1 "[\[$BRed\]%s\[$BWhite\]] ")
+  PS1_TIME="\[$BWhite\][\[$BCyan\]\A\[$BWhite\]] "
+  PS1_PROMPT="\[$BWhite\]▶ "
+  echo "\n\[$OnBlack\]$PS1_ID$PS1_DIR$PS1_GIT$PS1_TIME\[$Reset\]\n\[$OnBlack\]$PS1_PROMPT\[$Reset\]"
+}
+
+PROMPT_COMMAND='PS1="$(__ps1)"'
+PS1="$(__ps1)"
