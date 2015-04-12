@@ -148,13 +148,28 @@ function __ps1() {
   OnGray='\e[48;5;8m'
   Reset='\e[0m'
 
-  PS1_ID="\[$BWhite\][\[$BGreen\]\u@\h\[$BWhite\]] "
-  PS1_DIR="\[$BWhite\][\[$BBlue\]$(pwd)\[$BWhite\]] "
-  PS1_GIT=$(__git_ps1 "[\[$BRed\]%s\[$BWhite\]] ")
-  PS1_TIME="\[$BWhite\][\[$BCyan\]\A\[$BWhite\]] "
-  PS1_PROMPT="\[$BWhite\]▶ "
-  echo "\n\[$OnBlack\]$PS1_ID$PS1_DIR$PS1_GIT$PS1_TIME\[$Reset\]\n\[$OnBlack\]$PS1_PROMPT\[$Reset\]"
+  function item() { # item PS1 fgColor bgColor text
+    if [ -n "$4" ]
+      then
+        ITEM="\[$BWhite$3\][\[$2\]$4\[$BWhite\]]"
+        if [ -z "$1" ]
+          then echo "$ITEM"
+          else echo "$1 $ITEM"
+        fi
+      else echo "$1"
+    fi
+  }
+
+  STATUSLINE=""
+  LVL=$(if [ $SHLVL -gt 1 ]; then echo " +$(expr $SHLVL - 1)"; fi)
+  STATUSLINE=$(item "$STATUSLINE" $BCyan  $OnBlack "\t \!$LVL")
+  STATUSLINE=$(item "$STATUSLINE" $BGreen $OnBlack "\u@\h")
+  STATUSLINE=$(item "$STATUSLINE" $BBlue  $OnBlack "$(pwd)")
+  STATUSLINE=$(item "$STATUSLINE" $BRed   $OnBlack "$(__git_ps1 '%s')")
+  STATUSLINE="$STATUSLINE\[$Reset\]"
+  PROMPT="\[$BWhite$OnBlack\]▶ \[$Reset\]"
+  echo "\n$STATUSLINE\n$PROMPT"
 }
 
-PROMPT_COMMAND='PS1="$(__ps1)"'
+PROMPT_COMMAND="$PROMPT_COMMAND; PS1=\"\$(__ps1)\""
 PS1="$(__ps1)"
