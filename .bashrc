@@ -16,8 +16,13 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE="-1"
+HISTFILESIZE="-1"
+
+# synchronize history after each command
+PROMPT_COMMAND="history -a; history -c; history -r"
+
+HISTIGNORE="ranger:bash:history:ll:la"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
