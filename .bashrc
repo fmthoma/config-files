@@ -139,6 +139,7 @@ GIT_PS1_SHOWUNTRACKEDFILES=yes
 GIT_PS1_SHOWUPSTREAM=auto
 
 function __ps1() {
+  Purple='\e[0;35m'
   BBlack='\e[1;30m'
   BRed='\e[1;31m'
   BGreen='\e[1;32m'
@@ -158,7 +159,7 @@ function __ps1() {
   function item() { # item PS1 fgColor bgColor text
     if [ -n "$4" ]
       then
-        ITEM="\[$BGray$3\][\[$2\]$4\[$BGray\]]"
+        ITEM="\[$BGray$3\][\[$2$3\]$4\[$BGray$3\]]"
         if [ -z "$1" ]
           then echo "$ITEM"
           else echo "$1 $ITEM"
@@ -168,14 +169,18 @@ function __ps1() {
   }
 
   STATUSLINE=""
-  LVL=$(if [ $SHLVL -gt 1 ]; then echo " +$(expr $SHLVL - 1)"; fi)
+  LVL=$(if [ $SHLVL -gt 1 ]; then echo " +$(($SHLVL-1))"; fi)
   STATUSLINE=$(item "$STATUSLINE" $BCyan  $OnBlack "\t \!$LVL")
   STATUSLINE=$(item "$STATUSLINE" $BGreen $OnBlack "\u@\h")
   STATUSLINE=$(item "$STATUSLINE" $BBlue  $OnBlack "$(pwd)")
   STATUSLINE=$(item "$STATUSLINE" $BRed   $OnBlack "$(__git_ps1 '%s')")
+  MEMFREE=$( bc -l <<< "scale=1;`sed -n "s/MemFree:[\t ]\+\([0-9]\+\) kB/\1/p" /proc/meminfo`/1024/1024" )
+  MEMTOTAL=$( bc -l <<< "scale=1;`sed -n "s/MemTotal:[\t ]\+\([0-9]\+\) kB/\1/Ip" /proc/meminfo`/1024/1024" )
+  LOAD=$(cat /proc/loadavg)
+  STATUSLINE=$(item "$STATUSLINE" $Purple $OnBlack "$MEMFREE/${MEMTOTAL}GB | $LOAD")
   STATUSLINE="$STATUSLINE\[$Reset\]"
   PROMPT="\[$BWhite$OnBlack\]▶ \[$Reset\]"
-  echo "\n$STATUSLINE\n$PROMPT"
+  echo "\[$OnBlack\]\n$STATUSLINE\n$PROMPT"
 }
 
 PROMPT_COMMAND="$PROMPT_COMMAND; PS1=\"\$(__ps1)\""
