@@ -140,23 +140,25 @@ GIT_PS1_SHOWUPSTREAM=auto
 
 function __ps1() {
   BBlack='\e[1;30m'
-  BGray='\e[38;5;8m'
-  BGreen='\e[1;32m'
   BRed='\e[1;31m'
+  BGreen='\e[1;32m'
   BYellow='\e[1;33m'
   BBlue='\e[1;34m'
   BPurple='\e[1;35m'
   BCyan='\e[1;36m'
   BWhite='\e[1;37m'
+  BGray='\e[38;5;8m'
+
   OnBlack='\e[40m'
   OnRed='\e[101m'
   OnGray='\e[48;5;8m'
+
   Reset='\e[0m'
 
   function item() { # item PS1 fgColor bgColor text
     if [ -n "$4" ]
       then
-        ITEM="\[$BWhite$3\][\[$2\]$4\[$BWhite\]]"
+        ITEM="\[$BGray$3\][\[$2\]$4\[$BGray\]]"
         if [ -z "$1" ]
           then echo "$ITEM"
           else echo "$1 $ITEM"
