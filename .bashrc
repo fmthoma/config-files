@@ -169,15 +169,26 @@ function __ps1() {
   }
 
   STATUSLINE=""
+
+  # Time & Shell level
   LVL=$(if [ $SHLVL -gt 1 ]; then echo " +$(($SHLVL-1))"; fi)
   STATUSLINE=$(item "$STATUSLINE" $BCyan  $OnBlack "\t \!$LVL")
-  STATUSLINE=$(item "$STATUSLINE" $BGreen $OnBlack "\u@\h")
+
+  # User@Host
+  #STATUSLINE=$(item "$STATUSLINE" $BGreen $OnBlack "\u@\h")
+
+  # PWD
   STATUSLINE=$(item "$STATUSLINE" $BBlue  $OnBlack "$(pwd)")
+
+  # Git
   STATUSLINE=$(item "$STATUSLINE" $BRed   $OnBlack "$(__git_ps1 '%s')")
+
+  # Stats
   MEMFREE=$( bc -l <<< "scale=1;`sed -n "s/MemFree:[\t ]\+\([0-9]\+\) kB/\1/p" /proc/meminfo`/1024/1024" )
   MEMTOTAL=$( bc -l <<< "scale=1;`sed -n "s/MemTotal:[\t ]\+\([0-9]\+\) kB/\1/Ip" /proc/meminfo`/1024/1024" )
   LOAD=$(cat /proc/loadavg)
   STATUSLINE=$(item "$STATUSLINE" $Purple $OnBlack "$MEMFREE/${MEMTOTAL}GB | $LOAD")
+
   STATUSLINE="$STATUSLINE\[$Reset\]"
   PROMPT="\[$BWhite$OnBlack\]▶ \[$Reset\]"
   echo "\[$OnBlack\]\n$STATUSLINE\n$PROMPT"
