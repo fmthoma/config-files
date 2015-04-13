@@ -15,3 +15,6 @@ set number
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
+
+" always display airline
+set laststatus=2
