@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e
+
+# see http://wiki.ubuntuusers.de/Hybrid-Grafikkarten/Bumblebee?redirect=no#Probleme-bei-der-Benutzung-von-Bumblebee-mit-Ubuntu-14-04
+
+apt-get install nvidia-331-updates
+
+sed -i "1i\
+Section \"Screen\"
+    Identifier "Default Screen"
+    Device "DiscreteNvidia"
+EndSection
+" /etc/bumblebee/xorg.conf.nvidia
+
+sed -i "s/\(KernelDriver=nvidia\).*/\1-331/" /etc/bumblebee/bumblebee.conf

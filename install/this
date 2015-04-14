@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+pushd ~
+
+for DOTFILE in .bashrc .gitconfig .i3 .profile .vim .vimperatorrc .vimrc; do
+  if [ -e $DOTFILE ]; then mv $DOTFILE "$DOTFILE.bak"; fi
+  ln -s "config-files/$DOTFILE"
+done

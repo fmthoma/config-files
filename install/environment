@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+
+xargs apt-get install -y < "$(dirname $0)/environment.apt-get"
