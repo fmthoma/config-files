@@ -1,5 +1,6 @@
 set $M1 Mod4
 set $M2 Control+Mod4
+set $M3 Shift+Control+Mod4
 set $alt Mod1
 
 set $upper_left "floating enable; move position 40 px 30 px"
@@ -27,6 +28,14 @@ bindsym $M2+h move left
 bindsym $M2+j move down
 bindsym $M2+k move up
 bindsym $M2+l move right
+bindsym $M3+Left move workspace to output left
+bindsym $M3+Down move workspace to output down
+bindsym $M3+Up move workspace to output up
+bindsym $M3+Right move workspace to output right
+bindsym $M3+h move workspace to output left
+bindsym $M3+j move workspace to output down
+bindsym $M3+k move workspace to output up
+bindsym $M3+l move workspace to output right
 
 # enter fullscreen mode for the focused container
 bindsym $M1+f fullscreen
