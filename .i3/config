@@ -87,13 +87,6 @@ bindsym $M2+F2 move container to workspace 2
 bindsym $M2+F3 move container to workspace 3
 bindsym $M2+F4 move container to workspace 4
 
-# start dmenu (a program launcher)
-# bindsym $M1+Return exec dmenu_run
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $M1+Return exec --no-startup-id i3-dmenu-desktop
-
 # start a terminal
 bindsym Control+$alt+t exec gnome-terminal
 
@@ -108,8 +101,8 @@ bindsym $M2+q exit
 bindsym $M2+r restart 
 
 mode "run" {
-	bindsym Return exec --no-startup-id i3-dmenu-desktop; mode "default"
-	bindsym $M1+Return exec --no-startup-id dmenu_run; mode "default"
+	bindsym Return exec --no-startup-id i3-dmenu-hist-desktop; mode "default"
+	bindsym $M1+Return exec --no-startup-id dmenu_hist_run; mode "default"
 	bindsym t exec gnome-terminal; mode "default"
 	bindsym f exec firefox; mode "default"
 	bindsym c exec chromium-browser; mode "default"

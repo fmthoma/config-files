@@ -1,0 +1,17 @@
+#!/bin/bash
+args=()
+for arg in $@; do
+  if [[ "$arg" == "-histfile="* ]]
+    then histfile=$(sed "s/-histfile=//" <<< $arg)
+    else args+=($arg)
+  fi
+done
+
+histfile=${histfile:-"$HOME/.dmenu_history"}
+
+sel=$(cat <(tac $histfile) <(while read line; do echo $line; done) | awk '!_[$0]++' | /usr/bin/dmenu $args)
+if [ -n "$sel" ]; then
+  sed -i "\|$sel|d" $histfile
+  echo "$sel" >> $histfile
+fi
+echo $sel

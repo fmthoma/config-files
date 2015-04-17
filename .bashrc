@@ -156,4 +156,4 @@ OnGray='\e[48;5;8m'
 
 Reset='\e[0m'
 
-PROMPT_COMMAND="$(cat ~/config-files/bin/bash_prompt.sh)"
+PROMPT_COMMAND="$(cat ~/config-files/util/bash_prompt.sh)"
