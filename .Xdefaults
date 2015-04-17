@@ -1,9 +1,6 @@
-urxvt*foreground: #f2f2f2
-#urxvt*foreground: #AAAAAA
-urxvt*background: [90]black
-#urxvt*background: rgba:0000/0000/0200/c800
-
 # Tango colors
+urxvt*foreground: #EEEEEC
+urxvt*background: #222222
 ! Black
 *color0:  #2E3436
 *color8:  #555753
