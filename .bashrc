@@ -19,7 +19,9 @@ shopt -s histappend
 HISTSIZE=1000000000
 HISTFILESIZE=1000000000
 
-HISTIGNORE="ranger:bash:history:ll:la"
+HISTIGNORE="ranger:bash:history:l:ll:la:h"
+
+alias h='history | less +G'
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
