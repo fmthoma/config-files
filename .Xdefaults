@@ -32,6 +32,7 @@ URxvt.foreground: white
 URxvt.background: black
 URxvt.secondaryScroll: true
 URxvt.font: xft:Ubuntu Mono:size=12
+URxvt.fading: 50
 
 # Fix ctrl+arrow and keypad in vim
 URxvt.keysym.Control-Up: \033[1;5A
