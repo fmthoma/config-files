@@ -60,3 +60,7 @@ URxvt.keysym.End: \033[4~
 URxvt.perl-ext-common: font-size
 URxvt.keysym.C-Up:     perl:font-size:increase
 URxvt.keysym.C-Down:   perl:font-size:decrease
+
+# Fix stupid ctrl+shift behaviour
+URxvt.iso14755: false
+URxvt.iso14755_52: false
