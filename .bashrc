@@ -131,6 +131,19 @@ fi
 
 export EDITOR=vi
 
+## Git aliases & completion #################
+alias g='git'
+alias gs='git status'
+alias gd='git diff'
+alias gdw='git diff --color-words'
+
+alias t='tig'
+alias ta='tig --all'
+
+source /usr/share/bash-completion/completions/git
+__git_complete g    _git
+__git_complete gd   _git_diff
+__git_complete gdw  _git_diff
 
 ## PS1 prompt ###############################
 # Git PS1 config
