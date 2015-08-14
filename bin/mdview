@@ -4,3 +4,7 @@ if [ -n "$1" ]; then
 else
   pandoc | pipefox
 fi
+
+# Alternative: Let the Github API do the job. Pipe to:
+#   curl --data @- https://api.github.com/markdown/raw --header "content-type:text/x-markdown"
+# (copes better with indented bullet points, otherwise pretty much the same)
