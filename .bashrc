@@ -19,7 +19,7 @@ shopt -s histappend
 HISTSIZE=1000000000
 HISTFILESIZE=1000000000
 
-HISTIGNORE="ranger:bash:history:l:ll:la:h"
+HISTIGNORE="ranger:r:bash:history:l:ll:la:h"
 
 alias h='history | less +G'
 
@@ -104,6 +104,8 @@ alias asdf='setxkbmap de neo'
 alias uiae='setxkbmap de'
 
 alias clip='xsel -op | xsel -ib'
+
+alias r='ranger'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert

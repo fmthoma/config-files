@@ -103,6 +103,7 @@ bindsym $M2+r restart
 mode "run" {
 	bindsym Return exec --no-startup-id i3-dmenu-hist-desktop; mode "default"
 	bindsym $M1+Return exec --no-startup-id dmenu_hist_run; mode "default"
+  bindsym r exec urxvt -e ranger; mode "default"
 	bindsym t exec urxvt; mode "default"
 	bindsym f exec firefox; mode "default"
 	bindsym c exec chromium-browser; mode "default"
