@@ -1,2 +1,6 @@
 #!/bin/bash
-pandoc "$1" | pipefox
+if [ -n "$1" ]; then
+  pandoc "$1" | pipefox
+else
+  pandoc | pipefox
+fi
