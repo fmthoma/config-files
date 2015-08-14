@@ -1,0 +1,2 @@
+#!/bin/bash
+pandoc "$1" | pipefox
