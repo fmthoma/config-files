@@ -1,17 +1,43 @@
-#!/bin/bash
-args=()
-for arg in $@; do
-  if [[ "$arg" == "-histfile="* ]]
-    then histfile=$(sed "s/-histfile=//" <<< $arg)
-    else args+=($arg)
-  fi
-done
+#!/usr/bin/env runhaskell-ext
+{-# LANGUAGE OverloadedStrings, OverloadedLists, RecordWildCards #-}
 
-histfile=${histfile:-"$HOME/.dmenu_history"}
+import           Prelude hiding (FilePath, lines)
+import qualified Data.List as List
+import qualified Data.Text as Text
+import qualified Control.Foldl as Fold
+import           Shell
 
-sel=$(cat <(tac $histfile) <(while read line; do echo $line; done) | awk '!_[$0]++' | /usr/bin/dmenu $args)
-if [ -n "$sel" ]; then
-  sed -i "\|$sel|d" $histfile
-  echo "$sel" >> $histfile
-fi
-echo $sel
+
+data Options = Options
+    { historyFile     :: Maybe FilePath
+    , dmenuOptions    :: DmenuOptions
+    }
+
+readOptions :: MonadIO io => io Options
+readOptions = options "A history wrapper around dmenu" optionsParser
+
+optionsParser :: Parser Options
+optionsParser = Options
+    <$> optional (optPath "histfile" 'f' "The file where the history should be saved")
+    <*> dmenuOptionsParser
+
+defaultHistoryFile :: FilePath
+defaultHistoryFile = ".dmenu_history"
+
+
+main = sh $ do
+    Options {..} <- readOptions
+    let ~(Just file) = historyFile <|> Just defaultHistoryFile
+
+    let items = uniqueItemsIn [readHistory file, stdin]
+    selectedItem <- dmenu dmenuOptions items
+
+    append file (return selectedItem)
+    echo selectedItem
+
+
+uniqueItemsIn :: Ord a => [Shell a] -> Shell a
+uniqueItemsIn inputs =
+    let items = cat inputs
+        uniqueItems = fold items Fold.nub
+    in  select =<< uniqueItems

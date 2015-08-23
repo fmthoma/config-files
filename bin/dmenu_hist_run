@@ -9,8 +9,8 @@ fi
 (
 	IFS=:
 	if stest -dqr -n "$cache" $PATH; then
-		stest -flx $PATH | sort -u | tee "$cache" | dmenu_hist -histfile="$histfile" "$@"
+		stest -flx $PATH | sort -u | tee "$cache" | dmenu_hist -f "$histfile" "$@"
 	else
-		dmenu_hist -histfile="$histfile" "$@" < "$cache"
+		dmenu_hist -f "$histfile" "$@" < "$cache"
 	fi
 ) | ${SHELL:-"/bin/sh"} &
