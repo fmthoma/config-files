@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+CHOICE=$(tac ~/.bash_history | dmenu)
+echo $CHOICE >> ~/.bash_history
+exec bash -ci "$CHOICE"

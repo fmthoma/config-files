@@ -21,7 +21,7 @@ HISTFILESIZE=1000000000
 
 HISTIGNORE="ranger:r:bash:history:l:ll:la:h"
 
-alias h='history | less +G'
+alias h='dmenu-bash-history'
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
