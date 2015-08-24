@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+
+apt-get install haskell-platform
+
+cabal install cabal-install
+
+mkdir -p ~/bin
+
+ln -s ~/.cabal/bin/cabal ~/bin/cabal
