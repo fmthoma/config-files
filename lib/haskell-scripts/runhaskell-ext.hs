@@ -5,15 +5,17 @@ import Shell
 
 main = sh $ do
     (file, arguments) <- readArguments
-    outputDir <- ensureTempDir
-    cacheFileName <- cacheName file
-    let cacheExecutable = outputDir </> cacheFileName
+    tempDir <- ensureTempDir
+    cacheFolderName <- cacheName file
+    let cacheDir = tempDir </> cacheFolderName
+        cacheExecutable = cacheDir </> (filename file)
+        cacheSourceFile = cacheExecutable <.> "hs"
 
-    cacheHit <- testfile cacheExecutable
+    cacheHit <- testdir cacheDir
     unless cacheHit $ do
-        let cacheSourceFile = outputDir </> cacheFileName <.> "hs"
+        mkdir cacheDir
         cp file cacheSourceFile
-        compile cacheSourceFile outputDir
+        compile cacheSourceFile
 
     run cacheExecutable arguments
 
@@ -29,13 +31,13 @@ cacheName file = fromText <$> firstWord (md5hash file)
     md5hash file = inproc "md5sum" [encode file] empty
     firstWord = inproc "awk" ["{print $1}"]
 
-compile :: FilePath -> FilePath -> Shell ()
-compile file outputDir = do
+compile :: FilePath -> Shell ()
+compile file = do
     homeDir <- home
     let includepath = homeDir </> "config-files/lib/haskell-scripts"
         ghcArgs =
             [ "-i" <> encode includepath
-            , "-outputdir " <> encode outputDir
+            , "-outputdir " <> encode (directory file)
             , encode file
             ]
     (_, _) <- procStrict "ghc" ghcArgs empty
@@ -52,4 +54,5 @@ ensureTempDir = do
     tmpDir <- ensureDir (homeDir </> "tmp")
     ensureDir (tmpDir </> "haskell-scripts")
   where
-    ensureDir dir = testdir dir >>= \exists -> unless exists (mkdir dir) >> return dir
+    ensureDir dir = testdir dir >>= \exists ->
+        unless exists (mkdir dir) >> return dir
