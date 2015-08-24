@@ -1,1 +1,1 @@
-runhaskell -i$HOME/config-files/lib/haskell-scripts $@
+../lib/haskell-scripts/runhaskell-ext
