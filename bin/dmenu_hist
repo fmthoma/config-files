@@ -29,15 +29,8 @@ main = sh $ do
     Options {..} <- readOptions
     let ~(Just file) = historyFile <|> Just defaultHistoryFile
 
-    let items = uniqueItemsIn [readHistory file, stdin]
+    let items = uniq (readHistory file <|> stdin)
     selectedItem <- dmenu dmenuOptions items
 
     append file (return selectedItem)
     echo selectedItem
-
-
-uniqueItemsIn :: Ord a => [Shell a] -> Shell a
-uniqueItemsIn inputs =
-    let items = cat inputs
-        uniqueItems = fold items Fold.nub
-    in  select =<< uniqueItems
