@@ -29,8 +29,6 @@ main = sh $ do
     Options {..} <- readOptions
     let ~(Just file) = historyFile <|> Just defaultHistoryFile
 
-    let items = uniq (readHistory file <|> stdin)
-    selectedItem <- dmenu dmenuOptions items
-
-    append file (return selectedItem)
-    echo selectedItem
+    stdout . withHistory file $ \history ->
+        let items = uniq (history <|> stdin)
+        in  dmenu dmenuOptions items
