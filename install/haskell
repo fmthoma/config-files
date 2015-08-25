@@ -4,6 +4,7 @@ set -e
 apt-get install haskell-platform
 
 cabal install cabal-install
+cabal install turtle
 
 mkdir -p ~/bin
 
