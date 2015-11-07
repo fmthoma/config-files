@@ -17,6 +17,12 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 # set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.cabal/bin" ] ; then
+    PATH="$HOME/.cabal/bin:$PATH"
+fi
+if [ -d "$HOME/config-files/bin" ] ; then
+    PATH="$HOME/config-files/bin:$PATH"
+fi
 if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$HOME/config-files/bin:$PATH"
+    PATH="$HOME/bin:$PATH"
 fi
