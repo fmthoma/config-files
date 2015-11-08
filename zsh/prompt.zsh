@@ -80,6 +80,10 @@ prompt_git() {
       ref="$DETACHED ${ref/.../}"
     fi
 
+    if git status --porcelain | fgrep '??' &> /dev/null ; then
+      ref+="$LIGHTNING"
+    fi
+
     ahead=$(git rev-list @{upstream}..HEAD 2>/dev/null | wc -l | tr -d ' ')
     behind=$(git rev-list HEAD..@{upstream} 2>/dev/null | wc -l | tr -d ' ')
     if [[ $behind > 0 ]] && [[ $ahead > 0 ]]; then
@@ -101,9 +105,6 @@ prompt_git() {
 }
 
 function +git-untracked() {
-  if git status --porcelain | fgrep '??' &> /dev/null ; then
-    hook_com[unstaged]+=" $LIGHTNING"
-  fi
 }
 
 prompt_dir() {
