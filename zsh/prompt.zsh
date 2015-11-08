@@ -5,12 +5,14 @@ PRIMARY_FG=black
 
 # Characters
 SEGMENT_SEPARATOR="\ue0b0"
+RSEGMENT_SEPARATOR="\ue0b2"
 PLUSMINUS="\u00b1"
 BRANCH="\ue0a0"
 DETACHED="\u27a6"
 CROSS="\u2718"
 LIGHTNING="\u26a1"
 GEAR="\u2699"
+CLOCK="\u25f7"
 
 prompt_segment() {
   local bg fg
@@ -25,6 +27,21 @@ prompt_segment() {
   [[ -n $3 ]] && print -n $3
 }
 
+rprompt_segment() {
+  local fg bg
+  [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
+  [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
+  if [[ $CURRENT_BG == 'NONE' ]]; then
+    print -n "%{%F{$1}%}$RSEGMENT_SEPARATOR%{$fg$bg%}"
+  elif [[ $1 != $CURRENT_BG ]]; then
+    print -n "%{$bg%F{$CURRENT_BG}%}$RSEGMENT_SEPARATOR%{$fg%}"
+  else
+    print -n "%{$bg%}%{$fg%}"
+  fi
+  CURRENT_BG=$1
+  [[ -n $3 ]] && print -n $3
+}
+
 prompt_end() {
   if [[ -n $CURRENT_BG ]]; then
     print -n "%{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR"
@@ -32,14 +49,22 @@ prompt_end() {
     print -n "%{%k%}"
   fi
   print -n "%{%f%}"
-  CURRENT_BG=''
+  CURRENT_BG='NONE'
 }
 
+
 prompt_context() {
+  local shell_level current_time
+  if [[ $SHLVL > 1 ]]; then shell_level=" +$(($SHLVL-1))"; fi
+  current_time=$(date '+%H:%M')
+  prompt_segment cyan $PRIMARY_FG " ${CLOCK}${current_time}${shell_level} "
+}
+
+rprompt_user() {
   local user=`whoami`
 
   if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CONNECTION" ]]; then
-    prompt_segment $PRIMARY_FG default " %(!.%{%F{yellow}%}.)$user@%m "
+    rprompt_segment $PRIMARY_FG default " %(!.%{%F{yellow}%}.)$user@%m "
   fi
 }
 
@@ -82,7 +107,7 @@ function +git-untracked() {
 }
 
 prompt_dir() {
-  prompt_segment blue $PRIMARY_FG ' %~ '
+  prompt_segment blue $PRIMARY_FG " $(pwd) "
 }
 
 prompt_status() {
@@ -95,6 +120,14 @@ prompt_status() {
   [[ -n "$symbols" ]] && prompt_segment $PRIMARY_FG default " $symbols "
 }
 
+rprompt_stats() {
+  local memfree memtotal load
+  memfree=$( bc -l <<< "scale=1;`sed -n "s/MemFree:[\t ]\+\([0-9]\+\) kB/\1/p" /proc/meminfo`/1024/1024" )
+  memtotal=$( bc -l <<< "scale=1;`sed -n "s/MemTotal:[\t ]\+\([0-9]\+\) kB/\1/Ip" /proc/meminfo`/1024/1024" )
+  load=$(cat /proc/loadavg)
+  rprompt_segment black white " $memfree/${memtotal}GB | $load "
+}
+
 build_prompt() {
   RETVAL=$?
   CURRENT_BG='NONE'
@@ -103,11 +136,20 @@ build_prompt() {
   prompt_dir
   prompt_git
   prompt_end
+  echo
+  prompt_segment white black " λ "
+  prompt_end
+}
+
+build_rprompt() {
+  #rprompt_user
+  rprompt_stats
 }
 
 prompt_precmd() {
   vcs_info
   PROMPT='%{%f%b%k%}$(build_prompt) '
+  RPROMPT='%{%f%b%k%}$(build_rprompt)'
 }
 
 prompt_setup() {
