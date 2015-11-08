@@ -36,3 +36,4 @@ imap <C-@> <C-Space>
 
 " always display airline
 set laststatus=2
+let g:airline_powerline_fonts = 1
