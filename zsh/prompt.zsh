@@ -137,7 +137,7 @@ build_prompt() {
   prompt_git
   prompt_end
   echo
-  prompt_segment white black " λ "
+  prompt_segment black white " >>= "
   prompt_end
 }
 
