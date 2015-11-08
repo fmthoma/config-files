@@ -78,25 +78,47 @@ prompt_context() {
 
 # Git: branch/detached head, dirty status
 prompt_git() {
-  local color ref
-  is_dirty() {
-    test -n "$(git status --porcelain --ignore-submodules)"
-  }
-  ref="${vcs_info_msg_0_} "
+  local color ref ahead behind
+
+  ref="${vcs_info_msg_0_}"
+  color=green
   if [[ -n "$ref" ]]; then
-    if is_dirty; then
-      color=yellow
-    else
-      color=green
-    fi
     if [[ "${ref/.../}" == "$ref" ]]; then
       ref="$BRANCH $ref"
     else
       ref="$DETACHED ${ref/.../}"
     fi
+
+    ahead=$(git rev-list @{upstream}..HEAD 2>/dev/null | wc -l | tr -d ' ')
+    behind=$(git rev-list HEAD..@{upstream} 2>/dev/null | wc -l | tr -d ' ')
+    if [[ $behind > 0 ]] && [[ $ahead > 0 ]]; then
+      color=red
+      ref+=" ➚$ahead ➘$behind"
+    elif [[ $behind > 0 ]]; then
+      ref+=" ➘$behind"
+      color=yellow
+    elif [[ $ahead > 0 ]]; then
+      ref+=" ➚$ahead"
+      color=green
+    else
+      color=green
+    fi
+
     prompt_segment $color $PRIMARY_FG
-    print -Pn " $ref"
+    print -Pn " $ref "
   fi
+}
+
+function +git-untracked() {
+  if git status --porcelain | fgrep '??' &> /dev/null ; then
+    hook_com[unstaged]+=" $LIGHTNING"
+  fi
+}
+
+function git-ahead() {
+}
+
+function git-behind() {
 }
 
 # Dir: current working directory
@@ -146,10 +168,12 @@ prompt_agnoster_setup() {
 
   zstyle ':vcs_info:*' enable git
   zstyle ':vcs_info:*' check-for-changes true
-  zstyle ':vcs_info:git:*' stagedstr '✚'
-  zstyle ':vcs_info:git:*' unstagedstr '●'
-  zstyle ':vcs_info:git*' formats '%b %u%c'
-  zstyle ':vcs_info:git*' actionformats '%b %u%c (%a)'
+  zstyle ':vcs_info:git*' stagedstr '✚'
+  zstyle ':vcs_info:git*' unstagedstr '●'
+  zstyle ':vcs_info:git*' formats '%b %c%u'
+  zstyle ':vcs_info:git*' actionformats '%b %c%u (%a)'
+
+  zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
 }
 
 prompt_agnoster_setup "$@"
