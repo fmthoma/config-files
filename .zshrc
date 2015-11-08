@@ -16,3 +16,4 @@ compinit
 # End of lines added by compinstall
 
 . $DOTFILES/zsh/prompt.zsh
+. $DOTFILES/zsh/alias.zsh
