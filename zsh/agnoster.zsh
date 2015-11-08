@@ -82,14 +82,12 @@ prompt_git() {
   is_dirty() {
     test -n "$(git status --porcelain --ignore-submodules)"
   }
-  ref="$vcs_info_msg_0_"
+  ref="${vcs_info_msg_0_} "
   if [[ -n "$ref" ]]; then
     if is_dirty; then
       color=yellow
-      ref="${ref} $PLUSMINUS"
     else
       color=green
-      ref="${ref} "
     fi
     if [[ "${ref/.../}" == "$ref" ]]; then
       ref="$BRANCH $ref"
@@ -147,9 +145,11 @@ prompt_agnoster_setup() {
   add-zsh-hook precmd prompt_agnoster_precmd
 
   zstyle ':vcs_info:*' enable git
-  zstyle ':vcs_info:*' check-for-changes false
-  zstyle ':vcs_info:git*' formats '%b'
-  zstyle ':vcs_info:git*' actionformats '%b (%a)'
+  zstyle ':vcs_info:*' check-for-changes true
+  zstyle ':vcs_info:git:*' stagedstr '✚'
+  zstyle ':vcs_info:git:*' unstagedstr '●'
+  zstyle ':vcs_info:git*' formats '%b %u%c'
+  zstyle ':vcs_info:git*' actionformats '%b %u%c (%a)'
 }
 
 prompt_agnoster_setup "$@"
