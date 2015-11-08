@@ -15,4 +15,4 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-. $DOTFILES/zsh/agnoster.zsh
+. $DOTFILES/zsh/prompt.zsh
