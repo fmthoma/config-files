@@ -75,8 +75,12 @@ rprompt_user() {
 prompt_git() {
   local color ref
 
+  isDirty() {
+    test -n "$(git status --porcelain --ignore-submodules | fgrep -v '??')"
+  }
+  isDirty && color=yellow || color=green
+
   ref="${vcs_info_msg_0_}"
-  color=green
   if [[ -n "$ref" ]]; then
     if [[ "${ref/.../}" == "$ref" ]]; then
       ref="$BRANCH $ref"
