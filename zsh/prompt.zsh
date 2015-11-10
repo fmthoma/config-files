@@ -69,7 +69,7 @@ rprompt_user() {
 }
 
 prompt_git() {
-  local color ref ahead behind
+  local color ref
 
   ref="${vcs_info_msg_0_}"
   color=green
@@ -84,27 +84,27 @@ prompt_git() {
       ref+="$LIGHTNING"
     fi
 
-    ahead=$(git rev-list @{upstream}..HEAD 2>/dev/null | wc -l | tr -d ' ')
-    behind=$(git rev-list HEAD..@{upstream} 2>/dev/null | wc -l | tr -d ' ')
-    if [[ $behind > 0 ]] && [[ $ahead > 0 ]]; then
-      color=red
-      ref+=" ➚$ahead ➘$behind"
-    elif [[ $behind > 0 ]]; then
-      ref+=" ➘$behind"
-      color=yellow
-    elif [[ $ahead > 0 ]]; then
-      ref+=" ➚$ahead"
-      color=green
-    else
-      color=green
-    fi
-
     prompt_segment $color $PRIMARY_FG
     print -Pn " $ref "
   fi
 }
 
-function +git-untracked() {
+prompt_git_remote() {
+  local upstream ahead behind
+  upstream=$(git rev-parse --abbrev-ref @{upstream} 2>/dev/null)
+  if [[ -n $upstream ]]; then
+    ahead=$(git rev-list @{upstream}..HEAD 2>/dev/null | wc -l | tr -d ' ')
+    behind=$(git rev-list HEAD..@{upstream} 2>/dev/null | wc -l | tr -d ' ')
+    if [[ $behind > 0 ]] && [[ $ahead > 0 ]]; then
+      prompt_segment red    $PRIMARY_FG " $upstream ➚$ahead ➘$behind "
+    elif [[ $behind > 0 ]]; then
+      prompt_segment yellow $PRIMARY_FG " $upstream ➘$behind "
+    elif [[ $ahead > 0 ]]; then
+      prompt_segment green  $PRIMARY_FG " $upstream ➚$ahead "
+    else
+      prompt_segment green  $PRIMARY_FG " $upstream "
+    fi
+  fi
 }
 
 prompt_dir() {
@@ -136,6 +136,7 @@ build_prompt() {
   prompt_context
   prompt_dir
   prompt_git
+  prompt_git_remote
   prompt_end
   echo
   prompt_segment black white " >>= "
