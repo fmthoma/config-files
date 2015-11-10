@@ -73,12 +73,7 @@ rprompt_user() {
 }
 
 prompt_git() {
-  local color ref
-
-  isDirty() {
-    test -n "$(git status --porcelain --ignore-submodules | fgrep -v '??')"
-  }
-  isDirty && color=yellow || color=green
+  local color ref stashes
 
   ref="${vcs_info_msg_0_}"
   if [[ -n "$ref" ]]; then
@@ -91,6 +86,14 @@ prompt_git() {
     if git status --porcelain | fgrep '??' &> /dev/null ; then
       ref+="$LIGHTNING"
     fi
+
+    isDirty() {
+      test -n "$(git status --porcelain --ignore-submodules | fgrep -v '??')"
+    }
+    isDirty && color=yellow || color=green
+
+    stashes="$(git stash list | wc -l)"
+    [[ $stashes > 0 ]] && ref+=" ${(l:$stashes::♦:)}"
 
     prompt_segment $color $PRIMARY_FG
     print -Pn " $ref "
