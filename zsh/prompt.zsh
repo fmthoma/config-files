@@ -5,7 +5,9 @@ PRIMARY_FG=black
 
 # Characters
 SEGMENT_SEPARATOR="\ue0b0"
+SEGMENT_SEPARATOR_LIGHT="\ue0b1"
 RSEGMENT_SEPARATOR="\ue0b2"
+RSEGMENT_SEPARATOR_LIGHT="\ue0b3"
 PLUSMINUS="\u00b1"
 BRANCH="\ue0a0"
 DETACHED="\u27a6"
@@ -18,10 +20,12 @@ prompt_segment() {
   local bg fg
   [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
   [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
-  if [[ $CURRENT_BG != 'NONE' && $1 != $CURRENT_BG ]]; then
-    print -n "%{$bg%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR%{$fg%}"
-  else
+  if [[ $1 == $CURRENT_BG ]]; then
+    print -n "%{%F{$PRIMARY_FG}%}$SEGMENT_SEPARATOR_LIGHT%{$fg%}"
+  elif [[ $CURRENT_BG == 'NONE' ]]; then
     print -n "%{$bg%}%{$fg%}"
+  else
+    print -n "%{$bg%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR%{$fg%}"
   fi
   CURRENT_BG=$1
   [[ -n $3 ]] && print -n $3
@@ -31,12 +35,12 @@ rprompt_segment() {
   local fg bg
   [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
   [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
-  if [[ $CURRENT_BG == 'NONE' ]]; then
+  if [[ $1 == $CURRENT_BG ]]; then
+    print -n "%{%F{$PRIMARY_FG}%}$RSEGMENT_SEPARATOR_LIGHT%{$fg%}"
+  elif [[ $CURRENT_BG == 'NONE' ]]; then
     print -n "%{%F{$1}%}$RSEGMENT_SEPARATOR%{$fg$bg%}"
-  elif [[ $1 != $CURRENT_BG ]]; then
-    print -n "%{$bg%F{$CURRENT_BG}%}$RSEGMENT_SEPARATOR%{$fg%}"
   else
-    print -n "%{$bg%}%{$fg%}"
+    print -n "%{$bg%F{$CURRENT_BG}%}$RSEGMENT_SEPARATOR%{$fg%}"
   fi
   CURRENT_BG=$1
   [[ -n $3 ]] && print -n $3
