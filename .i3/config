@@ -78,6 +78,12 @@ bindsym $M1+c layout toggle split
 bindsym F1 $w1
 bindsym F2 $w2
 bindsym F3 $w3
+# ergodox bindings
+bindsym $M1+1 $w1
+bindsym $M1+2 $w2
+bindsym $M1+3 $w3
+bindsym $M1+4 $w4
+
 # Alt+Tab
 bindsym $alt+Tab workspace next_on_output
 bindsym $alt+Shift+Tab workspace prev_on_output
@@ -91,6 +97,15 @@ bindsym $M2+F1 move container to $w1
 bindsym $M2+F2 move container to $w2
 bindsym $M2+F3 move container to $w3
 bindsym $M2+F4 move container to $w4
+# ergodox bindings
+bindsym $M2+1 move container to $w1; $w1
+bindsym $M2+2 move container to $w2; $w2
+bindsym $M2+3 move container to $w3; $w3
+bindsym $M2+4 move container to $w4; $w4
+bindsym $M3+1 move container to $w1
+bindsym $M3+2 move container to $w2
+bindsym $M3+3 move container to $w3
+bindsym $M3+4 move container to $w4
 
 # start a terminal
 bindsym Control+$alt+t exec urxvt
