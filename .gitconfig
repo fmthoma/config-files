@@ -33,6 +33,8 @@
 	name = Franz Thoma
 [clean]
         requireForce = false
+[rebase]
+  autostash = true
 [merge]
 	tool = meld
 [mergetool "intellij"]
