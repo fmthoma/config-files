@@ -1,6 +1,12 @@
 [alias]
  ci = commit
- st = status
+ s = status
+ st = stash
+ sp = stash pop
+ f = fetch
+ r = rebase
+ ri = rebase -i
+ p = push
  co = checkout
  up = pull --rebase
  lg = log --oneline
@@ -9,7 +15,9 @@
  b = branch -vv
  fix = commit --amend
  d = diff
+ ds = diff --staged
  dw = diff --color-words
+ dww = diff --color-words="[^[:space:],;:_]+"
  imerge = mergetool --tool=intellij
  pmerge = mergetool --tool=phpstorrm
  idiff = difftool --tool=intellij
