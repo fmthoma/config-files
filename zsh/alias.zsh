@@ -1,21 +1,24 @@
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
 fi
 
-alias ll='ls -lF'
-alias la='ls -AlF'
-alias l='ls -CF'
-alias md='mkdir'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+alias ls='ls --color=auto'
+alias ll='ls -lF --color=always'
+alias la='ls -AlF --color=always'
+alias l='ls -CF --color=always'
+alias md='mkdir -p'
 
 alias less="less -R"
 
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
 
 alias asdf='setxkbmap de neo'
 alias uiae='setxkbmap de'
