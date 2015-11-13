@@ -1,13 +1,30 @@
 export DOTFILES="$HOME/config-files"
 
-# Lines configured by zsh-newuser-install
+bindkey -v
+setopt notify
+unsetopt autocd beep
+
+
+
+###########
+# History #
+###########
 HISTFILE=~/.zsh_history
 HISTSIZE=99999
 SAVEHIST=999999
-setopt appendhistory extendedglob nomatch notify
-unsetopt autocd beep
-bindkey -v
-# End of lines configured by zsh-newuser-install
+setopt appendhistory
+setopt hist_ignoredups
+setopt hist_ignorealldups
+setopt hist_verify
+setopt share_history
+
+
+
+##############
+# Completion #
+##############
+setopt extendedglob
+setopt nomatch
 
 # The following lines were added by compinstall
 
@@ -29,5 +46,10 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+
+
+#############
+# Delegates #
+#############
 . $DOTFILES/zsh/prompt.zsh
 . $DOTFILES/zsh/alias.zsh
