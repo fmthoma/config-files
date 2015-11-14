@@ -37,10 +37,8 @@ rprompt_segment() {
   [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
   if [[ $1 == $CURRENT_BG ]]; then
     print -n "%{%F{$PRIMARY_FG}%}$RSEGMENT_SEPARATOR_LIGHT%{$fg%}"
-  elif [[ $CURRENT_BG == 'NONE' ]]; then
-    print -n "%{%F{$1}%}$RSEGMENT_SEPARATOR%{$fg$bg%}"
   else
-    print -n "%{$bg%F{$CURRENT_BG}%}$RSEGMENT_SEPARATOR%{$fg%}"
+    print -n "%{%F{$1}%}$RSEGMENT_SEPARATOR%{$fg$bg%}"
   fi
   CURRENT_BG=$1
   [[ -n $3 ]] && print -n $3
@@ -132,6 +130,19 @@ prompt_status() {
   [[ -n "$symbols" ]] && prompt_segment $PRIMARY_FG default " $symbols "
 }
 
+rprompt_power() {
+  local full now bat chr color
+  full=$( sed -n "s/POWER_SUPPLY_ENERGY_FULL_DESIGN=\([0-9]\+\)/\1/p" /sys/class/power_supply/BAT0/uevent )
+  now=$(  sed -n "s/POWER_SUPPLY_ENERGY_NOW=\([0-9]\+\)/\1/p"         /sys/class/power_supply/BAT0/uevent )
+  [[ -n $(grep "POWER_SUPPLY_STATUS=Charging" /sys/class/power_supply/BAT0/uevent) ]] && chr="$LIGHTNING " || chr=""
+  bat=$(( ($now * 100) / $full))
+  if   [[ $bat > 20 ]]; then color=green
+  elif [[ $bat > 10 ]]; then color=yellow
+  else                       color=red
+  fi
+  rprompt_segment $color $PRIMARY_FG " $chr$bat%% "
+}
+
 rprompt_stats() {
   local memfree memtotal load
   memfree=$( bc -l <<< "scale=1;`sed -n "s/MemFree:[\t ]\+\([0-9]\+\) kB/\1/p" /proc/meminfo`/1024/1024" )
@@ -157,6 +168,7 @@ build_prompt() {
 build_rprompt() {
   #rprompt_user
   rprompt_stats
+  rprompt_power
 }
 
 prompt_precmd() {
