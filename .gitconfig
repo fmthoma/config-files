@@ -1,43 +1,53 @@
 [alias]
- ci = commit
- st = status
- co = checkout
- up = pull --rebase
- lg = log --oneline
- last = log -1 HEAD
- c = log -p -w --reverse @{u}..
- b = branch -vv
- fix = commit --amend
- d = diff
- dw = diff --color-words
- imerge = mergetool --tool=intellij
- pmerge = mergetool --tool=phpstorrm
- idiff = difftool --tool=intellij
- pdiff = difftool --tool=phpstorrm
+  ci = commit
+  s = status
+  st = stash
+  sp = stash pop
+  f = fetch
+  r = rebase
+  ri = rebase -i
+  p = push
+  co = checkout
+  up = pull --rebase
+  lg = log --oneline
+  last = log -1 HEAD
+  c = log -p -w --reverse @{u}..
+  b = branch -vv
+  fix = commit --amend
+  d = diff
+  ds = diff --staged
+  dw = diff --color-words
+  dww = diff --color-words="[^[:space:],;:_]+"
+  imerge = mergetool --tool=intellij
+  pmerge = mergetool --tool=phpstorrm
+  idiff = difftool --tool=intellij
+  pdiff = difftool --tool=phpstorrm
 [color]
- diff = auto
- status = auto
- branch = auto
+  diff = auto
+  status = auto
+  branch = auto
 [push]
- default = simple
+  default = simple
 [user]
-	email = franz.thoma@tngtech.com
-	name = Franz Thoma
+  email = franz.thoma@tngtech.com
+  name = Franz Thoma
 [clean]
-        requireForce = false
+  requireForce = false
+[rebase]
+  autostash = true
 [merge]
-	tool = meld
+  tool = meld
 [mergetool "intellij"]
-	cmd = idea diff \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
-	trustExitCode = true
+  cmd = idea diff \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+  trustExitCode = true
 [mergetool "phpstorm"]
-	cmd = pstorm diff \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
-	trustExitCode = true
+  cmd = pstorm diff \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+  trustExitCode = true
 [diff]
-	tool = meld
+  tool = meld
 [difftool "intellij"]
-	cmd = idea diff \"$LOCAL\" \"$REMOTE\"
-	trustExitCode = true
+  cmd = idea diff \"$LOCAL\" \"$REMOTE\"
+  trustExitCode = true
 [difftool "phpstorm"]
-	cmd = pstorm diff \"$LOCAL\" \"$REMOTE\"
-	trustExitCode = true
+  cmd = pstorm diff \"$LOCAL\" \"$REMOTE\"
+  trustExitCode = true
