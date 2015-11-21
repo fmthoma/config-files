@@ -1,4 +1,23 @@
+#!/bin/bash
+
 cd /tmp
-git clone git@github.com:powerline/fonts.git
-cd fonts
-./install.sh
+git clone git@github.com:ryanoasis/nerd-fonts.git
+cd nerd-fonts
+
+font_dir="$HOME/.fonts"
+mkdir -p "$font_dir"
+
+powerline_fonts_dir="$(pwd)/patched-fonts"
+find_command="find \"$powerline_fonts_dir\" \( -name '*.[o,t]tf' -or -name '*.pcf.gz' \) -type f -print0"
+
+eval "$find_command" \
+  | grep -FzZ "/complete/" \
+  | grep -vFzZ "Mono." \
+  | grep -vFzZ "Windows Compatible." \
+  | xargs -0 -I % cp "%" "$font_dir/"
+
+
+# Reset font cache on Linux
+if [[ -n $(which fc-cache) ]]; then
+  fc-cache -f "$font_dir"
+fi
