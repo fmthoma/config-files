@@ -8,13 +8,16 @@ SEGMENT_SEPARATOR="\ue0b0"
 SEGMENT_SEPARATOR_LIGHT="\ue0b1"
 RSEGMENT_SEPARATOR="\ue0b2"
 RSEGMENT_SEPARATOR_LIGHT="\ue0b3"
-PLUSMINUS="\u00b1"
-BRANCH="\ue0a0"
-DETACHED="\u27a6"
+BRANCH="\uf418"
+DETACHED="\uf417"
+STAGED="\uf067 "
+UNSTAGED="\uf069 "
+AHEAD="\uf01b "
+BEHIND="\uf01a "
 CROSS="\u2718"
-LIGHTNING="\u26a1"
+LIGHTNING="\uf0e7"
 GEAR="\u2699"
-CLOCK="\u25f7"
+CLOCK="\uf017 "
 
 prompt_segment() {
   local bg fg
@@ -91,7 +94,7 @@ prompt_git() {
     isDirty && color=yellow || color=green
 
     stashes="$(git stash list | wc -l)"
-    [[ $stashes > 0 ]] && ref+=" ${(l:$stashes::♦:)}"
+    [[ $stashes > 0 ]] && ref+=" ${(l:$stashes:::)}"
 
     prompt_segment $color $PRIMARY_FG
     print -Pn " $ref "
@@ -105,11 +108,11 @@ prompt_git_remote() {
     ahead=$(git rev-list @{upstream}..HEAD 2>/dev/null | wc -l | tr -d ' ')
     behind=$(git rev-list HEAD..@{upstream} 2>/dev/null | wc -l | tr -d ' ')
     if [[ $behind > 0 ]] && [[ $ahead > 0 ]]; then
-      prompt_segment red    $PRIMARY_FG " $upstream ➚$ahead ➘$behind "
+      prompt_segment red    $PRIMARY_FG " $upstream $AHEAD$ahead $BEHIND$behind "
     elif [[ $behind > 0 ]]; then
-      prompt_segment yellow $PRIMARY_FG " $upstream ➘$behind "
+      prompt_segment yellow $PRIMARY_FG " $upstream $BEHIND$behind "
     elif [[ $ahead > 0 ]]; then
-      prompt_segment green  $PRIMARY_FG " $upstream ➚$ahead "
+      prompt_segment green  $PRIMARY_FG " $upstream $AHEAD$ahead "
     else
       prompt_segment green  $PRIMARY_FG " $upstream "
     fi
@@ -189,8 +192,8 @@ prompt_setup() {
 
   zstyle ':vcs_info:*' enable git
   zstyle ':vcs_info:*' check-for-changes true
-  zstyle ':vcs_info:git*' stagedstr '✚'
-  zstyle ':vcs_info:git*' unstagedstr '●'
+  zstyle ':vcs_info:git*' stagedstr "$STAGED"
+  zstyle ':vcs_info:git*' unstagedstr "$UNSTAGED"
   zstyle ':vcs_info:git*' formats '%b %c%u'
   zstyle ':vcs_info:git*' actionformats '%b %c%u (%a)'
 
