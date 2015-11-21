@@ -18,6 +18,11 @@ CROSS="\u2718"
 LIGHTNING="\uf0e7"
 GEAR="\u2699"
 CLOCK="\uf017 "
+BATTERY_80="\uf240"
+BATTERY_60="\uf241"
+BATTERY_40="\uf242"
+BATTERY_20="\uf243"
+BATTERY_00="\uf244"
 
 prompt_segment() {
   local bg fg
@@ -137,13 +142,21 @@ rprompt_power() {
   local full now bat chr color
   full=$( sed -n "s/POWER_SUPPLY_ENERGY_FULL_DESIGN=\([0-9]\+\)/\1/p" /sys/class/power_supply/BAT0/uevent )
   now=$(  sed -n "s/POWER_SUPPLY_ENERGY_NOW=\([0-9]\+\)/\1/p"         /sys/class/power_supply/BAT0/uevent )
-  [[ -n $(grep "POWER_SUPPLY_STATUS=Charging" /sys/class/power_supply/BAT0/uevent) ]] && chr="$LIGHTNING " || chr=""
   bat=$(( ($now * 100) / $full))
+  if   [[ $bat > 80 ]]; then chr=" $BATTERY_80 "
+  elif [[ $bat > 60 ]]; then chr=" $BATTERY_60 "
+  elif [[ $bat > 40 ]]; then chr=" $BATTERY_40 "
+  elif [[ $bat > 20 ]]; then chr=" $BATTERY_20 "
+  else                       chr=" $BATTERY_00 "
+  fi
+
+  [[ -n $(grep "POWER_SUPPLY_STATUS=Charging" /sys/class/power_supply/BAT0/uevent) ]] && chr="$chr$LIGHTNING"
+
   if   [[ $bat > 20 ]]; then color=green
   elif [[ $bat > 10 ]]; then color=yellow
   else                       color=red
   fi
-  rprompt_segment $color $PRIMARY_FG " $chr$bat%% "
+  rprompt_segment $color $PRIMARY_FG " $chr $bat%% "
 }
 
 rprompt_stats() {
