@@ -1,0 +1,39 @@
+#!/bin/bash
+set -e
+
+VERSION=9.19
+
+################################################################################
+# Fetch sources                                                                #
+################################################################################
+cd /tmp
+sudo apt-get build-dep rxvt-unicode-256color
+apt-get source "rxvt-unicode-256color=$VERSION"
+
+cd "rxvt-unicode-$VERSION/"
+
+
+################################################################################
+# Apply patches                                                                #
+################################################################################
+curl https://gist.githubusercontent.com/fmthoma/7e8dd23c12b55cae6474/raw/d21dc7ec3ee27c537a3aac3f9b6ae5f3cb3c7729/widechars.patch \
+  | patch src/rxvtfont.C
+
+curl https://raw.githubusercontent.com/voidlinux/void-packages/master/srcpkgs/rxvt-unicode/patches/line-spacing-fix.patch \
+  | patch src/rxvtfont.C
+
+curl https://raw.githubusercontent.com/voidlinux/void-packages/master/srcpkgs/rxvt-unicode/patches/font-width-fix.patch \
+  | patch src/rxvtfont.C
+
+
+################################################################################
+# Install                                                                      #
+################################################################################
+./configure \
+  --enable-everything \
+  --enable-256-color \
+  --enable-unicode3 \
+  --disable-iso14755 \
+
+make
+sudo make install
