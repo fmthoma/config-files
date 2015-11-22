@@ -29,8 +29,6 @@ URxvt.keysym.KP_7: 7
 URxvt.keysym.KP_8: 8
 URxvt.keysym.KP_9: 9
 URxvt.keysym.KP_0: 0
-URxvt.keysym.Home: \033[1~
-URxvt.keysym.End: \033[4~
 
 ! Change font size on the fly
 URxvt.perl-ext-common: font-size
