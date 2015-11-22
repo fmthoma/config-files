@@ -1,6 +1,6 @@
 # Tango colors
-urxvt*foreground: #EEEEEC
-urxvt*background: #222222
+*foreground: #EEEEEC
+*background: #222222
 ! Black
 *color0:  #2E3436
 *color8:  #555753
@@ -28,8 +28,6 @@ urxvt*background: #222222
 
 URxvt.saveLines: 10000
 URxvt.scrollBar: false
-URxvt.foreground: white
-URxvt.background: black
 URxvt.secondaryScroll: true
 URxvt.font: xft:Ubuntu Mono derivative Powerline:size=12
 URxvt.fading: 50
