@@ -9,3 +9,4 @@ unsetopt autocd beep
 . $DOTFILES/zsh/completion.zsh
 . $DOTFILES/zsh/prompt.zsh
 . $DOTFILES/zsh/alias.zsh
+. $DOTFILES/zsh/menuselect.zsh

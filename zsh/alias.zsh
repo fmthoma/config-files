@@ -43,3 +43,5 @@ alias gsp='git sp'
 alias t='tig'
 alias ta='tig --all'
 alias tg='tig grep'
+
+alias zz='source ~/.zshrc'
