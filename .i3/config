@@ -217,5 +217,3 @@ exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-session/indicator-sessi
 exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-sound/indicator-sound-service
 exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-power/indicator-power-service
 exec --no-startup-id nm-applet
-#exec "xfce4-power-manager --no-daemon &"
-#exec "xmodmap -e 'keycode 107 = Super_R NoSymbol Super_R NoSymbol Super_R'"
