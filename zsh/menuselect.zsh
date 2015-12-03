@@ -13,5 +13,5 @@ zle -N _complete_menu
 
 bindkey -M menuselect '/'  accept-and-infer-next-history
 bindkey -M menuselect '^?' undo # ›backspace‹ key
-bindkey -M menuselect ' ' accept-and-hold
+bindkey -M menuselect ' ' accept-search
 bindkey -M menuselect '*' history-incremental-search-forward
