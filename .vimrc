@@ -6,6 +6,9 @@ nnoremap ( xbP
 nnoremap <C-j> <PageDown>
 nnoremap <C-k> <PageUp>
 
+nnoremap <C-p> :bprevious<CR>
+nnoremap <C-n> :bnext<CR>
+
 " tabs and line numbers
 set expandtab
 set tabstop=2
