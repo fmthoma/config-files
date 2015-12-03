@@ -217,3 +217,4 @@ exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-session/indicator-sessi
 exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-sound/indicator-sound-service
 exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-power/indicator-power-service
 exec --no-startup-id nm-applet
+exec --no-startup-id "redshift || redshift -l 48.1:11.6"
