@@ -50,3 +50,7 @@ call lengthmatters#highlight('ctermbg=0')
 command Mdview %w !mdview
 
 nnoremap <silent> <Esc> :nohlsearch<CR>
+
+" Settings for base16
+let base16colorspace=256
+set background=dark

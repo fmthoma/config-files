@@ -2,3 +2,8 @@
 *.o
 
 .vim/.netrwhist
+
+.vim/colors
+.vim/plugin/base16colors.vim
+.Xresources.d/base16colors.xresources
+.zsh/base16colors.zsh

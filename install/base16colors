@@ -3,12 +3,19 @@ set -e
 
 COLORSCHEMEDIR="$HOME/.colorschemes"
 
-cd /tmp
-[[ -d base16-builder ]] || git clone git@github.com:chriskempson/base16-builder.git
+[[ -d $COLORSCHEMEDIR ]] || (
+    cd /tmp
+    [[ -d base16-builder ]] || git clone git@github.com:chriskempson/base16-builder.git
 
-cd base16-builder
+    cd base16-builder
 
-./base16
+    # some recent commits are broken, check out a working one
+    git checkout e7e31060bbb063b586e3166247d6b216fe78f8b1
 
-mkdir -p "$COLORSCHEMEDIR"
-cp -R output/* "$COLORSCHEMEDIR"
+    ./base16
+
+    mkdir -p "$COLORSCHEMEDIR"
+    cp -R output/* "$COLORSCHEMEDIR"
+)
+
+ln -s "$COLORSCHEMEDIR/vim" ".vim/colors"

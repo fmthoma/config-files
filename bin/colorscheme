@@ -1,0 +1,42 @@
+#!/bin/bash
+set -e
+
+SCHEME="base16-$1"
+REPO="$HOME/.colorschemes/"
+
+[[ -d $REPO ]] || (
+    echo "$REPO not found. Run install/base16colors."
+    exit 1
+)
+
+[[ -e "$REPO/shell/${SCHEME}.dark.sh" ]] || (
+    echo "color scheme $SCHEME not found."
+    exit 1
+)
+
+
+################################################################################
+# Shell                                                                        #
+################################################################################
+echo "/bin/sh \"$REPO/shell/${SCHEME}.dark.sh\"" > .zsh/base16colors.zsh
+
+
+################################################################################
+# Vim                                                                          #
+################################################################################
+echo "colorscheme $SCHEME" > "$HOME/.vim/plugin/base16colors.vim"
+
+
+################################################################################
+# Xresources                                                                   #
+################################################################################
+XRES_COLOR="$HOME/.Xresources.d/base16colors.xresources"
+[[ -h "$XRES_COLOR" ]] && rm "$XRES_COLOR"
+ln -s "$REPO/xresources/$SCHEME.dark.256.xresources" "$XRES_COLOR"
+xrdb "$HOME/.Xresources"
+
+
+################################################################################
+# Apply color scheme for current session                                       #
+################################################################################
+/bin/sh "$REPO/shell/${SCHEME}.dark.sh"

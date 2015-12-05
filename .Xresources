@@ -1,4 +1,4 @@
-#include ".Xresources.d/solarized-dark.xresources"
+#include ".Xresources.d/base16colors.xresources"
 
 Xft.dpi: 96
 
