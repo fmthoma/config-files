@@ -33,7 +33,7 @@ echo "colorscheme $SCHEME" > "$HOME/.vim/plugin/base16colors.vim"
 XRES_COLOR="$HOME/.Xresources.d/base16colors.xresources"
 [[ -h "$XRES_COLOR" ]] && rm "$XRES_COLOR"
 ln -s "$REPO/xresources/$SCHEME.dark.256.xresources" "$XRES_COLOR"
-xrdb "$HOME/.Xresources"
+xrdb -DBASE16 "$HOME/.Xresources"
 
 
 ################################################################################

@@ -1,4 +1,8 @@
+#if BASE16
 #include ".Xresources.d/base16colors.xresources"
+#else
+#include ".Xresources.d/tango-colors.xresources"
+#endif
 
 Xft.dpi: 96
 
