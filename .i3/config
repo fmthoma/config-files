@@ -99,27 +99,26 @@ bindsym Control+$alt+t exec urxvt
 bindsym $M1+d kill
 
 # exit i3 (logs you out of your X session)
-#bindsym $M2+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 bindsym $M2+q exit
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $M2+r restart 
+bindsym $M2+r restart
 
 mode "run" {
-	bindsym Return exec --no-startup-id i3-dmenu-hist-desktop; mode "default"
-	bindsym $M1+Return exec --no-startup-id dmenu_hist_run; mode "default"
-  bindsym r exec urxvt -e ranger; mode "default"
-	bindsym t exec urxvt; mode "default"
-	bindsym f exec firefox; mode "default"
-	bindsym c exec chromium-browser; mode "default"
-	bindsym i exec idea; mode "default"
-	bindsym p exec pstorm; mode "default"
-	bindsym m exec thunderbird; mode "default"
+    bindsym Return exec --no-startup-id i3-dmenu-hist-desktop; mode "default"
+    bindsym $M1+Return exec --no-startup-id dmenu_hist_run; mode "default"
+    bindsym r exec urxvt -e ranger; mode "default"
+    bindsym t exec urxvt; mode "default"
+    bindsym f exec firefox; mode "default"
+    bindsym c exec chromium-browser; mode "default"
+    bindsym i exec idea; mode "default"
+    bindsym p exec pstorm; mode "default"
+    bindsym m exec thunderbird; mode "default"
 
-	bindsym h split h
-	bindsym v split v
+    bindsym h split h
+    bindsym v split v
 
-	bindsym Escape mode "default"
+    bindsym Escape mode "default"
 }
 bindsym $M1+Return mode "run"
 
@@ -135,7 +134,7 @@ new_window pixel 3
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+    status_command i3status
 }
 
 force_focus_wrapping yes
