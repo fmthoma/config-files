@@ -123,69 +123,6 @@ mode "run" {
 }
 bindsym $M1+Return mode "run"
 
-mode "navigate" {
-	bindsym Left focus left
-	bindsym Down focus down
-	bindsym Up focus up
-	bindsym Right focus right
-	bindsym a focus parent
-	bindsym s focus child
-
-	# change workspace
-	bindsym F1 $w1
-	bindsym F2 $w2
-	bindsym F3 $w3
-	bindsym F4 $w4
-	# Alt+Tab
-	bindsym $alt+Tab workspace next_on_output
-	bindsym $alt+Shift+Tab workspace prev_on_output
-
-	bindsym m mode "move"
-	bindsym r mode "resize"
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-bindsym $M1+n mode "navigate"
-
-mode "move" {
-	bindsym Left move left
-	bindsym Down move down
-	bindsym Up move up
-	bindsym Right move right
-
-	bindsym F1 move container to $w1; $w1
-	bindsym F2 move container to $w2; $w2
-	bindsym F3 move container to $w3; $w3
-	bindsym F4 move container to $w4; $w4
-
-	bindsym KP_5 $center
-	bindsym KP_7 $upper_left
-	bindsym KP_9 $upper_right
-	bindsym KP_1 $lower_left
-	bindsym KP_3 $lower_right
-	bindsym KP_0 floating disable
-
-	bindsym r mode "resize"
-	bindsym n mode "navigate"
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-bindsym $M1+m mode "move"
-
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
-
-	bindsym n mode "navigate"
-	bindsym m mode "move"
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-bindsym $M1+r mode "resize"
-
 bindsym $M1+plus        resize grow width 10 px or 10 ppt;   resize grow height 10 px or 10 ppt
 bindsym $M1+KP_Add      resize grow width 10 px or 10 ppt;   resize grow height 10 px or 10 ppt
 bindsym $M1+minus       resize shrink width 10 px or 10 ppt; resize shrink height 10 px or 10 ppt
