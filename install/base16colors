@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+COLORSCHEMEDIR="$HOME/.colorschemes"
+
+cd /tmp
+[[ -d base16-builder ]] || git clone git@github.com:chriskempson/base16-builder.git
+
+cd base16-builder
+
+./base16
+
+mkdir -p "$COLORSCHEMEDIR"
+cp -R output/* "$COLORSCHEMEDIR"
