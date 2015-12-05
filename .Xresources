@@ -7,6 +7,8 @@ URxvt.scrollBar: false
 URxvt.secondaryScroll: true
 URxvt.font: xft:Ubuntu Mono derivative Powerline:size=12:dpi=96
 URxvt.fading: 50
+URxvt.depth: 32
+URxvt.background: [90]#222222
 
 ! Fix ctrl+arrow and keypad in vim
 URxvt.keysym.Control-Left: \033[1;5D
