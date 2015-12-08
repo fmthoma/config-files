@@ -3,7 +3,7 @@
 set -e
 pushd ~
 
-for DOTFILE in .zshrc .zsh .gitconfig .i3 .profile .urxvt .vim .vimperatorrc .vimrc .Xresources .Xresources.d; do
+for DOTFILE in .compton.conf .zshrc .zsh .gitconfig .i3 .profile .urxvt .vim .vimperatorrc .vimrc .Xresources .Xresources.d; do
   if [ -e $DOTFILE ]; then
     if [ -h $DOTFILE ]; then rm $DOTFILE
     else                     mv $DOTFILE "$DOTFILE.bak"

@@ -6,9 +6,8 @@ URxvt.saveLines: 10000
 URxvt.scrollBar: false
 URxvt.secondaryScroll: true
 URxvt.font: xft:Ubuntu Mono derivative Powerline:size=12:dpi=96
-URxvt.fading: 50
 URxvt.depth: 32
-URxvt.background: [90]#222222
+URxvt.background: [95]#222222
 scratchpad.background: [80]#222222
 
 ! Fix ctrl+arrow and keypad in vim
