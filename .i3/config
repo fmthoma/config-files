@@ -9,9 +9,9 @@ set $lower_left "floating enable; move position 40 px 830 px"
 set $lower_right "floating enable; move position 1520 px 830 px"
 set $center "floating enable; move position center"
 
-set $w1 workspace "1"
-set $w2 workspace "2"
-set $w3 workspace "3"
+set $w1 workspace "1:  "
+set $w2 workspace "2:  "
+set $w3 workspace "3:  "
 set $w4 workspace "4"
 
 # Tango colors
@@ -165,7 +165,7 @@ bindsym $M1+KP_Add      resize grow width 10 px or 10 ppt;   resize grow height 
 bindsym $M1+minus       resize shrink width 10 px or 10 ppt; resize shrink height 10 px or 10 ppt
 bindsym $M1+KP_Subtract resize shrink width 10 px or 10 ppt; resize shrink height 10 px or 10 ppt
 
-font pango:DejaVu Sans Mono 12
+font pango:Ubuntu Mono derivative Powerline Bold 12
 new_window pixel 3
 
 #                       BORDER      BACKGROUND  TEXT      INDICATOR
@@ -179,13 +179,15 @@ client.background       $black
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    status_command i3status
+    #status_command i3status
+    strip_workspace_numbers yes
 
+    font pango:Ubuntu Mono derivative Powerline Bold 18
 
     colors {
         statusline         $bwhite
         background         $transparent
-        separator          $green
+        separator          $bwhite
 
         #                  BORDER       BACKGROUND   TEXT
         focused_workspace  $green       $green       $black
