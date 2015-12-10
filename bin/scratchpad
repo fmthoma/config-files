@@ -1,0 +1,37 @@
+#!/bin/bash
+
+move_to_bottom_right() {
+  WID=$1
+  geometry=($(xdpyinfo | grep "dimensions" | sed "s/^.* \([0-9]\+\)x\([0-9]\+\) pixels.*$/\1 \2/"))
+  w=$(xwininfo -id $WID | grep Width  | sed -e "s/^.*Width: \([0-9]\+\).*$/\1/")
+  h=$(xwininfo -id $WID | grep Height | sed -e "s/^.*Height: \([0-9]\+\).*$/\1/")
+  x=$(( ${geometry[0]} - $w - 100 ))
+  y=$(( ${geometry[1]} - $h - 100 ))
+  xdotool windowmove $WID $x $y
+}
+
+bring_to_focus() {
+  WID=$1
+  xdotool windowunmap $WID
+  xdotool windowmap $WID
+  xdotool windowfocus $WID
+}
+
+
+# There should never be more than one schratchpad
+WID=$(xdotool search --classname scratchpad | head -n1)
+
+if [ -z "$WID" ]; then
+  SHLVL=0 urxvt -name "scratchpad" -geometry 120x36
+  WID=$(xdotool search --sync --classname scratchpad)
+  # hacky: somehow, windowmap only moves the window to the
+  # current workspace if it has been moved by i3 before
+  i3-msg "move window to workspace next"
+
+elif [ $(xdotool getactivewindow) -eq $WID ]; then
+  xdotool windowunmap $WID
+  exit
+fi
+
+bring_to_focus $WID
+move_to_bottom_right $WID

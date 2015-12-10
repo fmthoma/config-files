@@ -122,6 +122,9 @@ mode "run" {
 }
 bindsym $M1+Return mode "run"
 
+bindsym $M1+space exec scratchpad
+for_window [class="URxvt" instance="scratchpad"] floating enable
+
 bindsym $M1+plus        resize grow width 10 px or 10 ppt;   resize grow height 10 px or 10 ppt
 bindsym $M1+KP_Add      resize grow width 10 px or 10 ppt;   resize grow height 10 px or 10 ppt
 bindsym $M1+minus       resize shrink width 10 px or 10 ppt; resize shrink height 10 px or 10 ppt
