@@ -1,16 +1,19 @@
 #!/bin/bash
 set -e
 
-VERSION=9.19
+VERSION="9.21"
+ARTIFACT="rxvt-unicode-$VERSION"
 
 ################################################################################
 # Fetch sources                                                                #
 ################################################################################
 cd /tmp
 sudo apt-get build-dep rxvt-unicode-256color
-apt-get source "rxvt-unicode-256color=$VERSION"
 
-cd "rxvt-unicode-$VERSION/"
+wget "http://dist.schmorp.de/rxvt-unicode/${ARTIFACT}.tar.bz2"
+tar -xjf "${ARTIFACT}.tar.bz2"
+
+cd "${ARTIFACT}/"
 
 
 ################################################################################
