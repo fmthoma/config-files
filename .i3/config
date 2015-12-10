@@ -158,4 +158,4 @@ exec --no-startup-id /usr/lib/x86_64-linux-gnu/indicator-power/indicator-power-s
 exec --no-startup-id nm-applet
 exec --no-startup-id "redshift || redshift -l 48.1:11.6"
 exec --no-startup-id "compton -b"
-exec --no-startup-id "feh --bg-fill /usr/share/backgrounds/Water_Lily_by_Denis_Dugushkin.jpg || hsetroot -solid '#000000'"
+exec --no-startup-id "feh --bg-fill $HOME/wallpaper || hsetroot -solid '#000000'"
