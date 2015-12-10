@@ -31,7 +31,7 @@ set $cyan    #06989A
 set $bcyan   #34E2E2
 set $white   #AAAAAA
 set $bwhite  #EEEEEC
-set $transparent #000000FF
+set $transparent #00000000
 
 
 # change focus
