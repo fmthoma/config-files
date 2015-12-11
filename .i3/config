@@ -204,7 +204,7 @@ assign [class="Firefox"] $w3
 # finds out, if available)
 bar {
     i3bar_command i3bar -t
-    #status_command i3status
+    status_command i3blocks
     strip_workspace_numbers yes
 
     font pango:Ubuntu Mono derivative Powerline Bold 18

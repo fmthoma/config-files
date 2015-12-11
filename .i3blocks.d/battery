@@ -1,0 +1,22 @@
+#!/bin/sh
+
+BATTERY_80="  "
+BATTERY_60="  "
+BATTERY_40="  "
+BATTERY_20="  "
+BATTERY_00="  "
+LIGHTNING=""
+
+full=$( sed -n "s/POWER_SUPPLY_ENERGY_FULL_DESIGN=\([0-9]\+\)/\1/p" /sys/class/power_supply/BAT0/uevent )
+now=$(  sed -n "s/POWER_SUPPLY_ENERGY_NOW=\([0-9]\+\)/\1/p"         /sys/class/power_supply/BAT0/uevent )
+bat=$(( ($now * 100) / $full))
+if   [ $bat -gt 80 ]; then chr="$BATTERY_80"
+elif [ $bat -gt 60 ]; then chr="$BATTERY_60"
+elif [ $bat -gt 40 ]; then chr="$BATTERY_40"
+elif [ $bat -gt 20 ]; then chr="$BATTERY_20"
+else                       chr="$BATTERY_00"
+fi
+
+test -n "$(grep "POWER_SUPPLY_STATUS=Charging" /sys/class/power_supply/BAT0/uevent)" && chr="$chr$LIGHTNING"
+
+echo " $chr $bat% "

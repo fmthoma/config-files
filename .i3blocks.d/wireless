@@ -1,0 +1,5 @@
+#!/bin/sh
+
+NETWORK="$(iwgetid -r)"
+[ -n "$NETWORK" ] || NETWORK="---"
+echo "   ${NETWORK} "
