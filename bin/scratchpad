@@ -22,11 +22,8 @@ bring_to_focus() {
 WID=$(xdotool search --classname scratchpad | head -n1)
 
 if [ -z "$WID" ]; then
-  SHLVL=0 urxvt -name "scratchpad" -geometry 120x36
+  SHLVL=0 urxvt -name "scratchpad" -geometry 120x36 &
   WID=$(xdotool search --sync --classname scratchpad)
-  # hacky: somehow, windowmap only moves the window to the
-  # current workspace if it has been moved by i3 before
-  i3-msg "move window to workspace next"
 
 elif [ $(xdotool getactivewindow) -eq $WID ]; then
   xdotool windowunmap $WID
