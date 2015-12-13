@@ -139,7 +139,8 @@ bindsym $M2+q exit
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $M2+r restart
 
-mode "run" {
+set $mode_run " [R]anger  [T]erminal  [F]irefox  [C]hrome  [I]ntelliJ  [P]hpstorm  [M]ail  [S]ettings "
+mode $mode_run {
     bindsym Return exec --no-startup-id i3-dmenu-hist-desktop; mode "default"
     bindsym $M1+Return exec --no-startup-id dmenu_hist_run; mode "default"
     bindsym r exec urxvt -e ranger; mode "default"
@@ -150,12 +151,28 @@ mode "run" {
     bindsym p exec pstorm; mode "default"
     bindsym m exec thunderbird; mode "default"
 
+    bindsym s mode $mode_settings
+
     bindsym h split h
     bindsym v split v
 
     bindsym Escape mode "default"
 }
-bindsym $M1+Return mode "run"
+bindsym $M1+Return mode $mode_run
+
+bindsym level3+h mode $mode_settings
+bindsym Mod3+h mode $mode_settings
+
+set $mode_settings " [] Brightness  |  [N]etwork [D]isconnect "
+mode $mode_settings {
+    bindsym Up   exec "xbacklight +10"
+    bindsym Down exec "xbacklight -10"
+
+    bindsym n exec nm-connect
+    bindsym d exec nm-disconnect
+
+    bindsym Escape mode "default"
+}
 
 bindsym $M1+space exec scratchpad
 for_window [class="URxvt" instance="scratchpad"] floating enable
