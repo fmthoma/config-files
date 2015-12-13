@@ -1,19 +1,8 @@
 #!/bin/bash
 
-[ "${BLOCK_BUTTON}" -eq "1" ] && (
-  CONN=$(nmcli -t -f name connection | dmenu -i)
-  nmcli connection up "$CONN"
-) &
-
-[ "${BLOCK_BUTTON}" -eq "2" ] && (
-  CONN=$(nmcli -t -f name connection show --active | dmenu -i)
-  nmcli connection down "$CONN"
-) &
-
-[ "${BLOCK_BUTTON}" -eq "3" ] && (
-  SSID=$(nmcli -t -f SSID device wifi | dmenu -i)
-  nmcli device wifi connect "$SSID"
-) &
+[ "${BLOCK_BUTTON}" -eq "1" ] && nm-connect &
+[ "${BLOCK_BUTTON}" -eq "2" ] && nm-disconnect &
+[ "${BLOCK_BUTTON}" -eq "3" ] && nm-wifi &
 
 function connection_of_type() {
   nmcli -t -f type,name connection show --active \
