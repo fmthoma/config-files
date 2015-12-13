@@ -2,6 +2,6 @@ bindkey -v
 setopt notify
 unsetopt autocd beep
 
-for FILE in $(ls .zsh); do
-  . ".zsh/$FILE"
+for FILE in $(ls "$HOME/.zsh"); do
+  . "$HOME/.zsh/$FILE"
 done
