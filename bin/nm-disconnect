@@ -1,0 +1,4 @@
+#!/bin/sh
+
+CONN=$(nmcli -t -f name connection show --active | dmenu -i)
+[ -n "$CONN" ] && nmcli connection down "$CONN"
