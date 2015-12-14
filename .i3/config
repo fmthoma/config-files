@@ -163,10 +163,13 @@ bindsym $M1+Return mode $mode_run
 bindsym level3+h mode $mode_settings
 bindsym Mod3+h mode $mode_settings
 
-set $mode_settings " [] Brightness  |  [N]etwork [D]isconnect "
+set $mode_settings " [] Brightness  |  [] Volume  |  [N]etwork [D]isconnect "
 mode $mode_settings {
     bindsym Up   exec "xbacklight +10"
     bindsym Down exec "xbacklight -10"
+
+    bindsym Left  exec "pactl set-sink-volume 1 -10%"
+    bindsym Right exec "pactl set-sink-volume 1 +10%"
 
     bindsym n exec nm-connect
     bindsym d exec nm-disconnect

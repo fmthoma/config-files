@@ -1,0 +1,45 @@
+#!/bin/bash
+
+function active_sink() {
+  pacmd list-sinks \
+    | grep "* index" \
+    | awk '{print $3}'
+}
+
+function is_muted() {
+  sink=$1
+  pacmd list-sinks \
+    | awk "/index: ${sink}/,/active port/" \
+    | grep "muted" | grep "yes"
+
+}
+
+function current_vol() {
+  sink=$1
+  pacmd dump-volumes \
+    | grep "Sink ${sink}" \
+    | sed 's/, /\n/g' \
+    | grep reference \
+    | tr ' ' '\n' \
+    | grep '%' \
+    | sed 's/%//'
+}
+
+function toggle_mute() {
+  sink=$1
+  if [ -n "$( is_muted $sink )" ]; then
+    pacmd set-sink-mute "$sink" off
+  else
+    pacmd set-sink-mute "$sink" on
+  fi
+}
+
+
+ACTIVE_SINK=$( active_sink )
+CURRENT_VOL="$( current_vol $ACTIVE_SINK )%"
+IS_MUTED=$( is_muted $ACTIVE_SINK )
+[ -n "$IS_MUTED" ] && CURRENT_VOL="MUTE"
+
+[ "${BLOCK_BUTTON}" -eq "1" ] && toggle_mute "$ACTIVE_SINK"
+
+echo "  ${CURRENT_VOL} "
