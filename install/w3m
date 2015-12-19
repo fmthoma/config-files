@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -e
+
+VERSION=0.5.3
+
+cd /tmp
+
+sudo apt-get build-dep w3m w3m-img
+
+apt-get source w3m
+
+cd "w3m-$VERSION"
+
+curl https://gist.githubusercontent.com/BwackNinja/60a344730170f9ce2163/raw/61f2b9c506cd676a8f2cc58a9111254d84afb647/w3m_rgba.patch \
+  | patch w3mimg/x11/x11_w3mimg.c
+
+curl https://gist.githubusercontent.com/fmthoma/f76a1b44e00d5ca972bb/raw/5dedffbfc8a2d3e048f29ad814e4548f29322cd8/w3m_resizing.patch \
+  | patch -l w3mimg/x11/x11_w3mimg.c
+
+debian/rules build
+fakeroot debian/rules install binary
+
+for PACKAGE in $(cat debian/files | awk '{print $1}'); do
+  sudo dpkg -i "../$PACKAGE"
+done
