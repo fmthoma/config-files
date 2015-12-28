@@ -27,6 +27,10 @@ cd i3
 # stable branch is gaps, unstable is gaps-next (corresponding to master and next)
 git checkout gaps-next
 
+# Config patch: Recognize `workspace` token in `assign` commands
+curl https://github.com/fmthoma/i3/commit/194da2d7cfb90ee23ad8bdce6ca3e20e2f27abc1.patch \
+  | patch parser-specs/config.spec
+
 make
 
 sudo make install
