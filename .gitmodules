@@ -1,27 +1,27 @@
 [submodule ".vim/bundle/vim-sneak"]
 	path = .vim/bundle/vim-sneak
-	url = git://github.com/justinmk/vim-sneak.git
+	url = https://github.com/justinmk/vim-sneak.git
 [submodule ".vim/bundle/vim-airline"]
 	path = .vim/bundle/vim-airline
-	url = git://github.com/bling/vim-airline.git
+	url = https://github.com/bling/vim-airline.git
 [submodule ".vim/bundle/vim-fugitive"]
 	path = .vim/bundle/vim-fugitive
-	url = git@github.com:tpope/vim-fugitive.git
+	url = https://github.com/tpope/vim-fugitive.git
 [submodule ".vim/bundle/neco-ghc"]
 	path = .vim/bundle/neco-ghc
-	url = git@github.com:eagletmt/neco-ghc.git
+	url = https://github.com/eagletmt/neco-ghc.git
 [submodule ".vim/bundle/vim2hs"]
 	path = .vim/bundle/vim2hs
-	url = git@github.com:dag/vim2hs.git
+	url = https://github.com/dag/vim2hs.git
 [submodule ".vim/bundle/vimproc.vim"]
 	path = .vim/bundle/vimproc.vim
-	url = git@github.com:Shougo/vimproc.vim.git
+	url = https://github.com/Shougo/vimproc.vim.git
 [submodule ".vim/bundle/ghcmod-vim"]
 	path = .vim/bundle/ghcmod-vim
-	url = git@github.com:eagletmt/ghcmod-vim.git
+	url = https://github.com/eagletmt/ghcmod-vim.git
 [submodule ".vim/bundle/vim-devicons"]
 	path = .vim/bundle/vim-devicons
-	url = git@github.com:ryanoasis/vim-devicons.git
+	url = https://github.com/ryanoasis/vim-devicons.git
 [submodule ".vim/bundle/nerdtree"]
 	path = .vim/bundle/nerdtree
-	url = git@github.com:scrooloose/nerdtree.git
+	url = https://github.com/scrooloose/nerdtree.git
