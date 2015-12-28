@@ -9,10 +9,30 @@ set $lower_left "floating enable; move position 40 px 830 px"
 set $lower_right "floating enable; move position 1520 px 830 px"
 set $center "floating enable; move position center"
 
-set $w1 workspace "1"
-set $w2 workspace "2"
-set $w3 workspace "3"
+set $w1 workspace "1:    "
+set $w2 workspace "2:    "
+set $w3 workspace "3:    "
 set $w4 workspace "4"
+
+# Tango colors
+set $black   #2E3436
+set $bblack  #555753
+set $red     #CC0000
+set $bred    #EF2929
+set $green   #4E9A06
+set $bgreen  #8AE234
+set $yellow  #C4A000
+set $byellow #FCE94F
+set $blue    #3465A4
+set $bblue   #729FCF
+set $purple  #75507B
+set $bpurple #AD7FA8
+set $cyan    #06989A
+set $bcyan   #34E2E2
+set $white   #AAAAAA
+set $bwhite  #EEEEEC
+set $transparent #000000FF
+
 
 # change focus
 bindsym $M1+Left focus left
@@ -145,14 +165,37 @@ bindsym $M1+KP_Add      resize grow width 10 px or 10 ppt;   resize grow height 
 bindsym $M1+minus       resize shrink width 10 px or 10 ppt; resize shrink height 10 px or 10 ppt
 bindsym $M1+KP_Subtract resize shrink width 10 px or 10 ppt; resize shrink height 10 px or 10 ppt
 
-# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-font pango:DejaVu Sans Mono 12
+font pango:Ubuntu Mono derivative Powerline Bold 12
 new_window pixel 3
+
+#                       BORDER      BACKGROUND  TEXT      INDICATOR
+client.focused          $green      $green      $black    $bgreen
+client.unfocused        $black      $black      $white    $bblack
+client.focused_inactive $black      $black      $white    $bblack
+client.urgent           $red        $red        $black    $bred
+client.background       $black
+
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    status_command i3status
+    #status_command i3status
+    strip_workspace_numbers yes
+
+    font pango:Ubuntu Mono derivative Powerline Bold 18
+
+    colors {
+        statusline         $bwhite
+        background         $transparent
+        separator          $bwhite
+
+        #                  BORDER       BACKGROUND   TEXT
+        focused_workspace  $green       $green       $black
+        inactive_workspace $transparent $transparent $white
+        active_workspace   $transparent $transparent $white
+        urgent_workspace   $red         $red         $black
+        binding_mode       $red         $red         $black
+    }
 }
 
 force_focus_wrapping yes
