@@ -2,14 +2,12 @@
 set -e
 
 # if "/usr/bin/ld: cannot find -lgmp" occurs
-# sudo apt-get install libgmp-dev
+sudo apt-get install libgmp-dev
 
 VERSION=1.22.6.0
 
-mkdir /tmp/cabal && cd /tmp/cabal
-
-#wget "https://www.haskell.org/cabal/release/cabal-install-$VERSION/cabal-$VERSION-i386-unknown-linux.tar.gz"
-#tar -xzf "cabal-$VERSION-i386-unknown-linux.tar.gz"
+mkdir -p /tmp/cabal
+cd /tmp/cabal
 
 wget "https://www.haskell.org/cabal/release/cabal-install-${VERSION}/cabal-install-${VERSION}.tar.gz"
 tar -xzf "cabal-install-${VERSION}.tar.gz"
