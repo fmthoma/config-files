@@ -3,7 +3,8 @@ set -e
 
 VERSION=7.10.1
 
-mkdir /tmp/ghc && cd /tmp/ghc
+mkdir -p /tmp/ghc
+cd /tmp/ghc
 
 wget "https://www.haskell.org/ghc/dist/7.10.1/ghc-$VERSION-x86_64-unknown-linux-deb7.tar.bz2"
 tar -xjf "ghc-$VERSION-x86_64-unknown-linux-deb7.tar.bz2"
