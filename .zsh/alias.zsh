@@ -45,4 +45,4 @@ alias ta='tig --all'
 alias tu='tig HEAD @{upstream}'
 alias tg='tig grep'
 
-alias zz='source ~/.zshrc'
+alias zz='~/config-files/install/this; source ~/.zshrc; source ~/.profile'

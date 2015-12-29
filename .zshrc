@@ -8,3 +8,6 @@ done
 
 export EDITOR=vim
 export PAGER=less
+
+# Make PATH entries unique
+declare -U PATH
