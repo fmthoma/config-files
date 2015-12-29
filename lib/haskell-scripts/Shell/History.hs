@@ -25,6 +25,7 @@ readHistory = do
 
 _readHistory :: FilePath -> Shell Text
 _readHistory absoluteFile = do
+    touch absoluteFile
     lines (input absoluteFile) >>= select . reverse
   where
     lines stream = fold stream Fold.list
