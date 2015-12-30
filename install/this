@@ -1,9 +1,21 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
-pushd ~
+cd ~
 
-for DOTFILE in .compton.conf .zshrc .zsh .gitconfig .i3 .profile .urxvt .vim .vimperatorrc .vimrc .Xresources .Xresources.d; do
+for DOTFILE in .compton.conf \
+               .gitconfig \
+               .i3 \
+               .profile \
+               .tigrc \
+               .urxvt \
+               .vim \
+               .vimperatorrc \
+               .vimrc \
+               .Xresources \
+               .Xresources.d \
+               .zsh \
+               .zshrc; do
   if [ -e $DOTFILE ]; then
     if [ -h $DOTFILE ]; then rm $DOTFILE
     else                     mv $DOTFILE "$DOTFILE.bak"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 VERSION=2.1.1
@@ -11,10 +11,17 @@ wget "http://jonas.nitro.dk/tig/releases/tig-2.1.1.tar.gz"
 tar -xzf "tig-${VERSION}.tar.gz"
 cd "tig-$VERSION"
 
+
 ./configure
-make
 make doc-man
-sudo make install
 sudo make install-doc-man
+
+# mailmap patch (coming with tig 2.2)
+# breaks `make doc-man`, so do that before applying the patch
+curl https://github.com/jonas/tig/commit/b7f06a8f84809ee99dfa40b3a0c4a38295b9d1bd.patch \
+  | patch -p1
+
+make
+sudo make install
 
 sudo cp contrib/tig-completion.bash /etc/bash_completion.d/tig
