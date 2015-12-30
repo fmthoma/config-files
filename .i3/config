@@ -199,8 +199,8 @@ bar {
 
         #                  BORDER       BACKGROUND   TEXT
         focused_workspace  $transparent $transparent $bgreen
+        active_workspace   $transparent $transparent $bgreen
         inactive_workspace $transparent $transparent $bwhite
-        active_workspace   $transparent $transparent $bwhite
         urgent_workspace   $red         $red         $black
         binding_mode       $red         $red         $black
     }
