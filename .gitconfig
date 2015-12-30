@@ -51,3 +51,5 @@
 [difftool "phpstorm"]
   cmd = pstorm diff \"$LOCAL\" \"$REMOTE\"
   trustExitCode = true
+[log]
+  mailmap = true
