@@ -16,5 +16,7 @@ zle -N _history-incremental-preserving-pattern-search-backward
 
 bindkey "^N" history-incremental-pattern-search-forward
 bindkey "^R" _history-incremental-preserving-pattern-search-backward
+bindkey -M isearch "^[[A" history-incremental-pattern-search-backward
+bindkey -M isearch "^[[B" history-incremental-pattern-search-forward
 bindkey -M isearch "^R" history-incremental-pattern-search-backward
 bindkey -M isearch "^M" accept-search # ›Enter‹ key
