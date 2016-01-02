@@ -2,7 +2,7 @@ bindkey -v
 setopt notify
 unsetopt autocd beep
 
-for FILE in $(ls "$HOME/.zsh"); do
+for FILE in $(ls "$HOME/.zsh/" | grep ".zsh$"); do
   . "$HOME/.zsh/$FILE"
 done
 
