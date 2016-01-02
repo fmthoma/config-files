@@ -42,6 +42,5 @@ zle -N _zaw-history
 
 bindkey "^R" _zaw-history
 bindkey -M filterselect "^R" up-line-or-history
-bindkey -M filterselect "^M" accept-search
 
 bindkey "^B" zaw-git-branches
