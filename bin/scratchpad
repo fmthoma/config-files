@@ -1,12 +1,14 @@
 #!/bin/bash
 
+set -eo noglob
+
 move_to_bottom_right() {
   WID=$1
-  geometry=($(xdpyinfo | grep "dimensions" | sed "s/^.* \([0-9]\+\)x\([0-9]\+\) pixels.*$/\1 \2/"))
-  w=$(xwininfo -id $WID | grep Width  | sed -e "s/^.*Width: \([0-9]\+\).*$/\1/")
-  h=$(xwininfo -id $WID | grep Height | sed -e "s/^.*Height: \([0-9]\+\).*$/\1/")
-  x=$(( ${geometry[0]} - $w - 100 ))
-  y=$(( ${geometry[1]} - $h - 100 ))
+  geometry=( $( monitors | grep "*" ) )
+  w=$( xwininfo -id $WID | grep Width  | sed -e "s/^.*Width: \([0-9]\+\).*$/\1/" )
+  h=$( xwininfo -id $WID | grep Height | sed -e "s/^.*Height: \([0-9]\+\).*$/\1/" )
+  x=$(( ${geometry[2]} + ${geometry[4]} - $w - 100 ))
+  y=$(( ${geometry[3]} + ${geometry[5]} - $h - 100 ))
   xdotool windowmove $WID $x $y
 }
 
@@ -23,9 +25,9 @@ WID=$(xdotool search --classname scratchpad | head -n1)
 
 if [ -z "$WID" ]; then
   SHLVL=0 urxvt -name "scratchpad" -geometry 120x36 &
-  WID=$(xdotool search --sync --classname scratchpad)
+  WID=$( xdotool search --sync --classname scratchpad )
 
-elif [ $(xdotool getactivewindow) -eq $WID ]; then
+elif [ $( xdotool getactivewindow ) -eq $WID ]; then
   xdotool windowunmap $WID
   exit
 fi

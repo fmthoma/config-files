@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# Get the window position
+x=$( xwininfo -id $(xdotool getactivewindow) | awk '/Absolute upper-left X/ {print $4}' )
+y=$( xwininfo -id $(xdotool getactivewindow) | awk '/Absolute upper-left Y/ {print $4}' )
+
+# Loop through each screen and compare the offset with the window
+# coordinates.
+while read name width height xoff yoff
+do
+  if [ "$x" -ge "$xoff" \
+    -a "$y" -ge "$yoff" \
+    -a "$x" -lt "$(($xoff+$width))" \
+    -a "$y" -lt "$(($yoff+$height))" ]
+  then echo "* $name $width $height $xoff $yoff"
+  else echo "  $name $width $height $xoff $yoff"
+  fi
+done < <(
+  xrandr \
+    | grep -w connected \
+    | sed -r "s/^([^ ]*).*\b([-0-9]+)x([-0-9]+)\+([-0-9]+)\+([-0-9]+).*$/\1 \2 \3 \4 \5/" \
+    | sort -nk4,5
+)
