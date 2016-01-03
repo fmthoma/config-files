@@ -70,25 +70,33 @@ function zaw-src-autocompletion () {
     cmdln=( "${=buffer}" )
 
     cmd="${cmdln[1]}"
-    args=( "${cmdln[2,-1]}" )
+    args=( "${=cmdln[2,-1]}" )
 
     case "$cmd" in
       "cd"|"j")
-        candidates=( $( fasd -dl ) )
+        candidates=( $( fasd -dlR ) )
         ;;
       "vi"|"less")
-        candidates=( $( fasd -fl ) )
+        candidates=( $( fasd -flR ) )
+        ;;
+      "git"|"g"|"tig"|"t")
+        cmd="$cmd ${args[1,-2]}"
+        args=( "${args[-1]}" )
+        if ( git status > /dev/null 2>&1 ); then
+            branches=( $( git show-ref | awk '$2 != "refs/stash" { print $2 }' ) )
+            candidates=( "${branches[@]#refs/(heads|remotes)/}" )
+        fi
         ;;
       *)
-        candidates=( $( fasd -al ) )
+        candidates=( $( fasd -alR ) )
     esac
 
-    BUFFER="$cmd"
-    options=( "-r" "-n" "-m" "-s" "$args" )
+    BUFFER="$cmd "
+    options=( "-m" "-s" "$args" )
 }
 
 function zaw-callback-append-and-execute () {
-    BUFFER="$BUFFER ${(j:; :)@}"
+    BUFFER="$BUFFER${(j:; :)@}"
     zle accept-line
 }
 
