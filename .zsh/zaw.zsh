@@ -7,6 +7,8 @@ zstyle ':filter-select' max-lines 32
 zstyle ':filter-select' case-insensitive yes
 zstyle ':filter-select' extended-search yes
 
+autoload -Uz narrow-to-region
+
 function _zaw-history
 {
     local state
