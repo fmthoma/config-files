@@ -12,27 +12,19 @@ autoload -Uz narrow-to-region
 function _zaw-history
 {
     local state
-    MARK=CURSOR  # magick, else multiple ^R don't work
 
-    LB=$LBUFFER
-    LB=${LB##*&}
-    LB=${LB##*|}
-    LB=${LB##* }
-    LBUFFER=${LBUFFER%$LB}
+    LB="${LBUFFER##*(\||&)}"
+    LB="${LB#"${LB%%[\![:space:]]*}"}" # remove leading spaces
+    LBUFFER="${LBUFFER%$LB}"
 
-    RB=$RBUFFER
-    RB=${RB%%&*}
-    RB=${RB%%|*}
-    RB=${RB%% *}
-    RBUFFER=${RBUFFER#$RB}
+    RB="${RBUFFER%%(\||&)*}"
+    RB="${RB%"${RB##*[\![:space:]]}"}" # remove trailing spaces
+    RBUFFER="${RBUFFER#$RB}"
 
-    PREFIX="$LBUFFER${BUFFER:+ }"
-    POSTFIX="${BUFFER:+ }$RBUFFER"
+    CURSOR=${#LBUFFER}
+    MARK=CURSOR
 
-    RBUFFER=" $RBUFFER"
-    #        ^ Add a space here (the first char is wrongly deleted in `narrow-to-region -R`)
-
-    narrow-to-region -p "$PREFIX" -P "$POSTFIX" -S state
+    narrow-to-region -p "$LBUFFER${BUFFER:+ }" -P "${BUFFER:+ }$RBUFFER" -S state
 
     BUFFER="$LB$RB"
     LBUFFER="$LB"
