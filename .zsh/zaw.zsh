@@ -10,14 +10,11 @@ zstyle ':filter-select' extended-search yes
 
 
 ################################################################################
-# History                                                                      #
+# Common utilities
 ################################################################################
 autoload -Uz narrow-to-region
 
-function _zaw-history
-{
-    local state
-
+function narrow-to-current-command() {
     LB="${LBUFFER##*(\||&)}"
     LB="${LB#"${LB%%[\![:space:]]*}"}" # remove leading spaces
     LBUFFER="${LBUFFER%$LB}"
@@ -29,13 +26,24 @@ function _zaw-history
     CURSOR=${#LBUFFER}
     MARK=CURSOR
 
-    narrow-to-region -p "$LBUFFER${BUFFER:+ }" -P "${BUFFER:+ }$RBUFFER" -S state
+    narrow-to-region -p "$LBUFFER${BUFFER:+ }" -P "${BUFFER:+ }$RBUFFER" $@
 
     BUFFER="$LB$RB"
     LBUFFER="$LB"
     RBUFFER="$RB"
-    zle zaw-history
+}
 
+
+
+################################################################################
+# History                                                                      #
+################################################################################
+function _zaw-history
+{
+    local state
+
+    narrow-to-current-command -S state
+    zle zaw-history
     narrow-to-region -R state
 }
 
