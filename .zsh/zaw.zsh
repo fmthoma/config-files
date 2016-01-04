@@ -1,4 +1,4 @@
-[ -d "$(dirname $0)/zaw" ] || return 1
+[ -f "$(dirname $0)/zaw/zaw.zsh" ] || return 1
 
 source "$(dirname $0)/zaw/zaw.zsh"
 

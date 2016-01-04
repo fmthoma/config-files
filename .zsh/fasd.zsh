@@ -1,4 +1,4 @@
-[ -d "$(dirname $0)/fasd" ] || return 1
+[ -f "$(dirname $0)/fasd/fasd" ] || return 1
 
 source "$(dirname $0)/fasd/fasd"
 eval "$(fasd --init zsh-hook zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install)"
