@@ -64,50 +64,79 @@ bindkey "^B" zaw-git-branches
 ################################################################################
 # Autocompletion (fasd, git)                                                   #
 ################################################################################
-function zaw-src-autocompletion () {
-    local lb rb buffer cmdln cmd args
+function _zaw-autocompletion() {
+    local state
+    narrow-to-current-command -S state
 
-    actions=("zaw-callback-append-and-execute" "zaw-callback-append-to-buffer")
-    act_descriptions=("execute" "append to edit buffer")
-
-    lb="${LBUFFER##*(\||&)}"
-    lb="${lb#"${lb%%[\![:space:]]*}"}" # remove leading spaces
-    rb="${RBUFFER%%(\||&)*}"
-    rb="${rb%"${rb##*[\![:space:]]}"}" # remove trailing spaces
-    buffer="$lb$rb"
-    cmdln=( "${=buffer}" )
-
+    cmdln=( "${=BUFFER}" )
     cmd="${cmdln[1]}"
     args=( "${=cmdln[2,-1]}" )
+    BUFFER="$cmd "
 
     case "$cmd" in
       "cd"|"j")
-        candidates=( $( fasd -dlR ) )
+        zle zaw zaw-src-autocompletion-fasd-d "$args"
         ;;
       "vi"|"less")
-        candidates=( $( fasd -flR ) )
+        zle zaw zaw-src-autocompletion-fasd-f "$args"
         ;;
       "git"|"g"|"tig"|"t")
-        cmd="$cmd ${args[1,-2]}"
-        args=( "${args[-1]}" )
-        if ( git status > /dev/null 2>&1 ); then
-            branches=( $( git show-ref | awk '$2 != "refs/stash" { print $2 }' ) )
-            candidates=( "${branches[@]#refs/(heads|remotes)/}" )
-        fi
+        LBUFFER="$cmd ${args[1,-2]} "
+        RBUFFER=""
+        args=( "${=args[-1]}" )
+        zle zaw zaw-src-autocompletion-git-branch "${args/\// / }"
         ;;
       *)
-        candidates=( $( fasd -alR ) )
+        zle zaw zaw-src-autocompletion-fasd-a "$args"
     esac
 
-    BUFFER="$cmd "
-    options=( "-m" "-s" "$args" )
+    narrow-to-region -R state
 }
+
+function zaw-src-autocompletion-fasd-f () {
+    candidates=( $( fasd -flR ) )
+    actions=("zaw-callback-append-and-execute" "zaw-callback-append-to-buffer")
+    act_descriptions=("execute" "append to edit buffer")
+    options=( "-m" "-s" "$1" )
+}
+
+function zaw-src-autocompletion-fasd-a () {
+    candidates=( $( fasd -alR ) )
+    actions=("zaw-callback-append-and-execute" "zaw-callback-append-to-buffer")
+    act_descriptions=("execute" "append to edit buffer")
+    options=( "-m" "-s" "$1" )
+}
+
+function zaw-src-autocompletion-fasd-d () {
+    candidates=( $( fasd -dlR ) )
+    actions=("zaw-callback-append-and-execute" "zaw-callback-append-to-buffer")
+    act_descriptions=("execute" "append to edit buffer")
+    options=( "-m" "-s" "$1" )
+}
+
+function zaw-src-autocompletion-git-branch () {
+    local branches
+    if ( git status > /dev/null 2>&1 ); then
+        branches=( $( git show-ref | awk '$2 != "refs/stash" { print $2 }' ) )
+        candidates=( "${branches[@]#refs/(heads|remotes)/}" )
+    fi
+    actions=("zaw-callback-append-and-execute" "zaw-callback-append-to-buffer")
+    act_descriptions=("execute" "append to edit buffer")
+    options=( "-m" "-s" "$1" )
+}
+
+
 
 function zaw-callback-append-and-execute () {
     BUFFER="$BUFFER${(j:; :)@}"
     zle accept-line
 }
 
-zaw-register-src -n autocompletion zaw-src-autocompletion
+zaw-register-src -n autocompletion-fasd-f zaw-src-autocompletion-fasd-f
+zaw-register-src -n autocompletion-fasd-a zaw-src-autocompletion-fasd-a
+zaw-register-src -n autocompletion-fasd-d zaw-src-autocompletion-fasd-d
+zaw-register-src -n autocompletion-git-branch zaw-src-autocompletion-git-branch
 
-bindkey "^@" zaw-autocompletion
+zle -N _zaw-autocompletion
+
+bindkey "^@" _zaw-autocompletion
