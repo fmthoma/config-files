@@ -6,8 +6,8 @@ nnoremap ( xbP
 nnoremap <C-j> <PageDown>
 nnoremap <C-k> <PageUp>
 
-nnoremap <C-p> :bprevious<CR>
-nnoremap <C-n> :bnext<CR>
+nnoremap <C-p> :w<CR>:bprevious<CR>
+nnoremap <C-n> :w<CR>:bnext<CR>
 
 " tabs and line numbers
 set expandtab
