@@ -31,3 +31,6 @@
 [submodule ".zsh/fasd"]
 	path = .zsh/fasd
 	url = https://github.com/clvv/fasd.git
+[submodule ".vim/bundle/vim-lengthmatters"]
+	path = .vim/bundle/vim-lengthmatters
+	url = https://github.com/whatyouhide/vim-lengthmatters.git

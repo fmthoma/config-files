@@ -44,4 +44,7 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 
+" lenghtmatters config
+call lengthmatters#highlight('ctermbg=0')
+
 command Mdview %w !mdview
