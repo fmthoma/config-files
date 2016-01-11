@@ -53,3 +53,5 @@
   trustExitCode = true
 [log]
   mailmap = true
+[grep]
+  lineNumber = true
