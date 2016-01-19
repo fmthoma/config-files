@@ -85,7 +85,7 @@ set line-graphics               = default       # Enum: ascii, default, utf-8
 set reference-format            = [branch] <tag> {remote} ~replace~
 
 # Settings controlling how content is read from Git
-set commit-order                = auto          # Enum: auto, default, topo, date, reverse (main)
+set commit-order                = date          # Enum: auto, default, topo, date, reverse (main)
 set status-untracked-dirs       = yes           # Show files in untracked directories? (status)
 set ignore-space                = no            # Enum: no, all, some, at-eol (diff)
 set show-notes                  = yes           # When non-bool passed as `--show-notes=...` (diff)
