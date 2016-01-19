@@ -5,6 +5,10 @@ fi
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+alias igrep='grep -i'
+alias rgrep='grep -Hrn'
+alias irgrep='rgrep -i'
+alias -g G=' | grep'
 
 alias ls='ls --color=auto'
 alias ll='ls -lF --color=always'
@@ -12,7 +16,8 @@ alias la='ls -AlF --color=always'
 alias l='ls -CF --color=always'
 alias md='mkdir -p'
 
-alias less="less -R"
+alias less='less -RS'
+alias -g L=' | less'
 
 alias ..='cd ..'
 alias ...='cd ../..'
