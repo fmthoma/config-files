@@ -4,6 +4,7 @@ set -e
 cd ~
 
 for DOTFILE in .compton.conf \
+               .config \
                .gitconfig \
                .i3 \
                .profile \
