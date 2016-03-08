@@ -45,6 +45,7 @@ alias gf='git f'
 alias gr='git r'
 alias gri='git ri'
 alias gp='git p'
+alias gpu='git pu'
 alias gst='git st'
 alias gsp='git sp'
 
