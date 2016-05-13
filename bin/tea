@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -e
+
+TIMER=${1:-150}
+INTERVAL=15
+
+function _tea () {
+  sleep $(( $TIMER % $INTERVAL ))
+  for I in $( seq 1 $(( $TIMER / $INTERVAL )) | tac ); do
+    local remaining=$(( $I * $INTERVAL ));
+    notify-send "Tea: $remaining seconds remaining"
+    sleep $INTERVAL
+  done
+  notify-send "Tea is ready!"
+  zenity --info --text='Tea is ready!'
+}
+
+_tea & disown
