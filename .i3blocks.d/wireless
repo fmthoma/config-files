@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 [ "${BLOCK_BUTTON}" -eq "1" ] && nm-connect &
 [ "${BLOCK_BUTTON}" -eq "2" ] && nm-disconnect &

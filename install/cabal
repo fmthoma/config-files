@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 # if "/usr/bin/ld: cannot find -lgmp" occurs
