@@ -1,1 +1,1 @@
-i3-dmenu-desktop --dmenu="dmenu_hist -i -f .dmenu_desktop_history" $@
+i3-dmenu-desktop --dmenu="dmenu_hist -i -histfile=\"$HOME/.dmenu_desktop_history\"" $@

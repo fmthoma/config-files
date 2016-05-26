@@ -1,34 +1,17 @@
-#!/usr/bin/env runhaskell-ext
-{-# LANGUAGE OverloadedStrings, OverloadedLists, RecordWildCards #-}
+#!/usr/bin/env bash
+args=()
+for arg in $@; do
+  if [[ "$arg" == "-histfile="* ]]
+    then histfile=$(sed "s/-histfile=//" <<< $arg)
+    else args+=($arg)
+  fi
+done
 
-import           Prelude hiding (FilePath, lines)
-import qualified Data.List as List
-import qualified Data.Text as Text
-import qualified Control.Foldl as Fold
-import           Shell
+histfile=${histfile:-"$HOME/.dmenu_history"}
 
-
-data Options = Options
-    { historyFile     :: Maybe FilePath
-    , dmenuOptions    :: DmenuOptions
-    }
-
-readOptions :: MonadIO io => io Options
-readOptions = options "A history wrapper around dmenu" optionsParser
-
-optionsParser :: Parser Options
-optionsParser = Options
-    <$> optional (optPath "histfile" 'f' "The file where the history should be saved")
-    <*> dmenuOptionsParser
-
-defaultHistoryFile :: FilePath
-defaultHistoryFile = ".dmenu_history"
-
-
-main = sh $ do
-    Options {..} <- readOptions
-    let ~(Just file) = historyFile <|> Just defaultHistoryFile
-
-    stdout . withHistory file $ \history ->
-        let items = uniq (history <|> stdin)
-        in  dmenu dmenuOptions items
+sel=$(cat <(tac $histfile) <(while read line; do echo $line; done) | awk '!_[$0]++' | /usr/bin/env dmenu $args)
+if [ -n "$sel" ]; then
+  sed -i "\|$sel|d" $histfile
+  echo "$sel" >> $histfile
+fi
+echo $sel
