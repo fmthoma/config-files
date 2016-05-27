@@ -56,7 +56,7 @@
     dmenu
     i3blocks
     i3status
-    rxvt_unicode-with-plugins
+    rxvt_unicode
     xdotool
     xorg.xwininfo
 
@@ -77,6 +77,13 @@
           echo -n "4.12" > ./i3-4.12/VERSION
       '';
       postInstall = "";
+    });
+    rxvt_unicode = rxvt_unicode.overrideDerivation (oldAttrs : rec {
+      prePatch = ''
+          ${wget}/bin/wget --no-check-certificate https://gist.githubusercontent.com/fmthoma/7e8dd23c12b55cae6474/raw/78378cf5e175d0d07f645d7ba0dd437e2dfff197/widechars.patch
+          ${wget}/bin/wget --no-check-certificate https://raw.githubusercontent.com/NixOS/nixpkgs/master/pkgs/applications/misc/rxvt_unicode/rxvt-unicode-9.06-font-width.patch
+      '';
+      patches = [ "widechars.patch" "rxvt-unicode-9.06-font-width.patch" ];
     });
   };
 
