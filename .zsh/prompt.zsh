@@ -139,22 +139,24 @@ prompt_status() {
 }
 
 rprompt_power() {
+  local BAT=${1:-BAT0}
   local full now bat chr color
-  full=$( sed -n "s/POWER_SUPPLY_ENERGY_FULL_DESIGN=\([0-9]\+\)/\1/p" /sys/class/power_supply/BAT0/uevent )
-  now=$(  sed -n "s/POWER_SUPPLY_ENERGY_NOW=\([0-9]\+\)/\1/p"         /sys/class/power_supply/BAT0/uevent )
-  bat=$(( ($now * 100) / $full))
-  if   [[ $bat > 80 ]]; then chr=" $BATTERY_80 "
-  elif [[ $bat > 60 ]]; then chr=" $BATTERY_60 "
-  elif [[ $bat > 40 ]]; then chr=" $BATTERY_40 "
-  elif [[ $bat > 20 ]]; then chr=" $BATTERY_20 "
-  else                       chr=" $BATTERY_00 "
+  full=$( cat "/sys/class/power_supply/$BAT/energy_full_design" )
+  now=$(  cat "/sys/class/power_supply/$BAT/energy_now" )
+  bat=$(( ($now * 100) / $full ))
+  if   [[ $bat -gt 80 ]]; then chr=" $BATTERY_80 "
+  elif [[ $bat -gt 60 ]]; then chr=" $BATTERY_60 "
+  elif [[ $bat -gt 40 ]]; then chr=" $BATTERY_40 "
+  elif [[ $bat -gt 20 ]]; then chr=" $BATTERY_20 "
+  else                         chr=" $BATTERY_00 "
   fi
 
-  [[ -n $(grep "POWER_SUPPLY_STATUS=Charging" /sys/class/power_supply/BAT0/uevent) ]] && chr="$chr$LIGHTNING"
+  [[ "$( cat "/sys/class/power_supply/$BAT/status" )" == "Charging"    ]] && chr="$chr$LIGHTNING"
+  [[ "$( cat "/sys/class/power_supply/$BAT/status" )" == "Discharging" ]] && chr="$GEAR $chr"
 
-  if   [[ $bat > 20 ]]; then color=green
-  elif [[ $bat > 10 ]]; then color=yellow
-  else                       color=red
+  if   [[ $bat -gt 20 ]]; then color=green
+  elif [[ $bat -gt  5 ]]; then color=yellow
+  else                         color=red
   fi
   rprompt_segment $color $PRIMARY_FG " $chr $bat%% "
 }
@@ -184,7 +186,10 @@ build_prompt() {
 build_rprompt() {
   #rprompt_user
   rprompt_stats
-  rprompt_power
+
+  for BAT in $( ls /sys/class/power_supply/ | grep BAT ); do
+    rprompt_power "$BAT"
+  done
 }
 
 prompt_precmd() {
