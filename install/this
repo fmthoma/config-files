@@ -14,6 +14,7 @@ for DOTFILE in .compton.conf \
                .vim \
                .vimperatorrc \
                .vimrc \
+               .xprofile \
                .Xresources \
                .Xresources.d \
                .zsh \
