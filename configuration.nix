@@ -56,6 +56,7 @@
     dmenu
     i3blocks
     i3status
+    redshift
     rxvt_unicode
     xdotool
     xorg.xwininfo
@@ -84,6 +85,10 @@
           ${wget}/bin/wget --no-check-certificate https://raw.githubusercontent.com/NixOS/nixpkgs/master/pkgs/applications/misc/rxvt_unicode/rxvt-unicode-9.06-font-width.patch
       '';
       patches = [ "widechars.patch" "rxvt-unicode-9.06-font-width.patch" ];
+    });
+    tig = tig.overrideDerivation (oldAttrs : rec {
+      prePatch = "${wget}/bin/wget --no-check-certificate https://github.com/jonas/tig/commit/b7f06a8f84809ee99dfa40b3a0c4a38295b9d1bd.patch";
+      patches = [ "b7f06a8f84809ee99dfa40b3a0c4a38295b9d1bd.patch" ];
     });
   };
 
