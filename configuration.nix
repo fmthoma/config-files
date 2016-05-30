@@ -60,7 +60,9 @@
     libnotify
     redshift
     rxvt_unicode
+    xclip
     xdotool
+    xorg.xbacklight
     xorg.xwininfo
 
     cryptsetup
