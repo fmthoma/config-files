@@ -90,6 +90,12 @@
       prePatch = "${wget}/bin/wget --no-check-certificate https://github.com/jonas/tig/commit/b7f06a8f84809ee99dfa40b3a0c4a38295b9d1bd.patch";
       patches = [ "b7f06a8f84809ee99dfa40b3a0c4a38295b9d1bd.patch" ];
     });
+    neovim = neovim.overrideDerivation (oldAttrs : rec {
+      postInstall = ''
+          ln -s "$out/bin/nvim" "$out/bin/vim"
+          ln -s "$out/bin/nvim" "$out/bin/vi"
+      '';
+    });
   };
 
   # List services that you want to enable:
