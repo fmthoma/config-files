@@ -8,10 +8,10 @@ function _tea () {
   sleep $(( $TIMER % $INTERVAL ))
   for I in $( seq 1 $(( $TIMER / $INTERVAL )) | tac ); do
     local remaining=$(( $I * $INTERVAL ));
-    notify-send "Tea: $remaining seconds remaining"
+    notify-send -a tea "$remaining seconds remaining" --expire-time=$(( ($INTERVAL - 1) * 1000 ))
     sleep $INTERVAL
   done
-  notify-send "Tea is ready!"
+  notify-send -a tea --urgency=critical "Tea is ready!"
   zenity --info --text='Tea is ready!'
 }
 
