@@ -54,8 +54,10 @@
     bc
     compton
     dmenu
+    dunst
     i3blocks
     i3status
+    libnotify
     redshift
     rxvt_unicode
     xdotool
