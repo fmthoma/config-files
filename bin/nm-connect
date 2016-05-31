@@ -1,4 +1,4 @@
 #!/bin/sh
 
 CONN=$(nmcli -t -f name connection | dmenu -i)
-[ -n "$CONN" ] && nmcli connection up "$CONN"
+[ -n "$CONN" ] && notify-send -a "NetworkManager" "$(nmcli connection up "$CONN")"
