@@ -1,4 +1,4 @@
 #!/bin/sh
 
 SSID=$(nmcli -t -f SSID device wifi | dmenu -i)
-[ -n "$SSID" ] && nmcli device wifi connect "$SSID"
+[ -n "$SSID" ] && notify-send -a "NetworkManager" "$(nmcli device wifi connect "$SSID")"
