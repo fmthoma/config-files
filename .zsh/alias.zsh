@@ -33,6 +33,7 @@ alias clip='xsel -op | xsel -ib'
 alias r='ranger'
 
 alias g='git'
+alias gb='git b'
 alias gs='git s'
 alias gd='git d'
 alias gds='git ds'
