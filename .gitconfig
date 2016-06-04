@@ -15,7 +15,8 @@
   last = log -1 HEAD
   c = log -p -w --reverse @{u}..
   b = branch -vv
-  fix = commit --amend
+  fix = commit --amend --no-edit
+  efix = commit --amend
   d = diff
   ds = diff --staged
   dw = diff --color-words
