@@ -66,6 +66,7 @@
     xorg.xwininfo
 
     cryptsetup
+    openvpn
     wget
   ];
 
