@@ -68,6 +68,7 @@
     cryptsetup
     openvpn
     wget
+    which
   ];
 
   nixpkgs.config.packageOverrides = pkgs : with pkgs; {
