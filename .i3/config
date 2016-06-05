@@ -149,7 +149,7 @@ mode $mode_run {
     bindsym c exec "google-chrome || chromium-browser"; mode "default"
     bindsym i exec idea; mode "default"
     bindsym p exec pstorm; mode "default"
-    bindsym m exec thunderbird; mode "default"
+    bindsym m exec "thunderbird || urxvt -e mutt"; mode "default"
 
     bindsym s mode $mode_settings
 
