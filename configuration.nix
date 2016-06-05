@@ -46,10 +46,16 @@
   environment.systemPackages = with pkgs; [
     firefox
     gitAndTools.gitFull
+    gnupg
     htop
     meld
+    msmtp
+    mutt
     neovim
+    ranger
+    stack
     tig
+    w3m
 
     bc
     compton
