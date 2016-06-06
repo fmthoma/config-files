@@ -1,0 +1,12 @@
+defaults
+tls on
+tls_starttls on
+tls_certcheck off
+auth on
+logfile ~/.msmtp.log
+
+account default
+host xxxxx.com
+from xxxxx@xxxxx.com
+user xxxxx
+passwordeval "gpg2 --quiet --for-your-eyes-only --no-tty --decrypt .mutt.d/pass.gpg"

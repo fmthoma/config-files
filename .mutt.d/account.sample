@@ -1,0 +1,8 @@
+# vim: set ft=muttrc:
+
+mailboxes = +INBOX
+set folder = 'imaps://xxxxx.com' # default: '~/Mail'
+set imap_user = 'xxxxx' # default: '(empty)'
+
+set hostname = 'xxxxx.com' # default: '(empty)'
+set from = 'Franz Thoma <xxxxx@xxxxx.com>' # default: '(empty)'

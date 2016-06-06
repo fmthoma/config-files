@@ -8,6 +8,9 @@ for DOTFILE in .compton.conf \
                .gitconfig \
                .i3 \
                .i3blocks.conf \
+               .msmtprc \
+               .mutt.d \
+               .muttrc \
                .profile \
                .tigrc \
                .urxvt \
