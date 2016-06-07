@@ -6,8 +6,5 @@ for FILE in $(ls "$HOME/.zsh/" | grep ".zsh$"); do
   . "$HOME/.zsh/$FILE"
 done
 
-export EDITOR=vim
-export PAGER=less
-
 # Make PATH entries unique
 declare -U PATH
