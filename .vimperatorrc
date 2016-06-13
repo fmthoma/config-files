@@ -21,3 +21,5 @@ qmark h liberator://help/all
 qmark g http://www.google.de
 qmark w http://www.wikipedia.de
 qmark W http://www.wikipedia.org
+
+nnoremap <silent> <Esc> :nohlsearch<CR>
