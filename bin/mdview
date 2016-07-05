@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 if [ -n "$1" ]; then
-  pandoc "$1" | pipefox
+  pandoc -s "$1" | pipefox
 else
-  pandoc | pipefox
+  pandoc -s | pipefox
 fi
 
 # Alternative: Let the Github API do the job. Pipe to:
