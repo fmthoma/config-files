@@ -166,7 +166,7 @@ rprompt_stats() {
   memfree=$( bc -l <<< "scale=1;`sed -n "s/MemFree:[\t ]\+\([0-9]\+\) kB/\1/p" /proc/meminfo`/1024/1024" )
   memtotal=$( bc -l <<< "scale=1;`sed -n "s/MemTotal:[\t ]\+\([0-9]\+\) kB/\1/Ip" /proc/meminfo`/1024/1024" )
   load=$(cat /proc/loadavg)
-  rprompt_segment black white " $memfree/${memtotal}GB | $load "
+  rprompt_segment white black " $memfree/${memtotal}GB | $load "
 }
 
 build_prompt() {
@@ -179,7 +179,7 @@ build_prompt() {
   prompt_git_remote
   prompt_end
   echo
-  prompt_segment black white "  \ue175  "
+  prompt_segment white black "  \ue175  "
   prompt_end
 }
 
