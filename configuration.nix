@@ -50,7 +50,7 @@
     htop
     meld
     msmtp
-    mutt
+    mutt-with-sidebar
     neovim
     ranger
     stack
