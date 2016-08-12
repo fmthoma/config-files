@@ -10,8 +10,11 @@
       ./hardware-configuration.nix
     ];
 
-  hardware.trackpoint = {
-    emulateWheel = true;
+  hardware = {
+    trackpoint.emulateWheel = true;
+    bluetooth.enable = true;
+    pulseaudio.enable = true;
+    pulseaudio.package = pkgs.pulseaudioFull;
   };
 
   # Use the gummiboot efi boot loader.
