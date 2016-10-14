@@ -19,7 +19,7 @@
 
   # Use the gummiboot efi boot loader.
   boot = {
-    loader.gummiboot.enable = true;
+    loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
 
     initrd.luks.devices = [
@@ -81,29 +81,12 @@
   ];
 
   nixpkgs.config.packageOverrides = pkgs : with pkgs; {
-    i3 = i3.overrideDerivation (oldAttrs : rec {
-      version = "4.12";
-      name = "i3-gaps-4.12";
-      src = fetchurl {
-        url = "https://github.com/Airblader/i3/archive/4.12.tar.gz";
-        sha256 = "1aad4c5e4da8a0f5895216393f728fb25e7d5959f97d113873054dc5464a34c5";
-      };
-      postUnpack = ''
-          echo -n "4.12 (2016-03-06, branch \\\"gaps-next\\\")" > ./i3-4.12/I3_VERSION
-          echo -n "4.12" > ./i3-4.12/VERSION
-      '';
-      postInstall = "";
-    });
     rxvt_unicode = rxvt_unicode.overrideDerivation (oldAttrs : rec {
       prePatch = ''
           ${wget}/bin/wget --no-check-certificate https://gist.githubusercontent.com/fmthoma/7e8dd23c12b55cae6474/raw/78378cf5e175d0d07f645d7ba0dd437e2dfff197/widechars.patch
           ${wget}/bin/wget --no-check-certificate https://raw.githubusercontent.com/NixOS/nixpkgs/master/pkgs/applications/misc/rxvt_unicode/rxvt-unicode-9.06-font-width.patch
       '';
       patches = [ "widechars.patch" "rxvt-unicode-9.06-font-width.patch" ];
-    });
-    tig = tig.overrideDerivation (oldAttrs : rec {
-      prePatch = "${wget}/bin/wget --no-check-certificate https://github.com/jonas/tig/commit/b7f06a8f84809ee99dfa40b3a0c4a38295b9d1bd.patch";
-      patches = [ "b7f06a8f84809ee99dfa40b3a0c4a38295b9d1bd.patch" ];
     });
     neovim = neovim.overrideDerivation (oldAttrs : rec {
       postInstall = ''
@@ -129,9 +112,15 @@
     enable = true;
     layout = "de";
     xkbOptions = "neo";
+    synaptics = {
+      enable = true;
+      additionalOptions = ''
+        Option "TouchpadOff" "1"
+      '';
+    };
     windowManager = {
-      i3.enable = true;
-      default = "i3";
+      i3-gaps.enable = true;
+      default = "i3-gaps";
     };
     desktopManager = {
       default = "none";
@@ -139,13 +128,13 @@
     displayManager = {
       auto = {
         user = "fthoma";
-	enable = true;
+        enable = true;
       };
       sessionCommands = ''
         ${pkgs.xlibs.setxkbmap}/bin/setxkbmap de neo
-	if test -e $HOME/.Xresources; then
-	  ${pkgs.xorg.xrdb}/bin/xrdb --merge $HOME/.Xresources
-	fi
+        if test -e $HOME/.Xresources; then
+          ${pkgs.xorg.xrdb}/bin/xrdb --merge $HOME/.Xresources
+        fi
       '';
     };
   };
