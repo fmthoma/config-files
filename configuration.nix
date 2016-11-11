@@ -94,6 +94,84 @@
           ln -s "$out/bin/nvim" "$out/bin/vi"
       '';
     });
+    i3-gaps = stdenv.mkDerivation rec {
+
+      name = "i3-gaps-${version}";
+      version = "4.13";
+      releaseDate = "2016-11-08";
+
+      src = fetchurl {
+        url = "https://github.com/Airblader/i3/archive/${version}.tar.gz";
+        sha256 = "0w959nx2crn00fckqwb5y78vcr1j9mvq5lh25wyjszx04pjhf378";
+      };
+
+      postUnpack = ''
+          echo -n "${version} (${releaseDate})" > ./i3-${version}/I3_VERSION
+      '';
+
+      nativeBuildInputs = [ which pkgconfig makeWrapper autoreconfHook ];
+
+      buildInputs = [
+        xorg.libxcb xorg.xcbutilkeysyms xorg.xcbutil xorg.xcbutilwm xcbutilxrm libxkbcommon
+        libstartup_notification xorg.libX11 pcre libev yajl xcb-util-cursor perl pango
+        perlPackages.AnyEventI3 perlPackages.X11XCB perlPackages.IPCRun
+        perlPackages.ExtUtilsPkgConfig perlPackages.TestMore perlPackages.InlineC
+        xorg.xorgserver xvfb_run
+      ];
+
+      configureFlags = [ "--disable-builddir" ];
+
+      enableParallelBuilding = true;
+
+      postPatch = ''
+        patchShebangs .
+      '';
+
+      postFixup = ''
+        substituteInPlace $out/etc/i3/config --replace dmenu_run ${dmenu}/bin/dmenu_run
+        substituteInPlace $out/etc/i3/config --replace "status_command i3status" "status_command ${i3status}/bin/i3status"
+        substituteInPlace $out/etc/i3/config.keycodes --replace dmenu_run ${dmenu}/bin/dmenu_run
+        substituteInPlace $out/etc/i3/config.keycodes --replace "status_command i3status" "status_command ${i3status}/bin/i3status"
+      '';
+
+      # Tests have been failing (at least for some people in some cases)
+      # and have been disabled until someone wants to fix them. Some
+      # initial digging uncovers that the tests call out to `git`, which
+      # they shouldn't, and then even once that's fixed have some
+      # perl-related errors later on. For more, see
+      # https://github.com/NixOS/nixpkgs/issues/7957
+      doCheck = false; # stdenv.system == "x86_64-linux";
+
+      checkPhase = stdenv.lib.optionalString (stdenv.system == "x86_64-linux")
+      ''
+        (cd testcases && xvfb-run ./complete-run.pl -p 1 --keep-xserver-output)
+        ! grep -q '^not ok' testcases/latest/complete-run.log
+      '';
+
+      postInstall = ''
+        wrapProgram "$out/bin/i3-save-tree" --prefix PERL5LIB ":" "$PERL5LIB"
+        for program in $out/bin/i3-sensible-*; do
+          sed -i 's/which/command -v/' $program
+        done
+      '';
+
+      meta = with stdenv.lib; {
+        description = "A fork of the i3 tiling window manager with some additional features";
+        homepage    = "https://github.com/Airblader/i3";
+        maintainers = with maintainers; [ fmthoma ];
+        license     = licenses.bsd3;
+        platforms   = platforms.all;
+
+        longDescription = ''
+          Fork of i3wm, a tiling window manager primarily targeted at advanced users
+          and developers. Based on a tree as data structure, supports tiling,
+          stacking, and tabbing layouts, handled dynamically, as well as floating
+          windows. This fork adds a few features such as gaps between windows.
+          Configured via plain text file. Multi-monitor. UTF-8 clean.
+        '';
+      };
+
+    };
   };
 
   # List services that you want to enable:
