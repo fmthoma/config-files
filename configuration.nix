@@ -183,7 +183,10 @@
   # services.openssh.enable = true;
 
   # Enable CUPS to print documents.
-  # services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = [ pkgs.hplip ];
+  };
 
   # Enable the X11 windowing system.
   services.xserver = {
