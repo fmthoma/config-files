@@ -1,0 +1,6 @@
+*
+!config.yaml
+
+!global-project/
+global-project/*
+!global-project/stack.yaml
