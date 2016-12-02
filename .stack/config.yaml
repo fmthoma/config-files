@@ -8,3 +8,13 @@ templates:
     author-email: franz.thoma@tngtech.com
     author-name: Franz Thoma
     github-username: fmthoma
+
+nix:
+  enable: true
+  packages: [ emacs
+            , less
+            , ncurses # for terminfo library
+            , stack
+            , zlib
+            , zsh
+            ]
