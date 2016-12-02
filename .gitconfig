@@ -29,6 +29,8 @@
   diff = auto
   status = auto
   branch = auto
+[commit]
+  verbose = true
 [push]
   default = simple
 [user]
