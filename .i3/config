@@ -165,7 +165,7 @@ bindsym $M1+Return mode $mode_run
 bindsym level3+h mode $mode_settings
 bindsym Mod3+h mode $mode_settings
 
-set $mode_settings " [] Brightness  |  [] Volume  |  [N]etwork [D]isconnect "
+set $mode_settings " [] Brightness  |  [] Volume  |  [N]etwork [D]isconnect | [L]ock [S]uspend"
 mode $mode_settings {
     bindsym Up   exec "xbacklight +10"
     bindsym Down exec "xbacklight -10"
@@ -175,6 +175,9 @@ mode $mode_settings {
 
     bindsym n exec nm-connect; mode "default"
     bindsym d exec nm-disconnect; mode "default"
+
+    bindsym l exec lock; mode "default"
+    bindsym s exec lock --suspend; mode "default"
 
     bindsym Escape mode "default"
 }
