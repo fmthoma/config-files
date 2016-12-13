@@ -1,0 +1,13 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -p i3lock imagemagick -i bash
+
+set -e
+
+notify-send --app-name="lock $@" --urgency=low "Locking..."
+import -silent -window root /tmp/lock.png
+convert /tmp/lock.png -scale 25% -blur 0x20 -scale 400% /tmp/lock.png
+i3lock -i /tmp/lock.png
+
+if [[ "$1" == "--suspend" ]]; then
+  systemctl suspend
+fi
