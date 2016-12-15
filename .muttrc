@@ -497,9 +497,7 @@ color index      red            default     "~F"
 # sidebar 
 
 set sidebar_width = 40
-set sidebar_visible = yes
-set sidebar_delim='|'
-set sidebar_sort=yes
+set sidebar_visible = no
 
 macro index B '<enter-command>toggle sidebar_visible<enter><refresh>'
 macro pager B '<enter-command>toggle sidebar_visible<enter><redraw-screen>'
