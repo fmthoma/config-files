@@ -1,5 +1,5 @@
 [alias]
-  vgrep = "!f () { git grep \"$@\" | vgrep; }; f"
+  vgrep = "!f () { git grep --color=always \"$@\" | vgrep; }; f"
   ci = commit
   s = status
   st = stash
