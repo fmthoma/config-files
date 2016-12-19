@@ -176,8 +176,8 @@ mode $mode_settings {
     bindsym n exec nm-connect; mode "default"
     bindsym d exec nm-disconnect; mode "default"
 
-    bindsym l exec lock; mode "default"
-    bindsym s exec lock --suspend; mode "default"
+    bindsym l exec loginctl lock-session; mode "default"
+    bindsym s exec systemctl suspend; mode "default"
 
     bindsym Escape mode "default"
 }
@@ -250,3 +250,4 @@ exec --no-startup-id "redshift || redshift -l 48.1:11.6"
 exec --no-startup-id "compton -b"
 exec --no-startup-id dunst
 exec --no-startup-id "feh --bg-fill $HOME/wallpaper || hsetroot -solid '#000000'"
+exec --no-startup-id "xss-lock -- i3lock -i $HOME/wallpaper"
