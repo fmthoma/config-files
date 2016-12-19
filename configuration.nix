@@ -65,6 +65,7 @@
     dmenu
     dunst
     i3blocks
+    i3lock
     i3status
     libnotify
     redshift
@@ -73,6 +74,7 @@
     xdotool
     xorg.xbacklight
     xorg.xwininfo
+    xss-lock
 
     cryptsetup
     openvpn
@@ -219,6 +221,11 @@
       '';
     };
   };
+
+  services.logind.extraConfig = ''
+    HandleLidSwitch=lock
+    HandleLidSwitchDocked=ignore
+  '';
 
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
