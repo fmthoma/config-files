@@ -12,6 +12,7 @@ for DOTFILE in .compton.conf \
                .mutt.d \
                .muttrc \
                .profile \
+               .spacemacs \
                .stack \
                .tigrc \
                .urxvt \
