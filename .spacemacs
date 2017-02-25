@@ -263,6 +263,14 @@ you should place your code here."
      (window-height . 0.25)
      ))
   (setq avy-keys '(?u ?i ?a ?e ?n ?r ?t ?d))
+  (mmm-add-classes '((markdown-haskell
+                      :submode haskell-mode
+                      :face mmm-declaration-submode-face
+                      ;; :front "^\(```\|~~~\)haskell[\n\r]+"
+                      ;; :back "^\(```\|~~~\)$")))
+                      :front "^```haskell[\n\r]+"
+                      :back "^```$")))
+  (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-haskell)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
