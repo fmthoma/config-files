@@ -12,6 +12,7 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' original true
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
 zstyle ':completion:*' substitute 1
+zstyle ':completion:*' use-cache on
 zstyle :compinstall filename "$DOTFILES/zsh/completion.zsh"
 
 autoload -Uz compinit
