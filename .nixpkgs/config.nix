@@ -23,16 +23,17 @@
       meta = with stdenv.lib; {
         homepage = http://industriousone.com/premake;
         description = "A simple build configuration and project generation tool using lua";
-        license = stdenv.lib.licenses.bsd3;
+        license = licenses.bsd3;
         platforms = platforms.linux;
         maintainers = [ maintainers.fmthoma ];
       };
     };
-    otfcc = with pkgs; stdenv.mkDerivation {
-      name = "otfcc";
+    otfcc = with pkgs; stdenv.mkDerivation rec {
+      name = "otfcc-${version}";
+      version = "0.6.3";
 
       src = fetchurl {
-        url = "https://github.com/caryll/otfcc/archive/v0.6.3.tar.gz";
+        url = "https://github.com/caryll/otfcc/archive/v${version}.tar.gz";
         sha256 = "0zf0037k5njppyl1dj11ivj7i435p15kj9jcv2w9cdk5yj0i45jq";
       };
 
@@ -51,8 +52,61 @@
       meta = with stdenv.lib; {
         homepage = "https://github.com/caryll/otfcc";
         description = "A library and utility used for parsing and writing OpenType font files";
-        license = stdenv.lib.licenses.asl20;
+        license = licenses.asl20;
         platforms = platforms.linux;
+        maintainers = [ maintainers.fmthoma ];
+      };
+    };
+    iosevka = with pkgs; stdenv.mkDerivation rec {
+      name = "iosevka-${version}";
+      version = "1.12.5";
+
+      width = "540"; # default: 500
+      set = "custom";
+      weight = "regular";
+
+      src = fetchurl {
+        url = "https://github.com/be5invis/Iosevka/archive/v${version}.tar.gz";
+        sha256 = "1y5z4m62ss2819cabi8izdyh7d1rwlliyvr3vf05imxn129vd6pv";
+      };
+
+      nativeBuildInputs = [ unzip otfcc nodejs-6_x ttfautohint ];
+
+      buildPhase = ''
+        # Fake HOME directory for npm
+        export HOME=$TMPDIR
+        npm install
+        make custom-config \
+            set=${set} \
+            upright=' \
+                v-l-italic \
+                v-i-italic \
+                v-brace-straight \
+                v-m-shortleg \
+                v-zero-dotted \
+                v-asterisk-low \
+                v-caret-low \
+                v-dollar-open \
+            '
+        sed -i 's/width = 500/width = ${width}/' parameters.toml
+        make -f utility/custom.mk dist/iosevka-${set}/iosevka-${set}-${weight}.ttf set=${set} __IOSEVKA_CUSTOM_BUILD__=true
+      '';
+
+      installPhase = ''
+        fontdir=$out/share/fonts/iosevka
+        mkdir -p $fontdir
+        cp -v dist/iosevka-custom/* $fontdir
+      '';
+
+      meta = with stdenv.lib; {
+        homepage = "http://be5invis.github.io/Iosevka/";
+        downloadPage = "https://github.com/be5invis/Iosevka/releases";
+        description = ''
+          Slender monospace sans-serif and slab-serif typeface inspired by Pragmata
+          Pro, M+ and PF DIN Mono, designed to be the ideal font for programming.
+        '';
+        license = licenses.ofl;
+        platforms = platforms.all;
         maintainers = [ maintainers.fmthoma ];
       };
     };
