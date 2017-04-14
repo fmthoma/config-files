@@ -4,9 +4,26 @@ stdenv.mkDerivation rec {
   name = "iosevka-${version}";
   version = "1.12.5";
 
-  width = "540"; # default: 500
   set = "custom";
-  weight = "regular";
+  variants = [
+    "light"
+    "lightitalic"
+    "regular"
+    "italic"
+    "bold"
+    "bolditalic"
+  ];
+  styleGeneral = [ "expanded" ];
+  styleUpright = [
+    "v-l-italic"
+    "v-i-italic"
+    "v-brace-straight"
+    "v-m-shortleg"
+    "v-zero-dotted"
+    "v-asterisk-low"
+    "v-caret-low"
+    "v-dollar-open"
+  ];
 
   src = fetchurl {
     url = "https://github.com/be5invis/Iosevka/archive/v${version}.tar.gz";
@@ -15,24 +32,19 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ unzip otfcc nodejs-6_x ttfautohint ];
 
+  patches = [ ./ligatures.patch ];
+
   buildPhase = ''
     # Fake HOME directory for npm
     export HOME=$TMPDIR
     npm install
     make custom-config \
         set=${set} \
-        upright=' \
-            v-l-italic \
-            v-i-italic \
-            v-brace-straight \
-            v-m-shortleg \
-            v-zero-dotted \
-            v-asterisk-low \
-            v-caret-low \
-            v-dollar-open \
-        '
-    sed -i 's/width = 500/width = ${width}/' parameters.toml
-    make -f utility/custom.mk dist/iosevka-${set}/iosevka-${set}-${weight}.ttf set=${set} __IOSEVKA_CUSTOM_BUILD__=true
+        design='${stdenv.lib.concatStringsSep " " styleGeneral}' \
+        upright='${stdenv.lib.concatStringsSep " " styleUpright}'
+    for variant in ${stdenv.lib.concatStringsSep " " variants}; do
+      make -f utility/custom.mk dist/iosevka-${set}/iosevka-${set}-$variant.ttf set=${set} __IOSEVKA_CUSTOM_BUILD__=true
+    done
   '';
 
   installPhase = ''
