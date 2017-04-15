@@ -9,5 +9,7 @@
     otfcc = callPackage ./pkgs/otfcc/default.nix {};
 
     iosevka = callPackage ./pkgs/iosevka/default.nix {};
+
+    imposevka = callPackage ./pkgs/iosevka/imposevka.nix {};
   };
 }
