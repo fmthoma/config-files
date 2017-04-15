@@ -185,7 +185,7 @@ bindsym $M1+KP_Add      resize grow width 10 px or 10 ppt;   resize grow height 
 bindsym $M1+minus       resize shrink width 10 px or 10 ppt; resize shrink height 10 px or 10 ppt
 bindsym $M1+KP_Subtract resize shrink width 10 px or 10 ppt; resize shrink height 10 px or 10 ppt
 
-font pango:Ubuntu Mono derivative Powerline Bold 12
+font pango:ImposevkaExpanded Bold 12
 new_window pixel 3
 smart_borders on
 
@@ -210,7 +210,7 @@ bar {
     status_command i3blocks
     strip_workspace_numbers yes
 
-    font pango:Ubuntu Mono derivative Powerline Bold 18
+    font pango:ImposevkaExpanded Bold 16
 
     colors {
         statusline         $bwhite
