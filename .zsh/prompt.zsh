@@ -179,7 +179,7 @@ build_prompt() {
   prompt_git_remote
   prompt_end
   echo
-  prompt_segment black white " >>= "
+  prompt_segment black white "  \ue175  "
   prompt_end
 }
 
