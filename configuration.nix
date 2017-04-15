@@ -202,8 +202,11 @@
       '';
     };
     windowManager = {
-      i3-gaps.enable = true;
-      default = "i3-gaps";
+      i3 = {
+        enable = true;
+        package = pkgs.i3-gaps;
+      };
+      default = "i3";
     };
     desktopManager = {
       default = "none";
@@ -226,7 +229,6 @@
     HandleLidSwitch=lock
     HandleLidSwitchDocked=ignore
   '';
-
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.fthoma = {
