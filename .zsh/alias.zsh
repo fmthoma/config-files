@@ -18,6 +18,7 @@ alias md='mkdir -p'
 
 alias less='less -RS'
 alias -g L=' | less'
+alias -g -- --help='--help | less'
 
 alias ..='cd ..'
 alias ...='cd ../..'
