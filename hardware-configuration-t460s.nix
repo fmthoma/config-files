@@ -12,6 +12,8 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+  boot.blacklistedKernelModules = [ "mei_wdt" ];
+
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/0e6b04ce-6b3e-4b25-b825-f563182acad8";
       fsType = "ext4";

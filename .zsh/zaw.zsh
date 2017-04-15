@@ -16,17 +16,17 @@ autoload -Uz narrow-to-region
 
 function narrow-to-current-command() {
     LB="${LBUFFER##*(\||&)}"
-    LB="${LB#"${LB%%[\![:space:]]*}"}" # remove leading spaces
+    LB="${LB##[[:space:]]#}" # remove leading spaces
     LBUFFER="${LBUFFER%$LB}"
 
     RB="${RBUFFER%%(\||&)*}"
-    RB="${RB%"${RB##*[\![:space:]]}"}" # remove trailing spaces
+    RB="${RB%%[[:space:]]#}" # remove trailing spaces
     RBUFFER="${RBUFFER#$RB}"
 
     CURSOR=${#LBUFFER}
     MARK=CURSOR
 
-    narrow-to-region -p "$LBUFFER${BUFFER:+ }" -P "${BUFFER:+ }$RBUFFER" $@
+    narrow-to-region -p "$LBUFFER${BUFFER:+}" -P "${BUFFER:+}$RBUFFER" $@
 
     BUFFER="$LB$RB"
     LBUFFER="$LB"
