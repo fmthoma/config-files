@@ -24,6 +24,14 @@ stdenv.mkDerivation rec {
     "v-caret-low"
     "v-dollar-open"
   ];
+  styleItalic = [
+    "v-brace-straight"
+    "v-m-shortleg"
+    "v-zero-dotted"
+    "v-asterisk-low"
+    "v-caret-low"
+    "v-dollar-open"
+  ];
 
   src = fetchurl {
     url = "https://github.com/be5invis/Iosevka/archive/v${version}.tar.gz";
@@ -41,7 +49,8 @@ stdenv.mkDerivation rec {
     make custom-config \
         set=${set} \
         design='${stdenv.lib.concatStringsSep " " styleGeneral}' \
-        upright='${stdenv.lib.concatStringsSep " " styleUpright}'
+        upright='${stdenv.lib.concatStringsSep " " styleUpright}' \
+        italic='${stdenv.lib.concatStringsSep " " styleItalic}'
     for variant in ${stdenv.lib.concatStringsSep " " variants}; do
       make -f utility/custom.mk dist/iosevka-${set}/iosevka-${set}-$variant.ttf set=${set} __IOSEVKA_CUSTOM_BUILD__=true
     done
