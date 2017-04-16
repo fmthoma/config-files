@@ -1,4 +1,5 @@
 text/html; firefox %s
 text/html; w3m -T text/html %s; copiousoutput
 image/*; firefox %s
-application/pdf; firefox %s
+application/pdf; evince %s
+application/x-freemind; freemind %s
