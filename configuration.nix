@@ -54,7 +54,6 @@
     meld
     msmtp
     mutt-with-sidebar
-    neovim
     ranger
     stack
     tig
@@ -89,12 +88,6 @@
           ${wget}/bin/wget --no-check-certificate https://raw.githubusercontent.com/NixOS/nixpkgs/master/pkgs/applications/misc/rxvt_unicode/rxvt-unicode-9.06-font-width.patch
       '';
       patches = [ "widechars.patch" "rxvt-unicode-9.06-font-width.patch" ];
-    });
-    neovim = neovim.overrideDerivation (oldAttrs : rec {
-      postInstall = ''
-          ln -s "$out/bin/nvim" "$out/bin/vim"
-          ln -s "$out/bin/nvim" "$out/bin/vi"
-      '';
     });
     i3-gaps = stdenv.mkDerivation rec {
 
