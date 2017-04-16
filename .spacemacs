@@ -57,6 +57,10 @@ values."
      (haskell :variables
               haskell-completion-backend 'intero)
      syntax-checking
+     (version-control :variables
+                      version-control-diff-tool 'diff-hl
+                      version-control-global-margin t
+                      version-control-diff-side 'left)
      yaml
      )
    ;; List of additional packages that will be installed without being
