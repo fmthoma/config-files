@@ -269,8 +269,6 @@ you should place your code here."
   (mmm-add-classes '((markdown-haskell
                       :submode haskell-mode
                       :face mmm-declaration-submode-face
-                      ;; :front "^\(```\|~~~\)haskell[\n\r]+"
-                      ;; :back "^\(```\|~~~\)$")))
                       :front "^```haskell[\n\r]+"
                       :back "^```$")))
   (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-haskell)
