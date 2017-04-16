@@ -196,7 +196,7 @@ client.focused_inactive $black      $black      $white    $bblack
 client.urgent           $red        $red        $black    $bred
 client.background       $black
 
-gaps outer 50
+gaps outer 10
 gaps inner 10
 
 assign [class="Firefox"] $w3
