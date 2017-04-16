@@ -181,6 +181,8 @@
   # Battery life
   services.tlp.enable = true;
 
+  services.emacs.enable = true;
+
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
