@@ -511,6 +511,7 @@ you should place your code here."
 
                                            ;; Lambda ----------------
                                            ("\\" . "λ")
+                                           ("forall" . "∀")
                                            ))))
 
   (defun refresh-pretty ()
