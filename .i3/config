@@ -139,12 +139,13 @@ bindsym $M2+q exit
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $M2+r restart
 
-set $mode_run " [R]anger  [T]erminal  [F]irefox  [C]hrome  [I]ntelliJ  [P]hpstorm  [M]ail  [S]ettings "
+set $mode_run " [R]anger  [T]erminal  [E]macs [F]irefox  [C]hrome  [I]ntelliJ  [P]hpstorm  [M]ail  [S]ettings "
 mode $mode_run {
     bindsym Return exec --no-startup-id i3-dmenu-hist-desktop; mode "default"
     bindsym $M1+Return exec --no-startup-id dmenu_hist_run; mode "default"
     bindsym r exec urxvt -e ranger; mode "default"
     bindsym t exec urxvt; mode "default"
+    bindsym e exec emacs; mode "default"
     bindsym f exec firefox; mode "default"
     bindsym c exec "google-chrome || chromium-browser"; mode "default"
     bindsym i exec idea; mode "default"
