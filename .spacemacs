@@ -363,6 +363,10 @@ you should place your code here."
   (spacemacs|use-package-add-hook recentf
     :post-config
     (add-to-list 'recentf-exclude "mutt-"))
+
+  ;; Disable smartparens
+  (remove-hook 'prog-mode-hook #'smartparens-mode)
+  (spacemacs/toggle-smartparens-globally-off)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
