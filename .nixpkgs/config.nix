@@ -1,6 +1,10 @@
 {
   allowUnfree = true;
 
+  firefox = {
+    jre = true;
+  };
+
   packageOverrides = pkgs: with pkgs; rec {
     inherit pkgs;
 
