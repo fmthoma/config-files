@@ -32,3 +32,7 @@ fi
 
 export EDITOR=nvim
 export PAGER=less
+
+if [ -e /home/privat/.nix-profile/etc/profile.d/nix.sh ]
+    then . /home/privat/.nix-profile/etc/profile.d/nix.sh
+fi
