@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     fontdir=$out/share/fonts/truetype
     mkdir -p $fontdir
-    cp -v dist/iosevka-custom/* $fontdir
+    cp -v dist/iosevka-${set}/* $fontdir
   '';
 
   meta = with stdenv.lib; {
