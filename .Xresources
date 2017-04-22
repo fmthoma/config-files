@@ -1,4 +1,4 @@
-#include ".Xresources.d/tango-colors.xresources"
+#include ".Xresources.d/solarized-dark.xresources"
 
 Xft.dpi: 96
 
@@ -7,8 +7,8 @@ URxvt.scrollBar: false
 URxvt.secondaryScroll: true
 URxvt.font: xft:Imposevka Expanded:size=12
 URxvt.depth: 32
-URxvt.background: [95]#222222
-scratchpad.background: [80]#222222
+URxvt.background: [95]#002b36
+scratchpad.background: [80]#002b36
 
 ! Fix ctrl+arrow and keypad in vim
 URxvt.keysym.Control-Left: \033[1;5D
