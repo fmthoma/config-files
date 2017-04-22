@@ -461,19 +461,35 @@ set header_cache = '~/.mutt.d/header_cache' # default: '(empty)'
 
 # Colors
 
-color attachment brightmagenta  default
-color error      brightred      default
-color hdrdefault blue           default
-color indicator  default        green
-color markers    brightcyan     default
-color message    brightcyan     default
-color normal     default        default
-color quoted     brightblue     default
-color search     default        green
-color signature  blue           default
-color status     default        green
-color tilde      magenta        default
-color tree       magenta        default
+color normal        brightblue      default
+color error         red             default
+color tilde         white           default
+color message       cyan            default
+color markers       red             black
+color attachment    red             default
+color search        brightmagenta   default
+color status        brightblue      white
+color indicator     brightwhite     yellow
+color tree          yellow          default
+
+color quoted        blue            default
+color quoted1       cyan            default
+color quoted2       yellow          default
+color quoted3       red             default
+color quoted4       brightred       default
+
+color hdrdefault    brightcyan      default
+color header        brightblue      default         "^(From)"
+color header        blue            default         "^(Subject)"
+color signature     brightcyan      default
+
+color body          red             default         "(BAD signature)"
+color body          cyan            default         "(Good signature)"
+color body          brightwhite     default         "^gpg: Good signature .*"
+color body          brightblue      default         "^gpg: "
+color body          brightblue      red             "^gpg: BAD signature from.*"
+mono  body          bold                            "^gpg: Good signature"
+mono  body          bold                            "^gpg: BAD signature from.*"
 
 color index      green          default     "~U"
 color index      red            default     "~F"
