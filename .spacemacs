@@ -2,6 +2,8 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
+;(setq debug-on-error t)
+
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
@@ -147,7 +149,7 @@ values."
                          spacemacs-dark
                          spacemacs-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
-   dotspacemacs-colorize-cursor-according-to-state t
+   dotspacemacs-colorize-cursor-according-to-statde t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Iosevka Expanded"
@@ -328,20 +330,44 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
-  ; Enable Solarized theme (cf. http://philipdaniels.com/blog/2017/02/spacemacs---configuring-the-solarized-theme/)
-  (defun enable-solarized-theme (frame)
-    (set-frame-parameter frame 'background-mode 'dark)
-    (set-terminal-parameter frame 'background-mode 'dark)
+  (defun enable-solarized-in-terminal (frame)
+    ;; cf. http://philipdaniels.com/blog/2017/02/spacemacs---configuring-the-solarized-theme/
+    (unless (display-graphic-p frame)
+      (set-frame-parameter frame 'background-mode 'dark)
+      (set-terminal-parameter frame 'background-mode 'dark)
+      (spacemacs/load-theme 'solarized)
+      ))
+
+  (defun enable-solarized-in-gui ()
+    (mapc 'disable-theme custom-enabled-themes)
+    (setup-solarized-theme)
+    (spacemacs/load-theme 'solarized)
+    )
+
+  (defun setup-solarized-theme ()
+    ;; I like a transparent background in the terminal
+    ;; cf. https://emacs.stackexchange.com/questions/2096/different-themes-for-terminal-and-graphical-frames-when-using-emacs-daemon
+    ;; and https://www.gnu.org/software/emacs/manual/html_node/elisp/Applying-Customizations.html#Applying-Customizations
+    (custom-set-faces
+     '(default (
+                (((type tty) (background dark)) (:background "nil"))
+                )))
+    ;; The frame number indicator has some problems with inverse video
     (set-face-inverse-video 'spacemacs-motion-face nil)
     (set-face-inverse-video 'spacemacs-insert-face nil)
     (set-face-inverse-video 'spacemacs-normal-face nil)
     (set-face-inverse-video 'spacemacs-visual-face nil)
     (set-face-inverse-video 'spacemacs-replace-face nil)
-    (spacemacs/load-theme 'solarized)
     )
 
-  (add-hook 'after-make-frame-functions 'enable-solarized-theme)
-  (enable-solarized-theme nil)
+  ;; For GUI clients, after-make-frame-functions is messed up (probably it is
+  ;; called too early), and some colors are messed up. For terminal clients on
+  ;; the other hand, it works perfectly. The background-mode is necessary for
+  ;; terminal clients, but (apparently) not for GUI clients, and has to be set
+  ;; for each frame individually.
+  (spacemacs|do-after-display-system-init (enable-solarized-in-gui))
+  (add-hook 'after-make-frame-functions 'enable-solarized-in-terminal)
+  (add-hook 'after-make-frame-functions 'spacemacs/enable-transparency)
 
   ;; Split vertically instead of horizontally for flycheck window
   (add-to-list 'display-buffer-alist

@@ -145,7 +145,7 @@ mode $mode_run {
     bindsym $M1+Return exec --no-startup-id dmenu_hist_run; mode "default"
     bindsym r exec urxvt -e ranger; mode "default"
     bindsym t exec urxvt; mode "default"
-    bindsym e exec emacs; mode "default"
+    bindsym e exec emacsclient -cnq; mode "default"
     bindsym f exec firefox; mode "default"
     bindsym c exec "google-chrome || chromium-browser"; mode "default"
     bindsym i exec idea; mode "default"
