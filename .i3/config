@@ -14,23 +14,26 @@ set $w2 workspace "2:    "
 set $w3 workspace "3:    "
 set $w4 workspace "4"
 
-# Tango colors
-set $black   #2E3436
-set $bblack  #555753
-set $red     #CC0000
-set $bred    #EF2929
-set $green   #4E9A06
-set $bgreen  #8AE234
-set $yellow  #C4A000
-set $byellow #FCE94F
-set $blue    #3465A4
-set $bblue   #729FCF
-set $purple  #75507B
-set $bpurple #AD7FA8
-set $cyan    #06989A
-set $bcyan   #34E2E2
-set $white   #AAAAAA
-set $bwhite  #EEEEEC
+
+# Solarized colors
+set $base03 #002b36e0
+set $base02 #073642e0
+set $base01 #586e75e0
+set $base00 #657b83e0
+set $base0  #839496e0
+set $base1  #93a1a1e0
+set $base2  #eee8d5e0
+set $base3  #fdf6e3e0
+
+set $yellow  #b58900e0
+set $orange  #cb4b16e0
+set $red     #dc322fe0
+set $magenta #d33682e0
+set $violet  #6c71c4e0
+set $blue    #268bd2e0
+set $cyan    #2aa198e0
+set $green   #859900e0
+
 set $transparent #00000000
 
 
@@ -191,11 +194,11 @@ new_window pixel 3
 smart_borders on
 
 #                       BORDER      BACKGROUND  TEXT      INDICATOR
-client.focused          $green      $green      $black    $bgreen
-client.unfocused        $black      $black      $white    $bblack
-client.focused_inactive $black      $black      $white    $bblack
-client.urgent           $red        $red        $black    $bred
-client.background       $black
+client.focused          $green      $green      $base02   $green
+client.unfocused        $base02     $base02     $base01   $base02
+client.focused_inactive $base01     $base01     $base02   $base01
+client.urgent           $orange     $orange     $base03   $orange
+client.background       $base03
 
 gaps outer 10
 gaps inner 10
@@ -211,19 +214,18 @@ bar {
     status_command i3blocks
     strip_workspace_numbers yes
 
-    font pango:ImposevkaExpanded Bold 16
+    font pango:ImposevkaExpanded Bold 18
 
     colors {
-        statusline         $bwhite
+        statusline         $base1
         background         $transparent
-        separator          $bwhite
 
         #                  BORDER       BACKGROUND   TEXT
-        focused_workspace  $transparent $transparent $bgreen
-        active_workspace   $transparent $transparent $bgreen
-        inactive_workspace $transparent $transparent $bwhite
-        urgent_workspace   $red         $red         $black
-        binding_mode       $red         $red         $black
+        focused_workspace  $transparent $transparent $green
+        active_workspace   $transparent $transparent $green
+        inactive_workspace $transparent $transparent $base1
+        urgent_workspace   $orange      $orange      $base03
+        binding_mode       $orange      $orange      $base03
     }
 }
 
