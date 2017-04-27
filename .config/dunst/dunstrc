@@ -1,5 +1,5 @@
 [global]
-    font = IosevkaExpanded 15
+    font = IosevkaExpanded 20
 
     # Allow a small subset of html markup:
     #   <b>bold</b>
@@ -114,13 +114,13 @@
     # Draw a line of "separatpr_height" pixel height between two
     # notifications.
     # Set to 0 to disable.
-    separator_height = 2
+    separator_height = 1
 
     # Padding between text and separator.
-    padding = 16
+    padding = 32
 
     # Horizontal padding.
-    horizontal_padding = 16
+    horizontal_padding = 32
 
     # Define a color for the separator.
     # possible values are:
@@ -148,8 +148,8 @@
     icon_folders = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
 
 [frame]
-    width = 3
-    color = "#EEEEEC"
+    width = 1
+    color = "#002b36"
 
 [shortcuts]
 
@@ -175,19 +175,20 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#2E3436"
-    foreground = "#EEEEEC"
+    background = "#586e75"
+    foreground = "#eee8d5"
     timeout = 10
 
 [urgency_normal]
-    background = "#4E9A06"
-    foreground = "#EEEEEC"
+    background = "#859900"
+    foreground = "#eee8d5"
     timeout = 10
 
 [urgency_critical]
-    background = "#CC0000"
-    foreground = "#EEEEEC"
+    background = "#dc322f"
+    foreground = "#eee8d5"
     timeout = 0
+
 
 
 # Every section that isn't one of the above is interpreted as a rules to
