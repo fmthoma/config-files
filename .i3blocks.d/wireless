@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+violet="#6c71c4"
+
 [ "${BLOCK_BUTTON}" -eq "1" ] && nm-connect &
 [ "${BLOCK_BUTTON}" -eq "2" ] && nm-disconnect &
 [ "${BLOCK_BUTTON}" -eq "3" ] && nm-wifi &
@@ -13,8 +15,8 @@ function connection_of_type() {
 WIRELESS="$(connection_of_type wireless)"
 VPN="$(connection_of_type vpn)"
 [ -n "$WIRELESS" ] \
-  && echo -n "   ${WIRELESS} " \
-  || echo -n "   ---"
+  && echo -n "  <span color='$violet'></span> ${WIRELESS} " \
+  || echo -n "  <span color='$violet'></span> ---"
 [ -n "$VPN" ] \
-  && echo -n "   ${VPN} "
+  && echo -n "  <span color='$violet'></span> ${VPN} "
 echo

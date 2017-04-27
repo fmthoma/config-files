@@ -1,5 +1,9 @@
 #!/bin/sh
 
+green="#859900"
+yellow="#b58900"
+red="#dc322f"
+
 BATTERY_80="  "
 BATTERY_60="  "
 BATTERY_40="  "
@@ -7,16 +11,26 @@ BATTERY_20="  "
 BATTERY_00="  "
 LIGHTNING=""
 
-full=$( sed -n "s/POWER_SUPPLY_ENERGY_FULL_DESIGN=\([0-9]\+\)/\1/p" /sys/class/power_supply/BAT0/uevent )
-now=$(  sed -n "s/POWER_SUPPLY_ENERGY_NOW=\([0-9]\+\)/\1/p"         /sys/class/power_supply/BAT0/uevent )
-bat=$(( ($now * 100) / $full))
-if   [ $bat -gt 80 ]; then chr="$BATTERY_80"
-elif [ $bat -gt 60 ]; then chr="$BATTERY_60"
-elif [ $bat -gt 40 ]; then chr="$BATTERY_40"
-elif [ $bat -gt 20 ]; then chr="$BATTERY_20"
-else                       chr="$BATTERY_00"
-fi
+for BAT in $(ls /sys/class/power_supply | grep BAT); do
 
-test -n "$(grep "POWER_SUPPLY_STATUS=Charging" /sys/class/power_supply/BAT0/uevent)" && chr="$chr$LIGHTNING"
+    full=$( sed -n "s/POWER_SUPPLY_ENERGY_FULL_DESIGN=\([0-9]\+\)/\1/p" "/sys/class/power_supply/${BAT}/uevent" )
+    now=$(  sed -n "s/POWER_SUPPLY_ENERGY_NOW=\([0-9]\+\)/\1/p"         "/sys/class/power_supply/${BAT}/uevent" )
+    power=$(( ($now * 100) / $full))
 
-echo " $chr $bat% "
+    if   [ $power -gt 80 ]; then bat="$BATTERY_80"; color=$green
+    elif [ $power -gt 60 ]; then bat="$BATTERY_60"; color=$green
+    elif [ $power -gt 40 ]; then bat="$BATTERY_40"; color=$green
+    elif [ $power -gt 20 ]; then bat="$BATTERY_20"; color=$yellow
+    else                         bat="$BATTERY_00"; color=$red
+    fi
+
+    if [ -n "$(grep "POWER_SUPPLY_STATUS=Charging" /sys/class/power_supply/${BAT}/uevent)" ]
+    then charging="<span color='$yellow'>$LIGHTNING </span>"
+    else charging=""
+    fi
+
+    echo -n " <span color='$color'>$bat</span><span color='$yellow'>$charging</span>$power%"
+
+done
+
+echo " "
