@@ -21,6 +21,8 @@ let
     "italic"
     "bold"
     "bolditalic"
+    "heavy"
+    "heavyitalic"
   ];
   styleGeneral = [ "expanded" ];
   styleUpright = [

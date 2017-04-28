@@ -212,7 +212,7 @@ bar {
     status_command i3blocks
     strip_workspace_numbers yes
 
-    font pango:ImposevkaExpanded Bold 18
+    font pango:ImposevkaExpanded Heavy 18
 
     colors {
         statusline         $base1
