@@ -1,8 +1,8 @@
 diff --git a/parameters.toml b/parameters.toml
-index aad6ed7..b3cbbec 100644
+index aad6ed7..351769b 100644
 --- a/parameters.toml
 +++ b/parameters.toml
-@@ -334,5 +334,1088 @@ stressFW = true
+@@ -334,8 +334,1086 @@ stressFW = true
  [stress-fw.adds]
  family = " StFW"
  
@@ -1080,14 +1080,14 @@ index aad6ed7..b3cbbec 100644
 +sequence = "+>"
 +
 +[[iosevka.compLig]]
-+unicode = 57805 # 0xe1cc
++unicode = 57805 # 0xe1cd
 +featureTag = 'XHS0'
-+sequence = ">~>"
-+
-+[[iosevka.compLig]]
-+unicode = 57806 # 0xe1cc
-+featureTag = 'XHS0'
-+sequence = "<~>"
++sequence = "++"
 +
  # Compatibility PUA ligature sample
  # [[iosevka.compLig]]
+ # unicode = 57600 # 0xE100
+ # featureTag = 'XV00'
+-# sequence = '<*>'
+\ No newline at end of file
++# sequence = '<*>'

@@ -48,8 +48,8 @@ stdenv.mkDerivation {
   name = "iosevka-${version}";
 
   src = fetchurl {
-    url = "https://github.com/be5invis/Iosevka/archive/v${version}.tar.gz";
-    sha256 = "1y5z4m62ss2819cabi8izdyh7d1rwlliyvr3vf05imxn129vd6pv";
+    url = "https://github.com/be5invis/Iosevka/archive/63c33eaf1a8853b4614fd922826c0525a9946f96.zip";
+    sha256 = "0sksb49dh74fap8riysvhg1y582mdlnxr2f2i89qswzj9cr13yvf";
   };
 
   nativeBuildInputs = [ unzip otfcc nodejs-6_x ttfautohint ];
