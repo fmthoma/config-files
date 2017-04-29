@@ -13,5 +13,7 @@
     imposevka = callPackage ./pkgs/iosevka/imposevka.nix {};
 
     idea-ultimate = callPackage ./pkgs/idea/default.nix {};
+
+    dmenu = callPackage ./pkgs/dmenu/default.nix {};
   };
 }
