@@ -2,3 +2,9 @@
 # in all projects.  For more information about stack's configuration, see
 # http://docs.haskellstack.org/en/stable/yaml_configuration.html
 #
+
+templates:
+  params:
+    author-email: franz.thoma@tngtech.com
+    author-name: Franz Thoma
+    github-username: fmthoma
