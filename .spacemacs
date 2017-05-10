@@ -345,13 +345,20 @@ you should place your code here."
     )
 
   (defun setup-solarized-theme ()
-    ;; I like a transparent background in the terminal
-    ;; cf. https://emacs.stackexchange.com/questions/2096/different-themes-for-terminal-and-graphical-frames-when-using-emacs-daemon
-    ;; and https://www.gnu.org/software/emacs/manual/html_node/elisp/Applying-Customizations.html#Applying-Customizations
     (custom-set-faces
+
+     ;; I like a transparent background in the terminal
+     ;; cf. https://emacs.stackexchange.com/questions/2096/different-themes-for-terminal-and-graphical-frames-when-using-emacs-daemon
+     ;; and https://www.gnu.org/software/emacs/manual/html_node/elisp/Applying-Customizations.html#Applying-Customizations
      '(default (
                 (((type tty) (background dark)) (:background "nil"))
-                )))
+                ))
+
+     ;; Make the Markdown language keyword a bit less obtrusive
+     '(markdown-language-keyword-face (
+                                       (nil (:inherit 'markdown-markup-face))
+                                       ))
+     )
     ;; The frame number indicator has some problems with inverse video
     (set-face-inverse-video 'spacemacs-motion-face nil)
     (set-face-inverse-video 'spacemacs-insert-face nil)
