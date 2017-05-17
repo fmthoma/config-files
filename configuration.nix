@@ -229,7 +229,7 @@
   users.extraUsers.fthoma = {
     isNormalUser = true;
     group = "fthoma";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     uid = 1000;
     createHome = true;
     shell = "/run/current-system/sw/bin/zsh";
@@ -243,4 +243,6 @@
   system.stateVersion = "16.03";
 
   nix.buildCores = 4;
+
+  virtualisation.docker.enable = true;
 }
