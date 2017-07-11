@@ -15,5 +15,7 @@
     idea-ultimate = callPackage ./pkgs/idea/default.nix {};
 
     dmenu = callPackage ./pkgs/dmenu/default.nix {};
+
+    oraclejdk8 = pkgs.oraclejdk8.override { installjce = true; };
   };
 }
