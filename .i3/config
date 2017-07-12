@@ -14,6 +14,7 @@ set $w2 workspace "2:    "
 set $w3 workspace "3:    "
 set $w4 workspace "4"
 
+bindsym $M2+f floating toggle
 
 # Solarized colors
 set $base03 #002b36e0
@@ -77,9 +78,6 @@ bindsym $M1+KP_9 $upper_right
 bindsym $M1+KP_1 $lower_left
 bindsym $M1+KP_3 $lower_right
 bindsym $M1+KP_0 floating disable
-
-# max size
-floating_maximum_size 1360 x 768
 
 # focus the parent container
 bindsym $M1+a focus parent
