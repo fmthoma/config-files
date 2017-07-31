@@ -13,7 +13,7 @@ nix:
   enable: true
   packages: [ emacs
             , less
-            , ncurses # for terminfo library
+            , ncurses, gcc # for terminfo library
             , stack
             , zlib
             , zsh
