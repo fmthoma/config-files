@@ -39,6 +39,7 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      agda
+     asciidoc
      auto-completion
      ;; better-defaults
      darkroom
@@ -70,6 +71,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages
    '(color-theme-solarized dash
+     editorconfig
      (markdown-presentation :location "/home/fthoma/.emacs.d/private/markdown-presentation/")
      )
    ;; A list of packages that cannot be updated.
