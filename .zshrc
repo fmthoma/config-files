@@ -8,3 +8,5 @@ done
 
 # Make PATH entries unique
 declare -U PATH
+
+fpath+=$HOME/bin
