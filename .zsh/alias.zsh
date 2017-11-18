@@ -33,7 +33,7 @@ alias clip='xsel -op | xsel -ib'
 
 alias r='ranger'
 
-alias gradle='./gradlew --parallel'
+alias gradle='./gradlew'
 
 alias g='git'
 alias gb='git b'
