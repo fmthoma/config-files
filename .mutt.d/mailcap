@@ -3,3 +3,4 @@ text/html; w3m -T text/html %s; copiousoutput
 image/*; firefox %s
 application/pdf; evince %s
 application/x-freemind; freemind %s
+application/vnd.oasis.opendocument.spreadsheet; libreoffice %s
