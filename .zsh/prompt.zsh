@@ -107,19 +107,22 @@ prompt_git() {
 }
 
 prompt_git_remote() {
-  local upstream ahead behind
+  local upstream remote ahead behind
   upstream=$(git rev-parse --abbrev-ref @{upstream} 2>/dev/null)
+  ref=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
+
   if [[ -n $upstream ]]; then
     ahead=$(git rev-list @{upstream}..HEAD 2>/dev/null | wc -l | tr -d ' ')
     behind=$(git rev-list HEAD..@{upstream} 2>/dev/null | wc -l | tr -d ' ')
+    remote=${upstream/\/${ref}/}
     if [[ $behind > 0 ]] && [[ $ahead > 0 ]]; then
-      prompt_segment red    $PRIMARY_FG " $upstream $AHEAD$ahead $BEHIND$behind "
+      prompt_segment red    $PRIMARY_FG " $remote $AHEAD$ahead $BEHIND$behind "
     elif [[ $behind > 0 ]]; then
-      prompt_segment yellow $PRIMARY_FG " $upstream $BEHIND$behind "
+      prompt_segment yellow $PRIMARY_FG " $remote $BEHIND$behind "
     elif [[ $ahead > 0 ]]; then
-      prompt_segment green  $PRIMARY_FG " $upstream $AHEAD$ahead "
+      prompt_segment green  $PRIMARY_FG " $remote $AHEAD$ahead "
     else
-      prompt_segment green  $PRIMARY_FG " $upstream "
+      prompt_segment green  $PRIMARY_FG " $remote "
     fi
   fi
 }
