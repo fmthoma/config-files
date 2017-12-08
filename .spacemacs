@@ -44,6 +44,7 @@ values."
      ;; better-defaults
      darkroom
      emacs-lisp
+     evil-snipe
      git
      markdown
      markdown-presentation
