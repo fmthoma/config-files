@@ -81,6 +81,10 @@
     which
   ];
 
+  environment.variables = {
+    NO_AT_BRIDGE = "1"; # Cf. NixOS/nixpkgs#16327
+  };
+
   nixpkgs.config.packageOverrides = pkgs : with pkgs; {
     rxvt_unicode = rxvt_unicode.overrideDerivation (oldAttrs : rec {
       prePatch = ''
@@ -173,6 +177,8 @@
 
   # Battery life
   services.tlp.enable = true;
+
+  services.dbus.packages = with pkgs; [ gnome3.dconf ];
 
   services.emacs.enable = true;
 
