@@ -251,4 +251,8 @@
   nix.buildCores = 4;
 
   virtualisation.docker.enable = true;
+  virtualisation.virtualbox.host = {
+    enable = true;
+    headless = false;
+  };
 }
