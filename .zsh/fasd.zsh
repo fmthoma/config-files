@@ -1,6 +1,5 @@
-[ -f "$(dirname $0)/fasd/fasd" ] || return 1
+which fasd &> /dev/null || return 1
 
-source "$(dirname $0)/fasd/fasd"
 eval "$(fasd --init zsh-hook zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install)"
 
 alias a='fasd -a'
