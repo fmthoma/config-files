@@ -134,6 +134,10 @@ bindsym Control+$alt+t exec urxvt
 # kill focused window
 bindsym $M1+d kill
 
+# pass menu
+bindsym $M1+p exec "nix-shell -p pass --run 'passmenu --type'"
+bindsym $M1+Shift+p exec "nix-shell -p pass --run passmenu"
+
 # exit i3 (logs you out of your X session)
 bindsym $M2+q exit
 
