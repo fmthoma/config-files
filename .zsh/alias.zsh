@@ -18,7 +18,7 @@ alias md='mkdir -p'
 
 alias less='less -RS'
 alias -g L=' | less'
-alias -g -- --help='--help | less'
+alias -g -- --help='--help 2>&1 | less'
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -32,6 +32,10 @@ alias uiae='setxkbmap de'
 alias clip='xsel -op | xsel -ib'
 
 alias r='ranger'
+
+alias gradle='./gradlew'
+
+alias nix-shell='nix-shell --run zsh'
 
 alias g='git'
 alias gb='git b'
