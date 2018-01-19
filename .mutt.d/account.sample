@@ -3,6 +3,7 @@
 mailboxes = +INBOX
 set folder = 'imaps://xxxxx.com' # default: '~/Mail'
 set imap_user = 'xxxxx' # default: '(empty)'
+set imap_pass = `pass xxx/yyy` # look up in password manager
 
 set hostname = 'xxxxx.com' # default: '(empty)'
 set from = 'Franz Thoma <xxxxx@xxxxx.com>' # default: '(empty)'

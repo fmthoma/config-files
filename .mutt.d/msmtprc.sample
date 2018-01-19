@@ -9,4 +9,4 @@ account default
 host xxxxx.com
 from xxxxx@xxxxx.com
 user xxxxx
-passwordeval "gpg2 --quiet --for-your-eyes-only --no-tty --decrypt .mutt.d/pass.gpg"
+passwordeval "pass xxx/yyy"
