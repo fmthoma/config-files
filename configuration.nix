@@ -32,6 +32,7 @@
   };
 
   networking.hostName = "fthoma-nixos"; # Define your hostname.
+  networking.extraHosts = "127.0.0.1 fthoma-nixos"; # Fixes Java UnknownHostException
   networking.networkmanager.enable = true;
 
   # Select internationalisation properties.
