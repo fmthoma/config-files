@@ -89,16 +89,16 @@ prompt_git() {
       ref="$DETACHED ${ref/.../}"
     fi
 
-    if git status --porcelain | fgrep '??' &> /dev/null ; then
+    if git status --porcelain 2> /dev/null | fgrep '??' &> /dev/null ; then
       ref+="$LIGHTNING"
     fi
 
     isDirty() {
-      test -n "$(git status --porcelain --ignore-submodules | fgrep -v '??')"
+      test -n "$(git status --porcelain --ignore-submodules 2> /dev/null | fgrep -v '??')"
     }
     isDirty && color=yellow || color=green
 
-    stashes="$(git stash list | wc -l)"
+    stashes="$(git stash list 2> /dev/null | wc -l)"
     [[ $stashes > 0 ]] && ref+=" ${(l:$stashes:::)}"
 
     prompt_segment $color $PRIMARY_FG
