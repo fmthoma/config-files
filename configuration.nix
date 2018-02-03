@@ -250,7 +250,10 @@
   };
   users.extraGroups.fthoma.gid = 1000;
   users.defaultUserShell = "/run/current-system/sw/bin/zsh";
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+    syntaxHighlighting.enable = true;
+  };
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "16.03";
