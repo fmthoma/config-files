@@ -35,4 +35,6 @@ export PAGER=less
 
 if [ -e /home/privat/.nix-profile/etc/profile.d/nix.sh ]
     then . /home/privat/.nix-profile/etc/profile.d/nix.sh
+else
+    export NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/$(id -un)/channels/nixpkgs:nixos-config=/etc/nixos/configuration.nix:/nix/var/nix/profiles/per-user/$(id -un)/channels
 fi
