@@ -3,6 +3,7 @@
 !/fontconfig
 !/git
 !/htop
+!/nixpkgs
 !/nvim
 !/ranger
 !/yi

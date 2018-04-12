@@ -12,7 +12,6 @@ for DOTFILE in .compton.conf \
                .msmtprc \
                .mutt.d \
                .muttrc \
-               .nixpkgs \
                .profile \
                .spacemacs \
                .stack \
