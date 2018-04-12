@@ -64,6 +64,7 @@
     compton
     dmenu
     dunst
+    feh
     i3blocks
     i3lock
     i3status
@@ -83,7 +84,6 @@
   ];
 
   environment.variables = {
-    NO_AT_BRIDGE = "1"; # Cf. NixOS/nixpkgs#16327
   };
 
   nixpkgs.config.packageOverrides = pkgs : with pkgs; {
