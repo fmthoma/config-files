@@ -111,7 +111,7 @@
   # Enable CUPS to print documents.
   services.printing = {
     enable = true;
-    drivers = [ pkgs.hplip ];
+    drivers = [ pkgs.hplip pkgs.epson-escpr ];
   };
 
   services.udev.extraRules = ''
