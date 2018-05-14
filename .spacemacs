@@ -56,9 +56,10 @@ values."
      ;; spell-checking
      ;; syntax-checking
      ;; version-control
-
      (haskell :variables
               haskell-completion-backend 'intero)
+     html
+     shell-scripts
      syntax-checking
      (version-control :variables
                       version-control-diff-tool 'diff-hl
