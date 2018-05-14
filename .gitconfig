@@ -72,3 +72,5 @@
 	insteadOf = git@github.com:/ghc/packages/
 [fetch]
 	prune = true
+[pull]
+	ff = only
