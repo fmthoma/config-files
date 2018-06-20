@@ -9,7 +9,7 @@
   ri = rebase -i
   p = push
 	pf = push --force-with-lease
-  pu = "!git push -u origin $(git rev-parse --abbrev-ref HEAD)"
+  pu = "!git push -u ${1:-origin} $(git rev-parse --abbrev-ref HEAD)"
   co = checkout
   up = pull --rebase
   lg = log --oneline
