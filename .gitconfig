@@ -23,9 +23,7 @@
   dw = diff --color-words
   dww = diff --color-words="[^[:space:],;:_]+"
   imerge = mergetool --tool=intellij
-  pmerge = mergetool --tool=phpstorrm
   idiff = difftool --tool=intellij
-  pdiff = difftool --tool=phpstorrm
 [color]
   diff = auto
   status = auto
@@ -45,18 +43,12 @@
 [merge]
   tool = meld
 [mergetool "intellij"]
-  cmd = idea diff \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
-  trustExitCode = true
-[mergetool "phpstorm"]
-  cmd = pstorm diff \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+  cmd = idea-ultimate merge \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
   trustExitCode = true
 [diff]
   tool = meld
 [difftool "intellij"]
-  cmd = idea diff \"$LOCAL\" \"$REMOTE\"
-  trustExitCode = true
-[difftool "phpstorm"]
-  cmd = pstorm diff \"$LOCAL\" \"$REMOTE\"
+  cmd = idea-ultimate diff \"$LOCAL\" \"$REMOTE\"
   trustExitCode = true
 [log]
   mailmap = true
