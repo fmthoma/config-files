@@ -41,6 +41,7 @@
   requireForce = false
 [rebase]
   autostash = true
+	autosquash = true
 [merge]
   tool = meld
 [mergetool "intellij"]
