@@ -1,59 +1,59 @@
 [alias]
-  vgrep = "!f () { git grep --color=always \"$@\" | vgrep; }; f"
-  ci = commit
-  s = status
-  st = stash
-  sp = stash pop
-  f = fetch
-  r = rebase
-  ri = rebase -i
-  p = push
+	vgrep = "!f () { git grep --color=always \"$@\" | vgrep; }; f"
+	ci = commit
+	s = status
+	st = stash
+	sp = stash pop
+	f = fetch
+	r = rebase
+	ri = rebase -i
+	p = push
 	pf = push --force-with-lease
-  pu = "!git push -u ${1:-origin} $(git rev-parse --abbrev-ref HEAD)"
-  co = checkout
-  up = pull --rebase
-  lg = log --oneline
-  last = log -1 HEAD
-  c = log -p -w --reverse @{u}..
-  b = branch -vv
-  fix = commit --amend --no-edit
-  reword = commit --amend
-  d = diff
-  ds = diff --staged
-  dw = diff --color-words
-  dww = diff --color-words="[^[:space:],;:_]+"
-  imerge = mergetool --tool=intellij
-  idiff = difftool --tool=intellij
+	pu = "!git push -u ${1:-origin} $(git rev-parse --abbrev-ref HEAD)"
+	co = checkout
+	up = pull --rebase
+	lg = log --oneline
+	last = log -1 HEAD
+	c = log -p -w --reverse @{u}..
+	b = branch -vv
+	fix = commit --amend --no-edit
+	reword = commit --amend
+	d = diff
+	ds = diff --staged
+	dw = diff --color-words
+	dww = diff --color-words="[^[:space:],;:_]+"
+	imerge = mergetool --tool=intellij
+	idiff = difftool --tool=intellij
 [color]
-  diff = auto
-  status = auto
-  branch = auto
+	diff = auto
+	status = auto
+	branch = auto
 [commit]
-  verbose = true
+	verbose = true
 [push]
-  default = simple
+	default = simple
 [user]
-  email = franz.thoma@tngtech.com
-  name = Franz Thoma
+	email = franz.thoma@tngtech.com
+	name = Franz Thoma
 [clean]
-  requireForce = false
+	requireForce = false
 [rebase]
-  autostash = true
+	autostash = true
 	autosquash = true
 [merge]
-  tool = meld
+	tool = meld
 [mergetool "intellij"]
-  cmd = idea-ultimate merge \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
-  trustExitCode = true
+	cmd = idea-ultimate merge \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+	trustExitCode = true
 [diff]
-  tool = meld
+	tool = meld
 [difftool "intellij"]
-  cmd = idea-ultimate diff \"$LOCAL\" \"$REMOTE\"
-  trustExitCode = true
+	cmd = idea-ultimate diff \"$LOCAL\" \"$REMOTE\"
+	trustExitCode = true
 [log]
-  mailmap = true
+	mailmap = true
 [grep]
-  lineNumber = true
+	lineNumber = true
 [url "git://github.com/ghc/packages-"]
 	insteadOf = git://github.com/ghc/packages/
 [url "http://github.com/ghc/packages-"]
