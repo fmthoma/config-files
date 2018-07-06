@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [ -z "${1:-}" ]; then
+    exec pandoc --from=markdown --to=markdown
+fi
+
+for FILE in "$@"; do
+    TMPFILE=$(mktemp)
+    pandoc --from=markdown --to=markdown "$FILE" > "$TMPFILE"
+    mv "$TMPFILE" "$FILE"
+done
