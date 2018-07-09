@@ -11,10 +11,6 @@ templates:
 
 nix:
   enable: true
-  packages: [ emacs
-            , less
-            , ncurses, gcc # for terminfo library
-            , stack
-            , zlib
-            , zsh
+  packages: [ ncurses, gcc # for terminfo library
+            , zlib # for digest, dependency of intero
             ]
