@@ -45,7 +45,7 @@ values."
      darkroom
      emacs-lisp
      evil-snipe
-     git
+     ;; git
      markdown
      markdown-presentation
      nixos
