@@ -24,13 +24,6 @@ self: super:
         postBuild = "mv go/bin/${repo}{,_v${version}}";
       };
 
-      plugin_aws_1_30 = tf_plugin {
-        owner   = "terraform-providers";
-        repo    = "terraform-provider-aws";
-        version = "1.30.0";
-        sha256  = "0knivwxdjkxyaqka0vvn0lh2ndbg660dw2g03iw00fx6ska1zn0c";
-      };
-
   in {
 
     terraform_0_11_7 = tf {
@@ -38,7 +31,7 @@ self: super:
       sha256 = "0q5gl8yn1f8fas1v68lz081k88gbmlk7f2xqlwqmh01qpqjxd42q";
     };
 
-    terraform_0_11_7-full = self.terraform_0_11_7.withPlugins (p: super.lib.attrValues p ++ [ plugin_aws_1_30 ] );
+    terraform_0_11_7-full = self.terraform_0_11_7.withPlugins (p: super.lib.attrValues p);
 
     terraform_0_11_5 = tf {
       version = "0.11.5";
