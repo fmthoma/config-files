@@ -47,6 +47,7 @@
 	trustExitCode = true
 [diff]
 	tool = meld
+	colorMoved = zebra
 [difftool "intellij"]
 	cmd = idea-ultimate diff \"$LOCAL\" \"$REMOTE\"
 	trustExitCode = true
