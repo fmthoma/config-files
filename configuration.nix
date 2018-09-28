@@ -160,6 +160,9 @@
     HandleLidSwitchDocked=ignore
   '';
 
+  services.keybase.enable = true;
+  services.kbfs.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.fthoma = {
     isNormalUser = true;
