@@ -26,6 +26,13 @@ self: super:
 
   in {
 
+    terraform_0_11_8 = tf {
+      version = "0.11.8";
+      sha256 = "1kdmx21l32vj5kvkimkx0s5mxgmgkdwlgbin4f3iqjflzip0cddh";
+    };
+
+    terraform_0_11_8-full = self.terraform_0_11_8.withPlugins (p: super.lib.attrValues p);
+
     terraform_0_11_7 = tf {
       version = "0.11.7";
       sha256 = "0q5gl8yn1f8fas1v68lz081k88gbmlk7f2xqlwqmh01qpqjxd42q";
