@@ -1,4 +1,5 @@
 #!/bin/sh
 
-CONN=$(nmcli -t -f name connection | dmenu -i)
+histfile="$HOME/.nm-connect_history"
+CONN=$(nmcli -t -f name connection | dmenu_hist -i -histfile="$histfile")
 [ -n "$CONN" ] && notify-send -a "NetworkManager" "$(nmcli connection up "$CONN")"
