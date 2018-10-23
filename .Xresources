@@ -1,4 +1,5 @@
 #include ".Xresources.d/solarized-dark.xresources"
+#include ".Xresources.d/tango-colors.xresources"
 
 Xft.dpi: 96
 
@@ -9,6 +10,33 @@ URxvt.font: xft:Imposevka Expanded:size=12
 URxvt.depth: 32
 URxvt.background: [95]#002b36
 scratchpad.background: [80]#002b36
+
+URxvt-tango-light.foreground: TANGO_0
+URxvt-tango-light.background: TANGO_15
+! Black
+URxvt-tango-light.color0:  TANGO_0
+URxvt-tango-light.color8:  TANGO_8
+! Red
+URxvt-tango-light.color1:  TANGO_1
+URxvt-tango-light.color9:  TANGO_9
+! Green
+URxvt-tango-light.color2:  TANGO_2
+URxvt-tango-light.color10: TANGO_10
+! Yellow
+URxvt-tango-light.color3:  TANGO_3
+URxvt-tango-light.color11: TANGO_11
+! Blue
+URxvt-tango-light.color4:  TANGO_4
+URxvt-tango-light.color12: TANGO_12
+! Purple
+URxvt-tango-light.color5:  TANGO_5
+URxvt-tango-light.color13: TANGO_13
+! Cyan
+URxvt-tango-light.color6:  TANGO_6
+URxvt-tango-light.color14: TANGO_14
+! White
+URxvt-tango-light.color7:  TANGO_7
+URxvt-tango-light.color15: TANGO_15
 
 ! Fix ctrl+arrow and keypad in vim
 URxvt.keysym.Control-Left: \033[1;5D
