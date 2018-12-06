@@ -13,4 +13,6 @@ nix:
   enable: true
   packages: [ ncurses, gcc # for terminfo library
             , zlib # for digest, dependency of intero
+            , pkgconfig # for cairo
+            , cairo
             ]
