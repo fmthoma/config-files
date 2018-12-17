@@ -29,4 +29,8 @@
     ];
 
   nix.maxJobs = lib.mkDefault 4;
+
+  # Fixes 'TSC_DEADLINE disabled due to Errata' message
+  # Must be kept enabled, needs to take effect on every boot
+  hardware.cpu.intel.updateMicrocode = true;
 }
