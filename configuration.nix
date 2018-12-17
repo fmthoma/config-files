@@ -167,7 +167,7 @@
   users.extraUsers.fthoma = {
     isNormalUser = true;
     group = "fthoma";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "adbusers"];
     uid = 1000;
     createHome = true;
     shell = "/run/current-system/sw/bin/zsh";
@@ -175,6 +175,7 @@
   };
   users.extraGroups.fthoma.gid = 1000;
   users.defaultUserShell = "/run/current-system/sw/bin/zsh";
+  programs.adb.enable = true;
   programs.zsh = {
     enable = true;
     syntaxHighlighting.enable = true;
