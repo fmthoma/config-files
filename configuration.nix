@@ -32,7 +32,10 @@
   };
 
   networking.hostName = "fthoma-nixos"; # Define your hostname.
-  networking.extraHosts = "127.0.0.1 fthoma-nixos"; # Fixes Java UnknownHostException
+  networking.extraHosts = ''
+    # Fixes Java UnknownHostException
+    127.0.0.1 fthoma-nixos
+  '' + import /etc/nixos/hosts.local.nix;
   networking.networkmanager.enable = true;
 
   # Select internationalisation properties.
@@ -160,6 +163,8 @@
     HandleLidSwitch=lock
     HandleLidSwitchDocked=ignore
   '';
+
+  services.resolved.enable = true;
 
   services.keybase.enable = true;
   services.kbfs.enable = true;
