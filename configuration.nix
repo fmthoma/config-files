@@ -78,6 +78,7 @@
     xss-lock
 
     cryptsetup
+    networkmanagerapplet
     openvpn
     wget
     which
