@@ -26,6 +26,13 @@ self: super:
 
   in {
 
+    terraform_0_11_11 = tf {
+      version = "0.11.11";
+      sha256 = "1hsi5sibs0fk1620wzzxrc1gqjs6slqrjvlqcgvgg1yl22q9g7f5";
+    };
+
+    terraform_0_11_11-full = self.terraform_0_11_11.withPlugins (p: super.lib.attrValues p);
+
     terraform_0_11_8 = tf {
       version = "0.11.8";
       sha256 = "1kdmx21l32vj5kvkimkx0s5mxgmgkdwlgbin4f3iqjflzip0cddh";
@@ -47,9 +54,9 @@ self: super:
 
     terraform_0_11_5-full = self.terraform_0_11_5.withPlugins super.lib.attrValues;
 
-    terraform_0_11 = self.terraform_0_11_5;
+    terraform_0_11 = self.terraform_0_11_11;
 
-    terraform_0_11-full = self.terraform_0_11_5-full;
+    terraform_0_11-full = self.terraform_0_11_11-full;
 
     terraform = self.terraform_0_11;
 
