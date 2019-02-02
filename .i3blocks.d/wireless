@@ -6,17 +6,25 @@ violet="#6c71c4"
 [ "${BLOCK_BUTTON}" -eq "2" ] && nm-disconnect &
 [ "${BLOCK_BUTTON}" -eq "3" ] && nm-wifi &
 
-function connection_of_type() {
+function connections_of_type() {
   nmcli -t -f type,name connection show --active \
     | grep $1 \
     | awk -F: '{print $2}'
 }
 
-WIRELESS="$(connection_of_type wireless)"
-VPN="$(connection_of_type vpn)"
-[ -n "$WIRELESS" ] \
-  && echo -n "  <span color='$violet'></span> ${WIRELESS} " \
-  || echo -n "  <span color='$violet'></span> ---"
-[ -n "$VPN" ] \
-  && echo -n "  <span color='$violet'></span> ${VPN} "
-echo
+connections_of_type ethernet | while read ETHERNET; do
+  [ -n "$ETHERNET" ] \
+    && echo -n "  <span color='$violet'></span> ${ETHERNET} "
+done
+
+connections_of_type wireless | while read WIRELESS; do
+  [ -n "$WIRELESS" ] \
+    && echo -n "  <span color='$violet'></span> ${WIRELESS} "
+done
+
+connections_of_type vpn | while read VPN; do
+  [ -n "$VPN" ] \
+    && echo -n "  <span color='$violet'></span> ${VPN} "
+done
+
+echo ""
