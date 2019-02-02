@@ -165,6 +165,8 @@
   '';
 
   services.resolved.enable = true;
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
 
   services.keybase.enable = true;
   services.kbfs.enable = true;
