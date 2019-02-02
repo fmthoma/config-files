@@ -175,7 +175,7 @@
   users.extraUsers.fthoma = {
     isNormalUser = true;
     group = "fthoma";
-    extraGroups = [ "networkmanager" "wheel" "docker" "adbusers"];
+    extraGroups = [ "networkmanager" "wheel" "docker" "adbusers" "dialout" ];
     uid = 1000;
     createHome = true;
     shell = "/run/current-system/sw/bin/zsh";
