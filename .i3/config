@@ -43,10 +43,6 @@ bindsym $M1+Left focus left
 bindsym $M1+Down focus down
 bindsym $M1+Up focus up
 bindsym $M1+Right focus right
-bindsym $M1+h focus left
-bindsym $M1+j focus down
-bindsym $M1+k focus up
-bindsym $M1+l focus right
 
 # move focused window
 bindsym $M2+Left move left
@@ -61,10 +57,6 @@ bindsym $M3+Left move workspace to output left
 bindsym $M3+Down move workspace to output down
 bindsym $M3+Up move workspace to output up
 bindsym $M3+Right move workspace to output right
-bindsym $M3+h move workspace to output left
-bindsym $M3+j move workspace to output down
-bindsym $M3+k move workspace to output up
-bindsym $M3+l move workspace to output right
 
 # enter fullscreen mode for the focused container
 bindsym $M1+f fullscreen
@@ -137,6 +129,9 @@ bindsym $M1+d kill
 # pass menu
 bindsym $M1+p exec "nix-shell -p pass --run 'passmenu --type'"
 bindsym $M1+Shift+p exec "nix-shell -p pass --run passmenu"
+
+# Lockscreen
+bindsym $M1+l exec loginctl lock-session
 
 # exit i3 (logs you out of your X session)
 bindsym $M2+q exit
