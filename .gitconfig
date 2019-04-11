@@ -69,3 +69,5 @@
 	prune = true
 [pull]
 	ff = only
+[tag]
+	sort = version:refname
