@@ -14,6 +14,7 @@ self: super:
         inherit (data) owner repo version sha256;
         name = "${repo}-${version}";
         goPackagePath = "github.com/${owner}/${repo}";
+        subPackages = [ "." ];
         src = super.fetchFromGitHub {
           inherit owner repo sha256;
           rev = "v${version}";
@@ -24,7 +25,21 @@ self: super:
         postBuild = "mv go/bin/${repo}{,_v${version}}";
       };
 
+      plugin_aws_2_6 = tf_plugin {
+        owner   = "terraform-providers";
+        repo    = "terraform-provider-aws";
+        version = "2.6.0";
+        sha256 = "0hpnyid5w33n8ypwcz3a43gazbvk6m60b57qll2qgx6bm1q75b19";
+      };
+
   in {
+
+    terraform_0_11_13 = tf {
+      version = "0.11.13";
+      sha256 = "014d2ibmbp5yc1802ckdcpwqbm5v70xmjdyh5nadn02dfynaylna";
+    };
+
+    terraform_0_11_13-full = self.terraform_0_11_13.withPlugins (p: super.lib.attrValues p ++ [ plugin_aws_2_6 ]);
 
     terraform_0_11_11 = tf {
       version = "0.11.11";
