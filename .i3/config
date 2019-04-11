@@ -9,11 +9,14 @@ set $lower_left "floating enable; move position 40 px 830 px"
 set $lower_right "floating enable; move position 1520 px 830 px"
 set $center "floating enable; move position center"
 
-set $w1 workspace "1:    "
+set $w1 workspace "1:    "
 set $w2 workspace "2:    "
 set $w3 workspace "3:    "
-set $w4 workspace "4"
+set $w4 workspace "4:    "
 
+for_window [class="feh"] floating enable
+
+bindsym $M1+n exec "feh -B '#002b36' https://neo-layout.org/grafik/tastatur3d/tastatur_neo_Ebene{1..6}.png"
 bindsym $M2+f floating toggle
 
 # Solarized colors
