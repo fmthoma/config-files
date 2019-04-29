@@ -1,10 +1,10 @@
 diff --git a/parameters.toml b/parameters.toml
-index aad6ed7..351769b 100644
+index 6d058b67..4589473d 100644
 --- a/parameters.toml
 +++ b/parameters.toml
-@@ -334,8 +334,1086 @@ stressFW = true
- [stress-fw.adds]
- family = " StFW"
+@@ -526,6 +526,1084 @@ powerlineShiftX = 450
+ [powerline-shift-x-p500]
+ powerlineShiftX = 500
  
 +# -----------------------------------------
 +# Double-ended hyphen arrows
@@ -1087,7 +1087,3 @@ index aad6ed7..351769b 100644
  # Compatibility PUA ligature sample
  # [[iosevka.compLig]]
  # unicode = 57600 # 0xE100
- # featureTag = 'XV00'
--# sequence = '<*>'
-\ No newline at end of file
-+# sequence = '<*>'
