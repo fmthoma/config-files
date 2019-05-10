@@ -2,9 +2,8 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, options, ... }: {
 
-{
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -48,6 +47,12 @@
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
+  nix.nixPath = options.nix.nixPath.default ++ [ "nixpkgs-overlays=/etc/nixos/overlays/" ];
+
+  # pkgs does not respect overlays, so we have to include the desired ones manually
+  # (see https://github.com/NixOS/nixpkgs/issues/24907).
+  nixpkgs.overlays = [ (import "/etc/nixos/overlays/urxvt") ];
+
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
@@ -90,15 +95,6 @@
   environment.variables = {
   };
 
-  nixpkgs.config.packageOverrides = pkgs : with pkgs; {
-    rxvt_unicode = rxvt_unicode.overrideDerivation (oldAttrs : rec {
-      prePatch = ''
-          ${wget}/bin/wget --no-check-certificate https://gist.githubusercontent.com/fmthoma/7e8dd23c12b55cae6474/raw/78378cf5e175d0d07f645d7ba0dd437e2dfff197/widechars.patch
-          ${wget}/bin/wget --no-check-certificate https://raw.githubusercontent.com/NixOS/nixpkgs/master/pkgs/applications/misc/rxvt_unicode/rxvt-unicode-9.06-font-width.patch
-      '';
-      patches = [ "widechars.patch" "rxvt-unicode-9.06-font-width.patch" ];
-    });
-  };
 
   # List services that you want to enable:
 
