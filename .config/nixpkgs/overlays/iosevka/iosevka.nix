@@ -12,38 +12,6 @@ let
 
   version = "2.2.1";
 
-  set = "custom";
-
-  variants = [
-    "light"
-    "lightitalic"
-    "regular"
-    "italic"
-    "bold"
-    "bolditalic"
-    "heavy"
-    "heavyitalic"
-  ];
-  styleGeneral = [ "expanded" ];
-  styleUpright = [
-    "v-l-italic"
-    "v-i-italic"
-    "v-brace-straight"
-    "v-m-shortleg"
-    "v-zero-dotted"
-    "v-asterisk-low"
-    "v-caret-low"
-    "v-dollar-open"
-  ];
-  styleItalic = [
-    "v-brace-straight"
-    "v-m-shortleg"
-    "v-zero-dotted"
-    "v-asterisk-low"
-    "v-caret-low"
-    "v-dollar-open"
-  ];
-
 in
 stdenv.mkDerivation {
   inherit version;
@@ -60,15 +28,7 @@ stdenv.mkDerivation {
 
   buildPhase = ''
     ln -s ${nodeDependencies}/lib/node_modules
-
-    make custom-config \
-        set=${set} \
-        design='${stdenv.lib.concatStringsSep " " styleGeneral}' \
-        upright='${stdenv.lib.concatStringsSep " " styleUpright}' \
-        italic='${stdenv.lib.concatStringsSep " " styleItalic}'
-    for variant in ${stdenv.lib.concatStringsSep " " variants}; do
-      make -f utility/custom.mk dist/iosevka-${set}/iosevka-${set}-$variant.ttf set=${set} __IOSEVKA_CUSTOM_BUILD__=true
-    done
+    npm run build -- contents::iosevka-expanded
   '';
 
   installPhase = ''
