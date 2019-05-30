@@ -318,7 +318,7 @@ let
     , production ? true
     , npmFlags ? ""
     , dontNpmInstall ? false
-    , bypassCache ? false
+    , bypassCache ? true
     , preRebuild ? ""
     , dontStrip ? true
     , unpackPhase ? "true"
@@ -430,7 +430,7 @@ let
     , production ? true
     , npmFlags ? ""
     , dontNpmInstall ? false
-    , bypassCache ? false
+    , bypassCache ? true
     , dontStrip ? true
     , unpackPhase ? "true"
     , buildPhase ? "true"
