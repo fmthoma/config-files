@@ -6,7 +6,6 @@ cd ~
 for DOTFILE in .compton.conf \
                .config \
                .gitconfig \
-               .gradle \
                .i3 \
                .i3blocks.conf \
                .msmtprc \
