@@ -69,6 +69,13 @@ self: super:
 
     terraform_0_11_5-full = self.terraform_0_11_5.withPlugins super.lib.attrValues;
 
+    terraform_0_11_2 = tf {
+      version = "0.11.2";
+      sha256 = "0wwld86aksjrdixr6ln2shc06z0919866avp67910f493g5v2zv0";
+    };
+
+    terraform_0_11_2-full = self.terraform_0_11_2.withPlugins super.lib.attrValues;
+
     terraform_0_11 = self.terraform_0_11_11;
 
     terraform_0_11-full = self.terraform_0_11_11-full;
