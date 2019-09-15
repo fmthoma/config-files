@@ -453,7 +453,7 @@ let
     , buildInputs ? []
     , production ? true
     , npmFlags ? ""
-    , dontNpmInstall ? false
+    , dontNpmInstall ? true
     , bypassCache ? false
     , reconstructLock ? false
     , dontStrip ? true

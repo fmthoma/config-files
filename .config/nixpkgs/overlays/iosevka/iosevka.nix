@@ -27,9 +27,7 @@ stdenv.mkDerivation {
 
   buildPhase = ''
     ln -s ${nodeDependencies}/lib/node_modules
-    ls -la .
-    exit 1
-    #npm run build -- contents::iosevka-expanded
+    npm run build -- contents::iosevka-expanded
   '';
 
   installPhase = ''
