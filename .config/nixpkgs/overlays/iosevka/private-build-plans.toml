@@ -1,0 +1,25 @@
+[buildPlans.iosevka-expanded]
+family = "Iosevka Expanded"
+design = ["expanded"]
+upright = [
+    "v-l-italic"
+  , "v-i-italic"
+  , "v-brace-straight"
+  , "v-m-shortleg"
+  , "v-zero-dotted"
+  , "v-asterisk-low"
+  , "v-caret-low"
+  , "v-dollar-open"
+  ]
+italic = [
+    "v-brace-straight"
+  , "v-m-shortleg"
+  , "v-zero-dotted"
+  , "v-asterisk-low"
+  , "v-caret-low"
+  , "v-dollar-open"
+  ]
+
+[buildPlans.iosevka-expanded.slants]
+upright = "normal"
+italic = "italic"

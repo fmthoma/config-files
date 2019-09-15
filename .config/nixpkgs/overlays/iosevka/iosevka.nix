@@ -26,6 +26,7 @@ stdenv.mkDerivation {
   patches = [ ./ligatures.patch ];
 
   buildPhase = ''
+    cp ${./private-build-plans.toml} private-build-plans.toml
     ln -s ${nodeDependencies}/lib/node_modules
     npm run build -- contents::iosevka-expanded
   '';
