@@ -1,11 +1,11 @@
-{ stdenv, otfcc, iosevka, nodejs-6_x }:
+{ stdenv, otfcc, iosevka, nodejs-8_x }:
 
 stdenv.mkDerivation rec {
   name = "imposevka-${iosevka.version}";
 
   src = ./imposevka-patcher;
 
-  nativeBuildInputs = [ otfcc nodejs-6_x ];
+  nativeBuildInputs = [ otfcc nodejs-8_x ];
 
   buildPhase = ''
     mkdir src
