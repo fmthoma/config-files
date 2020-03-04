@@ -167,7 +167,7 @@ bindsym $M1+Return mode $mode_run
 bindsym level3+h mode $mode_settings
 bindsym Mod3+h mode $mode_settings
 
-set $mode_settings " [] Brightness  |  [] Volume  |  [N]etwork [D]isconnect | [L]ock [S]uspend"
+set $mode_settings " [] Brightness  |  [] Volume  |  [N]etwork [D]isconnect | [L]ock [S]uspend | [1] [2] Monitor(s)"
 mode $mode_settings {
     bindsym Up   exec "xbacklight +10"
     bindsym Down exec "xbacklight -10"
@@ -180,6 +180,9 @@ mode $mode_settings {
 
     bindsym l exec loginctl lock-session; mode "default"
     bindsym s exec systemctl suspend; mode "default"
+
+    bindsym 1 exec xrandr --auto && feh --bg-fill ~/wallpaper; mode "default"
+    bindsym 2 exec dualmonitor; mode "default"
 
     bindsym Escape mode "default"
 }
@@ -207,6 +210,7 @@ gaps outer 10
 gaps inner 10
 
 assign [class="Firefox"] $w3
+assign [class="Slack"]   $w1
 
 
 
