@@ -55,6 +55,9 @@
   # (see https://github.com/NixOS/nixpkgs/issues/24907).
   nixpkgs.overlays = [ (import "/etc/nixos/overlays/urxvt") ];
 
+  # Required for VBox Extensions
+  nixpkgs.config.allowUnfree = true;
+
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
@@ -197,6 +200,7 @@
   virtualisation.docker.enable = true;
   virtualisation.virtualbox.host = {
     enable = true;
+    enableExtensionPack = true;
     headless = false;
   };
 }
