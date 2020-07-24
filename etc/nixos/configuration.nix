@@ -22,13 +22,12 @@
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
 
-    initrd.luks.devices = [
-      {
-        name = "root";
+    initrd.luks.devices = {
+      root = {
         device = "/dev/nvme0n1p3";
         preLVM = true;
-      }
-    ];
+      };
+    };
   };
 
   networking.hostName = "fthoma-nixos"; # Define your hostname.
@@ -143,13 +142,10 @@
         enable = true;
         package = pkgs.i3-gaps;
       };
-      default = "i3";
-    };
-    desktopManager = {
-      default = "none";
     };
     displayManager = {
-      auto = {
+      defaultSession = "none+i3";
+      lightdm.autoLogin = {
         user = "fthoma";
         enable = true;
       };
@@ -191,6 +187,7 @@
     enable = true;
     syntaxHighlighting.enable = true;
   };
+  programs.gnupg.agent.enable = true;
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "16.03";
