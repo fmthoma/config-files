@@ -81,8 +81,8 @@ bindsym $M1+a focus parent
 bindsym $M1+s focus child
 
 # change split
-#bindsym $M1+v split v
-#bindsym $M1+h split h
+bindsym $M1+v split v
+bindsym $M1+h split h
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $M1+t layout tabbed
