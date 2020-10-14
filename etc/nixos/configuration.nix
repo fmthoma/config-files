@@ -170,6 +170,40 @@
   services.keybase.enable = true;
   services.kbfs.enable = true;
 
+  services.prometheus = {
+    enable = true;
+    scrapeConfigs = [
+      {
+        job_name = "room_climate";
+        scrape_interval = "15s";
+        static_configs = [
+          {
+            targets = ["esp8266-thomaf.fritz.box"];
+            labels.room = "Arbeitszimmer";
+          }
+        ];
+      }
+      {
+        job_name = "node_exporter";
+        scrape_interval = "10s";
+        static_configs = [ { targets = ["fthoma-nixos:9100"]; } ];
+      }
+      {
+        job_name = "fritzbox";
+        scrape_interval = "60s";
+        static_configs = [ { targets = ["fthoma-nixos:9133"]; } ];
+      }
+    ];
+    exporters = {
+      fritzbox.enable = true;
+      node.enable = true;
+    };
+  };
+
+  services.grafana = {
+    enable = true;
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.fthoma = {
     isNormalUser = true;
