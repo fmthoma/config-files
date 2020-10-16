@@ -40,6 +40,6 @@ CURRENT_VOL="$( current_vol $ACTIVE_SINK )%"
 IS_MUTED=$( is_muted $ACTIVE_SINK )
 [ -n "$IS_MUTED" ] && CURRENT_VOL="MUTE"
 
-[ "${BLOCK_BUTTON}" -eq "1" ] && toggle_mute "$ACTIVE_SINK"
+[ "${BLOCK_BUTTON:-0}" -eq "1" ] && toggle_mute "$ACTIVE_SINK"
 
 echo " <span color='#cb4b16'></span> ${CURRENT_VOL} "

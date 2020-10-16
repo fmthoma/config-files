@@ -2,9 +2,9 @@
 
 violet="#6c71c4"
 
-[ "${BLOCK_BUTTON}" -eq "1" ] && nm-connect &
-[ "${BLOCK_BUTTON}" -eq "2" ] && nm-disconnect &
-[ "${BLOCK_BUTTON}" -eq "3" ] && nm-wifi &
+[ "${BLOCK_BUTTON:-0}" -eq "1" ] && nm-connect &
+[ "${BLOCK_BUTTON:-0}" -eq "2" ] && nm-disconnect &
+[ "${BLOCK_BUTTON:-0}" -eq "3" ] && nm-wifi &
 
 function connections_of_type() {
   nmcli -t -f type,name connection show --active \
