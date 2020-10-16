@@ -145,7 +145,7 @@
     };
     displayManager = {
       defaultSession = "none+i3";
-      lightdm.autoLogin = {
+      autoLogin = {
         user = "fthoma";
         enable = true;
       };
