@@ -96,6 +96,7 @@
     openvpn
     wget
     which
+    moreutils
   ];
 
   environment.variables = {
