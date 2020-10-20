@@ -35,6 +35,7 @@
     # Fixes Java UnknownHostException
     127.0.0.1 fthoma-nixos
   '' + import /etc/nixos/hosts.local.nix;
+  networking.firewall.allowedTCPPorts = [ 9100 ];
   networking.networkmanager.enable = true;
 
   # Select internationalisation properties.
@@ -170,6 +171,8 @@
 
   services.keybase.enable = true;
   services.kbfs.enable = true;
+
+  services.prometheus.exporters.node.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.fthoma = {
