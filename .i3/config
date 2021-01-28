@@ -16,7 +16,7 @@ set $w4 workspace "4:    "
 
 for_window [class="feh"] floating enable
 
-bindsym $M1+n exec "feh -B '#002b36' https://neo-layout.org/grafik/tastatur3d/tastatur_neo_Ebene{1..6}.png"
+bindsym $M1+n exec "feh -B '#002b36' $HOME/.i3/neo{1..6}.png"
 bindsym $M2+f floating toggle
 
 # Solarized colors
