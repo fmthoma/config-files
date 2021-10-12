@@ -144,8 +144,8 @@ prompt_status() {
 rprompt_power() {
   local BAT=${1:-BAT0}
   local full now bat chr color
-  full=$( cat "/sys/class/power_supply/$BAT/energy_full_design" )
-  now=$(  cat "/sys/class/power_supply/$BAT/energy_now" )
+  full=$( cat "/sys/class/power_supply/$BAT/charge_full_design" )
+  now=$(  cat "/sys/class/power_supply/$BAT/charge_now" )
   bat=$(( ($now * 100) / $full ))
   if   [[ $bat -gt 80 ]]; then chr=" $BATTERY_80 "
   elif [[ $bat -gt 60 ]]; then chr=" $BATTERY_60 "

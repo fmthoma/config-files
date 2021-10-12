@@ -224,7 +224,6 @@ bindsym Ctrl+Print exec "sleep 0.1; scrot -s -e 'xclip -selection clipboard -t i
 
 font pango:ImposevkaExpanded Bold 12
 new_window pixel 3
-smart_borders on
 
 #                       BORDER      BACKGROUND  TEXT      INDICATOR
 client.focused          $green      $green      $base02   $green
@@ -232,9 +231,6 @@ client.unfocused        $base02     $base02     $base01   $base02
 client.focused_inactive $base01     $base01     $base02   $base01
 client.urgent           $orange     $orange     $base03   $orange
 client.background       $base03
-
-gaps outer 10
-gaps inner 10
 
 for_window [all] title_window_icon yes
 assign [class="Firefox"] $w3
