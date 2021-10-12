@@ -13,8 +13,8 @@ LIGHTNING=""
 
 for BAT in $(ls /sys/class/power_supply | grep BAT); do
 
-    full=$( sed -n "s/POWER_SUPPLY_ENERGY_FULL_DESIGN=\([0-9]\+\)/\1/p" "/sys/class/power_supply/${BAT}/uevent" )
-    now=$(  sed -n "s/POWER_SUPPLY_ENERGY_NOW=\([0-9]\+\)/\1/p"         "/sys/class/power_supply/${BAT}/uevent" )
+    full=$( sed -n "s/POWER_SUPPLY_CHARGE_FULL_DESIGN=\([0-9]\+\)/\1/p" "/sys/class/power_supply/${BAT}/uevent" )
+    now=$(  sed -n "s/POWER_SUPPLY_CHARGE_NOW=\([0-9]\+\)/\1/p"         "/sys/class/power_supply/${BAT}/uevent" )
     power=$(( ($now * 100) / $full))
 
     if   [ $power -gt 80 ]; then bat="$BATTERY_80"; color=$green
