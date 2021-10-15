@@ -19,11 +19,6 @@ execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
-" Disable haskell-vim omnifunc
-let g:haskellmode_completion_ghc = 0
-let g:necoghc_enable_detailed_browse = 1
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-
 " longest: select longest common substring
 " menuone: show menu even if there is only one option
 set completeopt=longest,menuone
