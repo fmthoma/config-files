@@ -43,5 +43,3 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 call lengthmatters#highlight('ctermbg=0')
 
 command Mdview %w !mdview
-
-nnoremap <silent> <Esc> :nohlsearch<CR>
