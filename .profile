@@ -30,7 +30,7 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-export EDITOR=vi # which is a script that runs spacemacs in the terminal :-D
+export EDITOR=vim
 export PAGER=less
 
 if [ -e /home/privat/.nix-profile/etc/profile.d/nix.sh ]

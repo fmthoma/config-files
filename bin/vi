@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-emacsclient --alternate-editor= -qt "$@" 2>/dev/null
