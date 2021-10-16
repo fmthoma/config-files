@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
-VERSION="9.21"
+VERSION="9.26"
 ARTIFACT="rxvt-unicode-$VERSION"
 
 ################################################################################
@@ -22,10 +22,10 @@ cd "${ARTIFACT}/"
 curl https://gist.githubusercontent.com/fmthoma/7e8dd23c12b55cae6474/raw/d21dc7ec3ee27c537a3aac3f9b6ae5f3cb3c7729/widechars.patch \
   | patch src/rxvtfont.C
 
-curl https://raw.githubusercontent.com/voidlinux/void-packages/master/srcpkgs/rxvt-unicode/patches/line-spacing-fix.patch \
+curl https://raw.githubusercontent.com/void-linux/void-packages/master/srcpkgs/rxvt-unicode/patches/line-spacing-fix.patch \
   | patch src/rxvtfont.C
 
-curl https://raw.githubusercontent.com/voidlinux/void-packages/master/srcpkgs/rxvt-unicode/patches/font-width-fix.patch \
+curl https://raw.githubusercontent.com/void-linux/void-packages/master/srcpkgs/rxvt-unicode/patches/font-width-fix.patch \
   | patch src/rxvtfont.C
 
 
