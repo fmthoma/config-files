@@ -269,3 +269,4 @@ focus_follows_mouse no
 # Autostart
 exec --no-startup-id "feh --bg-fill $HOME/wallpaper || hsetroot -solid '#000000'"
 exec --no-startup-id "xss-lock -- i3lock -i $HOME/wallpaper"
+exec_always --no-startup-id xrdb load $HOME/.Xresources
