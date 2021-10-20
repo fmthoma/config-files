@@ -59,3 +59,9 @@ alias tu='tig HEAD @{upstream}'
 alias tg='tig grep'
 
 alias zz='~/config-files/install/this; source ~/.zshrc; source ~/.profile'
+
+if (which ncal &> /dev/null); then
+    alias cal='ncal -bwy'
+else
+    alias cal='cal -wy'
+fi
