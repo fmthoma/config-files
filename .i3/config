@@ -94,6 +94,7 @@ bindsym $M1+c layout toggle split
 bindsym F1 $w1
 bindsym F2 $w2
 bindsym F3 $w3
+bindsym F4 $w4
 # ergodox bindings
 bindsym $M1+1 $w1
 bindsym $M1+2 $w2
@@ -189,6 +190,7 @@ mode $mode_settings {
 
 bindsym $M1+space exec scratchpad
 for_window [class="URxvt" instance="scratchpad"] floating enable
+for_window [class="^zoom$" title="^zoom$"] floating enable
 
 bindsym $M1+plus        resize grow width 10 px or 10 ppt;   resize grow height 10 px or 10 ppt
 bindsym $M1+KP_Add      resize grow width 10 px or 10 ppt;   resize grow height 10 px or 10 ppt
