@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -e
+
+UUID=$(bluetoothctl devices | grep 'AirPods Pro' | cut -d' ' -f2)
+CONNECTED="$(bluetoothctl info $UUID | grep 'Connected' | grep -o 'yes\|no')"
+
+case "${1:-}" in
+    "disconnect")
+        if [ "$CONNECTED" == "yes" ]; then
+            bluetoothctl disconnect $UUID
+        fi
+        ;;
+    ""|"connect")
+        if [ "$CONNECTED" == "no" ]; then
+            bluetoothctl connect $UUID
+        fi
+        pacmd set-card-profile "bluez_card.$(echo $UUID | tr : _)" headset_head_unit
+        ;;
+esac
