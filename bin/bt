@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+__connect() {
+    UUID="$1"
+    CONNECTED="$(bluetoothctl info $UUID | grep 'Connected' | grep -o 'yes\|no')"
+    if [ "$CONNECTED" == "no" ]; then
+        bluetoothctl connect $UUID
+    fi
+    pacmd set-card-profile "bluez_card.$(echo $UUID | tr : _)" headset_head_unit
+}
+
+__disconnect() {
+    UUID="$1"
+    CONNECTED="$(bluetoothctl info $UUID | grep 'Connected' | grep -o 'yes\|no')"
+    if [ "$CONNECTED" == "yes" ]; then
+        bluetoothctl disconnect $UUID
+    fi
+}
+
+__bt() {
+    CMD="$1"
+    DEVICE="$2"
+    UUID=$(bluetoothctl devices | grep -i "$DEVICE" | cut -d' ' -f2)
+
+    case "${1:-}" in
+        "disconnect")
+            __disconnect $UUID
+            ;;
+        ""|"connect")
+            __connect $UUID
+            ;;
+        "reconnect")
+            __disconnect $UUID
+            __connect $UUID
+            ;;
+    esac
+}
+
+case $# in
+    0) # list device
+        bluetoothctl devices
+        ;;
+    1) # connect to device mentioned in first parameter
+        __bt connect $1
+        exit 0
+        ;;
+    2) # first parameter is command, second parameter is device
+        __bt $1 $2
+        ;;
+    *) # error
+        exit 1
+        ;;
+esac
+
+
+
