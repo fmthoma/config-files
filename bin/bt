@@ -8,7 +8,17 @@ __connect() {
     if [ "$CONNECTED" == "no" ]; then
         bluetoothctl connect $UUID
     fi
-    pacmd set-card-profile "bluez_card.$(echo $UUID | tr : _)" headset_head_unit
+    if (bluetoothctl info $UUID | grep '0000111e-0000-1000-8000-00805f9b34fb' &> /dev/null); then
+        for I in {1..5}; do
+            if (pacmd set-card-profile "bluez_card.$(echo $UUID | tr : _)" headset_head_unit | grep "No card found" &> /dev/null); then
+                echo "Waiting for card..."
+                sleep 1
+            else
+                pacmd list-sinks | grep -o "bluez_sink\.$(echo $UUID | tr : _)\.[^>]*"
+                break
+            fi
+        done
+    fi
 }
 
 __disconnect() {
