@@ -1,4 +1,4 @@
-{ stdenv, otfcc, iosevka, nodejs }:
+{ stdenv, lib, otfcc, iosevka, nodejs }:
 
 stdenv.mkDerivation rec {
   name = "imposevka-${iosevka.version}";
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     cp -v dst/* $fontdir
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/ryanoasis/nerd-fonts";
     description = ''
       NerdFont patched Iosevka

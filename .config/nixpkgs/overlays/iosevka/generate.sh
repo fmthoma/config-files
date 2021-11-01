@@ -3,9 +3,9 @@
 
 if [ ! -e package.json ]; then
     echo "./package.json not found"
-    echo "Place https://github.com/be5invis/Iosevka/blob/master/package.json"
-    echo "in this directory in the correct version and re-run this script."
+    echo "Place this script in the iosevka directory and re-run"
+    echo "Then copy node-env.nix and node-packages.nix into this directory"
     exit 1
 fi
 
-node2nix -c /dev/null
+node2nix -c /dev/null -d -l package-lock.json
