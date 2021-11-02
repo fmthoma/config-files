@@ -197,6 +197,9 @@ bindsym $M1+KP_Add      resize grow width 10 px or 10 ppt;   resize grow height 
 bindsym $M1+minus       resize shrink width 10 px or 10 ppt; resize shrink height 10 px or 10 ppt
 bindsym $M1+KP_Subtract resize shrink width 10 px or 10 ppt; resize shrink height 10 px or 10 ppt
 
+bindsym Print exec "scrot -e 'xclip -selection clipboard -t image/png $f'"
+bindsym Ctrl+Print exec "sleep 0.1; scrot -s -e 'xclip -selection clipboard -t image/png $f'"
+
 font pango:ImposevkaExpanded Bold 12
 new_window pixel 3
 smart_borders on
