@@ -33,8 +33,8 @@ fi
 export EDITOR=vim
 export PAGER=less
 
-#if [ -e /home/$(id -un)/.nix-profile/etc/profile.d/nix.sh ]
-#    then . /home/$(id -un)/.nix-profile/etc/profile.d/nix.sh
-#else
-#    export NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/$(id -un)/channels/nixpkgs:nixos-config=/etc/nixos/configuration.nix:/nix/var/nix/profiles/per-user/$(id -un)/channels
-#fi
+if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]
+    then . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+else
+    export NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/$(id -un)/channels/nixpkgs:nixos-config=/etc/nixos/configuration.nix:/nix/var/nix/profiles/per-user/$(id -un)/channels
+fi
