@@ -1,5 +1,7 @@
 self: super: {
-    pnoise = with self; with self.python3Packages; callPackage ./pnoise.nix {};
-    svgelements = with self; with self.python3Packages; callPackage ./svgelements.nix {};
-    vpype = with self; with self.python3Packages; callPackage ./vpype.nix {};
+    vpype = with self; with self.python3Packages; let
+        pnoise = callPackage ./pnoise.nix {};
+        svgelements = callPackage ./svgelements.nix {};
+        hatched = callPackage ./hatched.nix {};
+    in callPackage ./vpype.nix { inherit pnoise svgelements hatched; };
 }

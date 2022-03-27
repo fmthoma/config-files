@@ -19,6 +19,7 @@
 , pillow
 , pyside2
 , qt5
+, hatched
 }:
 
 buildPythonPackage rec {
@@ -89,5 +90,6 @@ buildPythonPackage rec {
     moderngl
     pillow
     pyside2
+    hatched
   ];
 }
