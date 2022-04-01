@@ -20,6 +20,7 @@
 , pyside2
 , qt5
 , hatched
+, deduplicate
 }:
 
 buildPythonPackage rec {
@@ -91,5 +92,6 @@ buildPythonPackage rec {
     pillow
     pyside2
     hatched
+    deduplicate
   ];
 }

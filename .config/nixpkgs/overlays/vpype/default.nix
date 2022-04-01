@@ -3,5 +3,6 @@ self: super: {
         pnoise = callPackage ./pnoise.nix {};
         svgelements = callPackage ./svgelements.nix {};
         hatched = callPackage ./hatched.nix {};
-    in callPackage ./vpype.nix { inherit pnoise svgelements hatched; };
+        deduplicate = callPackage ./deduplicate.nix {};
+    in callPackage ./vpype.nix { inherit pnoise svgelements hatched deduplicate; };
 }
