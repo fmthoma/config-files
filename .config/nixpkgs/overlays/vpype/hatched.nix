@@ -28,6 +28,8 @@ buildPythonPackage rec {
       --replace '"opencv-python",' ""
     substituteInPlace setup.py \
       --replace '"vpype>=1.9,<2.0",' ""
+    substituteInPlace setup.py \
+      --replace '"click<8.1.0,>=8.0.1",' '"click"'
   '';
 
   doCheck = false;

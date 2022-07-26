@@ -65,6 +65,8 @@ buildPythonPackage rec {
     sed -i "s/'setuptools.*'/'setuptools'/" setup.py
     sed -i "s/'toml.*'/'tomli'/" setup.py
     sed -i "s/'svgelements.*'/'svgelements'/" setup.py
+    sed -i "s/'click.*'/'click'/" setup.py
+    sed -i "s/'Shapely\[vectorized\].*'/'Shapely[Vectorized]'/" setup.py
   '';
 
   preFixup = ''
