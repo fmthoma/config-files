@@ -17,7 +17,7 @@
     pulseaudio.package = pkgs.pulseaudioFull;
   };
 
-  # Use the gummiboot efi boot loader.
+  # Use the systemd-boot EFI boot loader.
   boot = {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
@@ -38,15 +38,9 @@
   networking.firewall.allowedTCPPorts = [ 9100 ];
   networking.networkmanager.enable = true;
 
-  # Select internationalisation properties.
-  # i18n = {
-  #   consoleFont = "Lat2-Terminus16";
-  #   consoleKeyMap = "us";
-  #   defaultLocale = "en_US.UTF-8";
-  # };
   i18n.defaultLocale = "en_GB.UTF-8";
+  console.keyMap = "neo";
 
-  # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
   nix.nixPath = options.nix.nixPath.default ++ [ "nixpkgs-overlays=/etc/nixos/overlays/" ];
@@ -109,10 +103,6 @@
   # Battery life
   services.tlp.enable = true;
 
-  services.dbus.packages = with pkgs; [ gnome3.dconf ];
-
-  services.emacs.enable = true;
-
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
@@ -132,7 +122,7 @@
   services.xserver = {
     enable = true;
     layout = "de";
-    xkbOptions = "neo";
+    xkbVariant = "neo";
     synaptics = {
       enable = true;
       additionalOptions = ''
@@ -146,13 +136,13 @@
       };
     };
     displayManager = {
+      lightdm.enable = true;
       defaultSession = "none+i3";
       autoLogin = {
         user = "fthoma";
         enable = true;
       };
       sessionCommands = ''
-        ${pkgs.xlibs.setxkbmap}/bin/setxkbmap de neo
         if test -e $HOME/.Xresources; then
           ${pkgs.xorg.xrdb}/bin/xrdb --merge $HOME/.Xresources
         fi
@@ -195,8 +185,6 @@
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "16.03";
-
-  nix.buildCores = 4;
 
   virtualisation.docker.enable = true;
   virtualisation.virtualbox.host = {
