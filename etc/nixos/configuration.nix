@@ -20,13 +20,6 @@
   boot = {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
-
-    initrd.luks.devices = {
-      root = {
-        device = "/dev/nvme0n1p3";
-        preLVM = true;
-      };
-    };
   };
 
   networking.hostName = "fthoma-nixos"; # Define your hostname.

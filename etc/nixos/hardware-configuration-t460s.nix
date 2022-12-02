@@ -15,6 +15,13 @@
 
   boot.blacklistedKernelModules = [ "mei_wdt" ];
 
+  boot.initrd.luks.devices = {
+    root = {
+      device = "/dev/nvme0n1p3";
+      preLVM = true;
+    };
+  };
+
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/0e6b04ce-6b3e-4b25-b825-f563182acad8";
       fsType = "ext4";
