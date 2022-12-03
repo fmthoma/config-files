@@ -20,6 +20,9 @@
   boot = {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
+    plymouth.enable = true;
+    plymouth.theme = "breeze";
+    initrd.systemd.enable = true;
   };
 
   networking.hostName = "fthoma-nixos"; # Define your hostname.
