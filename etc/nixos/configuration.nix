@@ -158,11 +158,10 @@
     extraGroups = [ "networkmanager" "wheel" "docker" "adbusers" "dialout" ];
     uid = 1000;
     createHome = true;
-    shell = "/run/current-system/sw/bin/zsh";
-    password = "dummy";
+    shell = pkgs.zsh;
   };
   users.extraGroups.fthoma.gid = 1000;
-  users.defaultUserShell = "/run/current-system/sw/bin/zsh";
+  users.defaultUserShell = pkgs.zsh;
   programs.adb.enable = true;
   programs.zsh = {
     enable = true;
