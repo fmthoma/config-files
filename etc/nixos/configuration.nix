@@ -38,12 +38,6 @@
 
   time.timeZone = "Europe/Berlin";
 
-  nix.nixPath = options.nix.nixPath.default ++ [ "nixpkgs-overlays=/etc/nixos/overlays/" ];
-
-  # pkgs does not respect overlays, so we have to include the desired ones manually
-  # (see https://github.com/NixOS/nixpkgs/issues/24907).
-  nixpkgs.overlays = [ (import "/etc/nixos/overlays/urxvt") ];
-
   # Required for VBox Extensions
   nixpkgs.config.allowUnfree = true;
 
@@ -72,7 +66,7 @@
     i3status
     libnotify
     redshift
-    rxvt_unicode
+    rxvt-unicode-emoji
     xclip
     xdotool
     xorg.xbacklight
