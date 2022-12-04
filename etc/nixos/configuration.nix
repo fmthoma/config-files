@@ -110,12 +110,7 @@
     enable = true;
     layout = "de";
     xkbVariant = "neo";
-    synaptics = {
-      enable = true;
-      additionalOptions = ''
-        Option "TouchpadOff" "1"
-      '';
-    };
+    libinput.enable = true;
     windowManager = {
       i3 = {
         enable = true;
