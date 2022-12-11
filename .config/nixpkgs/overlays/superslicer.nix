@@ -10,10 +10,7 @@ self: super: {
         };
     });
 
-    super-slicer = let
-        prusa-slicer' = super.prusa-slicer.override { wxGTK31-gtk3-override = super.wxGTK31-gtk3; };
-    in
-    prusa-slicer'.overrideAttrs (oldAttrs: rec {
+    super-slicer = super.prusa-slicer.overrideAttrs (oldAttrs: rec {
         pname = "super-slicer";
         version = "2.5.59.0";
 
