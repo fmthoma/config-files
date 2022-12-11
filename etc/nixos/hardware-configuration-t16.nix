@@ -17,21 +17,21 @@
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware = {
-    # nvidia.modesetting.enable = true;
+    nvidia.modesetting.enable = true;
     nvidia.prime.sync.enable = true;
     nvidia.prime.intelBusId = "PCI:0:2:0";
     nvidia.prime.nvidiaBusId = "PCI:3:0:0";
-    # opengl = {
-    #   extraPackages = [
-    #     pkgs.mesa.drivers
-    #     pkgs.linuxPackages.nvidia_x11.out
-    #     pkgs.vaapiIntel
-    #     pkgs.vaapiVdpau
-    #     pkgs.libvdpau-va-gl
-    #   ];
-    #   driSupport = true;
-    #   driSupport32Bit = true;
-    # };
+    opengl = {
+      extraPackages = [
+        pkgs.mesa.drivers
+        pkgs.linuxPackages.nvidia_x11.out
+        pkgs.vaapiIntel
+        pkgs.vaapiVdpau
+        pkgs.libvdpau-va-gl
+      ];
+      driSupport = true;
+      driSupport32Bit = true;
+    };
   };
 
 
