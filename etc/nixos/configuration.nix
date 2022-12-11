@@ -139,6 +139,13 @@
     HandleLidSwitchDocked=ignore
   '';
 
+  services.upower = {
+    enable = true;
+    percentageLow = 20;
+    percentageCritical = 15;
+    percentageAction = 10;
+  };
+
   services.resolved.enable = true;
   services.avahi.enable = true;
   services.avahi.nssmdns = true;
