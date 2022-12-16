@@ -252,3 +252,4 @@ exec --no-startup-id "compton -b"
 exec --no-startup-id dunst
 exec --no-startup-id "feh --bg-fill $HOME/wallpaper || hsetroot -solid '#000000'"
 exec --no-startup-id "xss-lock -- i3lock -i $HOME/wallpaper"
+exec --no-startup-id poweralertd
