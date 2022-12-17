@@ -12,19 +12,19 @@
       thomaf-t16 = nixos.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./etc/nixos/t16.nix
-          ./etc/nixos/configuration.nix
-          ./etc/nixos/hardware-configuration-t16.nix
-          (import ./etc/nixos/thomaf.nix home-manager)
+          ./nixos/t16.nix
+          ./nixos/configuration.nix
+          ./nixos/hardware-configuration-t16.nix
+          (import ./nixos/thomaf.nix home-manager)
         ];
       };
       thomaf-t460s = nixos.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./etc/nixos/t460s.nix
-          ./etc/nixos/configuration.nix
-          ./etc/nixos/hardware-configuration-t460s.nix
-          ./etc/nixos/thomaf.nix
+          ./nixos/t460s.nix
+          ./nixos/configuration.nix
+          ./nixos/hardware-configuration-t460s.nix
+          (import ./nixos/thomaf.nix home-manager)
         ];
       };
     };
