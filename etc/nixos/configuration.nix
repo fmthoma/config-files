@@ -41,33 +41,15 @@
     gitAndTools.gitFull
     gnupg
     htop
-    meld
-    msmtp
-    mutt-with-sidebar
-    ranger
-    stack
-    tig
-    w3m
 
-    bc
-    compton
-    dmenu
-    dunst
-    feh
-    i3blocks
-    i3lock
-    i3status
     libnotify
     redshift
     rxvt-unicode-emoji
-    xclip
-    xdotool
     xorg.xbacklight
     xorg.xwininfo
     xss-lock
 
     cryptsetup
-    networkmanagerapplet
     openvpn
     wget
     which
