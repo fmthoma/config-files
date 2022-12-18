@@ -53,6 +53,7 @@
     wget
     which
     moreutils
+    pciutils
   ];
 
   environment.variables = {

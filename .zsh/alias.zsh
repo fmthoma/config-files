@@ -11,9 +11,9 @@ alias irgrep='rgrep -i'
 alias -g G=' | grep'
 
 alias ls='ls --color=auto'
-alias ll='ls -lF --color=always'
-alias la='ls -AlF --color=always'
-alias l='ls -CF --color=always'
+alias ll='lsd -lF'
+alias la='lsd -AlF'
+alias l='lsd -F'
 alias md='mkdir -p'
 
 alias less='less -RS'
