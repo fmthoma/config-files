@@ -32,7 +32,7 @@
       thomaf = {
         imports = [ home-manager.nixosModules.home-manager ];
         home-manager.useGlobalPkgs = true;
-        home-manager.users.thomaf = import ./nixos/thomaf.nix;
+        home-manager.users.thomaf = import ./home-manager/thomaf.nix;
       };
     };
   in {

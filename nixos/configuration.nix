@@ -43,7 +43,6 @@
     htop
 
     libnotify
-    redshift
     rxvt-unicode-emoji
     xorg.xwininfo
     xss-lock

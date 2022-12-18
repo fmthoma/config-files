@@ -14,10 +14,8 @@
     chromium
     cloc
     co2monitor
-    compton
     discord
     dmenu
-    dunst
     evince
     fasd
     feh
@@ -40,7 +38,6 @@
     meld
     msmtp
     mutt-with-sidebar
-    networkmanagerapplet
     nload
     openscad
     pandoc
@@ -48,7 +45,6 @@
     pass
     pavucontrol
     petname
-    poweralertd
     powertop
     ranger
     restic
@@ -79,5 +75,21 @@
 
   programs = {
       firefox.enable = true;
+      browserpass.enable = true;
+  };
+
+  services = {
+    dunst = {
+      enable = true;
+      configFile = ./dunstrc;
+    };
+    gammastep = {
+      enable = true;
+      latitude = 48.1;
+      longitude = 11.6;
+    };
+    picom.enable = true;
+    poweralertd.enable = true;
+    network-manager-applet.enable = true;
   };
 }
