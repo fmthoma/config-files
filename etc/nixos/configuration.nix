@@ -87,6 +87,8 @@
 
   # List services that you want to enable:
 
+  services.fwupd.enable = true;
+
   # Battery life
   services.tlp.enable = true;
 
