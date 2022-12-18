@@ -11,6 +11,9 @@ alias irgrep='rgrep -i'
 alias -g G=' | grep'
 
 alias ls='ls --color=auto'
+if ! (which lsd &> /dev/null); then
+    alias lsd='ls --color=always'
+fi
 alias ll='lsd -lF'
 alias la='lsd -AlF'
 alias l='lsd -F'
