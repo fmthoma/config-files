@@ -4,11 +4,6 @@
 
 { config, pkgs, options, ... }: {
 
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
-
   hardware = {
     trackpoint.emulateWheel = true;
     bluetooth.enable = true;
@@ -25,11 +20,10 @@
     initrd.systemd.enable = true;
   };
 
-  networking.hostName = "fthoma-nixos"; # Define your hostname.
   networking.extraHosts = ''
     # Fixes Java UnknownHostException
     127.0.0.1 fthoma-nixos
-  '' + import /etc/nixos/hosts.local.nix;
+  '' + (if builtins.pathExists /etc/nixos/hosts.local.nix then import /etc/nixos/hosts.local.nix else "");
   networking.firewall.allowedTCPPorts = [ 9100 ];
   networking.networkmanager.enable = true;
 
@@ -44,37 +38,18 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    firefox
     gitAndTools.gitFull
     gnupg
     htop
-    meld
-    msmtp
-    mutt-with-sidebar
-    ranger
-    stack
-    tig
-    w3m
 
-    bc
-    compton
-    dmenu
-    dunst
-    feh
-    i3blocks
-    i3lock
-    i3status
     libnotify
     redshift
     rxvt-unicode-emoji
-    xclip
-    xdotool
     xorg.xbacklight
     xorg.xwininfo
     xss-lock
 
     cryptsetup
-    networkmanagerapplet
     openvpn
     wget
     which
@@ -86,6 +61,8 @@
 
 
   # List services that you want to enable:
+
+  services.fwupd.enable = true;
 
   # Battery life
   services.tlp.enable = true;
@@ -121,7 +98,7 @@
       lightdm.enable = true;
       defaultSession = "none+i3";
       autoLogin = {
-        user = "fthoma";
+        user = "thomaf";
         enable = true;
       };
       sessionCommands = ''
@@ -137,6 +114,13 @@
     HandleLidSwitchDocked=ignore
   '';
 
+  services.upower = {
+    enable = true;
+    percentageLow = 20;
+    percentageCritical = 15;
+    percentageAction = 10;
+  };
+
   services.resolved.enable = true;
   services.avahi.enable = true;
   services.avahi.nssmdns = true;
@@ -147,15 +131,15 @@
   services.prometheus.exporters.node.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.extraUsers.fthoma = {
+  users.extraUsers.thomaf = {
     isNormalUser = true;
-    group = "fthoma";
+    group = "thomaf";
     extraGroups = [ "networkmanager" "wheel" "docker" "adbusers" "dialout" ];
     uid = 1000;
     createHome = true;
     shell = pkgs.zsh;
   };
-  users.extraGroups.fthoma.gid = 1000;
+  users.extraGroups.thomaf.gid = 1000;
   users.defaultUserShell = pkgs.zsh;
   programs.adb.enable = true;
   programs.zsh = {
@@ -164,13 +148,12 @@
   };
   programs.gnupg.agent.enable = true;
 
-  # The NixOS release to be compatible with for stateful data such as databases.
-  system.stateVersion = "16.03";
+  # virtualisation.docker.enable = true;
+  # virtualisation.virtualbox.host = {
+  #   enable = true;
+  #   enableExtensionPack = true;
+  #   headless = false;
+  # };
 
-  virtualisation.docker.enable = true;
-  virtualisation.virtualbox.host = {
-    enable = true;
-    enableExtensionPack = true;
-    headless = false;
-  };
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 }

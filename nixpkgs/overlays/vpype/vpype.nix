@@ -73,6 +73,8 @@ buildPythonPackage rec {
     makeWrapperArgs+=("''${qtWrapperArgs[@]}")
   '';
 
+  doCheck = false;
+
   nativeBuildInputs = [ qt5.wrapQtAppsHook ];
 
   propagatedBuildInputs = [

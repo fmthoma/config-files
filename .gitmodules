@@ -24,4 +24,4 @@
 	url = https://github.com/whatyouhide/vim-lengthmatters.git
 [submodule ".zsh/gradle-completion"]
 	path = .zsh/gradle-completion
-	url = git@github.com:fmthoma/gradle-completion.git
+	url = https://github.com/fmthoma/gradle-completion.git
