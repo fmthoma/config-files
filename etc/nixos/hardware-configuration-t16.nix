@@ -9,9 +9,33 @@
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "usbhid" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.initrd.kernelModules = [ "i915" ];
+  boot.kernelModules = [ "kvm-intel" "i915"];
   boot.extraModulePackages = [ ];
+  boot.kernelParams = [ "i915.force_probe=46a6" ];
+
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  hardware = {
+    # nvidia.modesetting.enable = true;
+    nvidia.prime.sync.enable = true;
+    nvidia.prime.intelBusId = "PCI:0:2:0";
+    nvidia.prime.nvidiaBusId = "PCI:3:0:0";
+    # opengl = {
+    #   extraPackages = [
+    #     pkgs.mesa.drivers
+    #     pkgs.linuxPackages.nvidia_x11.out
+    #     pkgs.vaapiIntel
+    #     pkgs.vaapiVdpau
+    #     pkgs.libvdpau-va-gl
+    #   ];
+    #   driSupport = true;
+    #   driSupport32Bit = true;
+    # };
+  };
+
+
+
 
   fileSystems."/" =
     { device = "/dev/mapper/enc-pv";

@@ -23,7 +23,6 @@
     plymouth.enable = true;
     plymouth.theme = "breeze";
     initrd.systemd.enable = true;
-    kernelParams = [ "nomodeset" ];
   };
 
   networking.hostName = "fthoma-nixos"; # Define your hostname.
