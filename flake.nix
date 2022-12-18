@@ -1,15 +1,23 @@
 {
   inputs = {
     nixos.url = "github:nixos/nixpkgs/release-22.11";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-22_05.url = "github:nixos/nixpkgs/release-22.05";
+    nixpkgs-21_11.url = "github:nixos/nixpkgs/release-21.11";
+    nixpkgs-21_05.url = "github:nixos/nixpkgs/release-21.05";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixos";
   };
 
-  outputs = { self, nixpkgs, nixos, home-manager, ... }@inputs:
+  outputs = { self, nixos, home-manager, ... }@inputs:
   let
     overlays = [
-      (_: _: { unstable = import nixpkgs { system = "x86_64-linux"; inherit overlays; }; })
+      (_: _: {
+        unstable = import inputs.nixpkgs-unstable { system = "x86_64-linux"; inherit overlays; };
+        release-22_05 = import inputs.nixpkgs-22_05 { system = "x86_64-linux"; inherit overlays; };
+        release-21_11 = import inputs.nixpkgs-21_11 { system = "x86_64-linux"; inherit overlays; };
+        release-21_05 = import inputs.nixpkgs-21_05 { system = "x86_64-linux"; inherit overlays; };
+      })
       (import ./nixpkgs/overlays/vpype)
       (import ./nixpkgs/overlays/iosevka)
       (import ./nixpkgs/overlays/petname.nix)
