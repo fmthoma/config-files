@@ -71,6 +71,8 @@
 
   services.fwupd.enable = true;
 
+  services.blueman.enable = true;
+
   # Battery life
   services.tlp.enable = true;
 

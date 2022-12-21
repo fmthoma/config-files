@@ -87,9 +87,12 @@
       enable = true;
       latitude = 48.1;
       longitude = 11.6;
+      tray = true;
     };
     picom.enable = true;
     poweralertd.enable = true;
     network-manager-applet.enable = true;
+    blueman-applet.enable = true;
+    pasystray.enable = true;
   };
 }
