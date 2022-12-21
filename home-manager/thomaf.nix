@@ -11,6 +11,7 @@
     awscli2
     bc
     binutils
+    blender
     chromium
     cloc
     co2monitor
@@ -20,11 +21,13 @@
     fasd
     feh
     freecad
+    freeplane
     ghcid
     gmsh
     gnome.nautilus
     google-chrome
     gucharmap
+    haskellPackages.vgrep
     i3blocks
     i3lock
     i3status
@@ -62,6 +65,7 @@
     tree
     unzip
     vim
+    vistafonts
     vpype
     vscode
     w3m
