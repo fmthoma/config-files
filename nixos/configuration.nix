@@ -45,7 +45,6 @@
     libnotify
     redshift
     rxvt-unicode-emoji
-    xorg.xbacklight
     xorg.xwininfo
     xss-lock
 
@@ -61,6 +60,14 @@
 
 
   # List services that you want to enable:
+
+  services.actkbd = {
+    enable = true;
+    bindings = [
+      { keys = [ 224 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -U 10"; }
+      { keys = [ 225 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -A 10"; }
+    ];
+  };
 
   services.fwupd.enable = true;
 
@@ -134,7 +141,7 @@
   users.extraUsers.thomaf = {
     isNormalUser = true;
     group = "thomaf";
-    extraGroups = [ "networkmanager" "wheel" "docker" "adbusers" "dialout" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "adbusers" "dialout" "video" ];
     uid = 1000;
     createHome = true;
     shell = pkgs.zsh;
@@ -147,6 +154,8 @@
     syntaxHighlighting.enable = true;
   };
   programs.gnupg.agent.enable = true;
+
+  programs.light.enable = true;
 
   # virtualisation.docker.enable = true;
   # virtualisation.virtualbox.host = {

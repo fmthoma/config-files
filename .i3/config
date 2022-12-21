@@ -170,8 +170,8 @@ bindsym Mod3+h mode $mode_settings
 
 set $mode_settings " [] Brightness  |  [] Volume  |  [N]etwork [D]isconnect | [L]ock [S]uspend | [1] [2] Monitor(s)"
 mode $mode_settings {
-    bindsym Up   exec "xbacklight +10"
-    bindsym Down exec "xbacklight -10"
+    bindsym Up   exec "light -A 10"
+    bindsym Down exec "light -U 10"
 
     bindsym Left  exec "pactl set-sink-volume 1 -10%"
     bindsym Right exec "pactl set-sink-volume 1 +10%"
