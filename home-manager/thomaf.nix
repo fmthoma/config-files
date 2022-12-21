@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   home.stateVersion = "22.11";
 
   nixpkgs.config = {
@@ -95,4 +95,5 @@
     blueman-applet.enable = true;
     pasystray.enable = true;
   };
+  xdg.configFile."picom/picom.conf".text = lib.mkForce (lib.readFile ./picom.conf);
 }
