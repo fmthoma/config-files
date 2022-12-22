@@ -14,5 +14,9 @@
       cores = 16;
       max-jobs = 16;
     };
+
+    services.throttled.enable = true;
+    # Throttled service still has old file called 'lenovo_fix.conf'
+    environment.etc."throttled.conf".source = "${pkgs.throttled}/etc/throttled.conf";
   };
 }
