@@ -10,7 +10,7 @@ let
     dontNpmInstall = true;
   });
 
-  version = "10.3.4";
+  version = "17.0.0";
 
   privateBuildPlans = ./private-build-plans.toml;
 
@@ -23,7 +23,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url = "https://github.com/be5invis/Iosevka/archive/refs/tags/v${version}.zip";
-    sha256 = "0kwmv3vagga9vymxfgz42gp5wpqy0naxx6llacpp63i1k43cy3s4";
+    sha256 = "sha256-zLekm1f831a0UdYef2DD20tvOysKWM1NDixw2XJ3z34=";
   };
 
   nativeBuildInputs = [ unzip nodejs ttfautohint ];
