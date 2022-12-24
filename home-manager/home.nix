@@ -32,6 +32,7 @@
     i3blocks
     i3lock
     i3status
+    jetbrains.idea-ultimate
     imagemagick
     imposevka
     inkscape
