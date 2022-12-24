@@ -19,6 +19,7 @@
     discord
     dmenu
     evince
+    evolution
     fasd
     feh
     freecad
