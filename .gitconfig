@@ -30,6 +30,18 @@
 	branch = auto
 [commit]
 	verbose = true
+[core]
+	pager = delta
+[delta]
+	navigate = true
+	light = false
+	commit-decoration-style = ul ol bold red
+	commit-style = bold raw
+	hunk-header-decoration-style = none
+	line-numbers = true
+	keep-plus-minus-markers = false
+[interactive]
+	diffFilter = delta --color-only
 [push]
 	default = simple
 [user]
@@ -42,12 +54,13 @@
 	autosquash = true
 [merge]
 	tool = meld
+	conflictstyle = diff3
 [mergetool "intellij"]
 	cmd = idea-ultimate merge \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
 	trustExitCode = true
 [diff]
 	tool = meld
-	colorMoved = zebra
+	colorMoved = default
 [difftool "intellij"]
 	cmd = idea-ultimate diff \"$LOCAL\" \"$REMOTE\"
 	trustExitCode = true

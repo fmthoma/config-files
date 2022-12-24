@@ -15,6 +15,7 @@
     chromium
     cloc
     co2monitor
+    delta
     discord
     dmenu
     evince
