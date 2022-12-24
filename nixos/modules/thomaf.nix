@@ -10,4 +10,5 @@
     };
     extraGroups.thomaf.gid = 1000;
   };
+  config.nix.settings.trusted-users = [ "thomaf" ];
 }
