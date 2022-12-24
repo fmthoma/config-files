@@ -30,10 +30,10 @@
       overlays = {
         config.nixpkgs = { inherit overlays; };
       };
-      thomaf = {
+      home = username: {
         imports = [ home-manager.nixosModules.home-manager ];
         home-manager.useGlobalPkgs = true;
-        home-manager.users.thomaf = import ./home-manager/thomaf.nix;
+        home-manager.users.${username} = import ./home-manager/home.nix;
       };
     };
   in {
@@ -42,20 +42,28 @@
         system = "x86_64-linux";
         modules = [
           modules.overlays
-          modules.thomaf
-          ./nixos/t16.nix
+          (modules.home "thomaf")
+          ./nixos/machines/t16.nix
+          ./nixos/machines/hardware-configuration-t16.nix
           ./nixos/configuration.nix
-          ./nixos/hardware-configuration-t16.nix
+          ./nixos/modules/thomaf.nix
+          ./nixos/modules/docker.nix
+          ./nixos/modules/thinkpad.nix
+          ./nixos/modules/xserver.nix
         ];
       };
       thomaf-t460s = nixos.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           modules.overlays
-          modules.thomaf
-          ./nixos/t460s.nix
+          (modules.home "thomaf")
+          ./nixos/machines/t460s.nix
+          ./nixos/machines/hardware-configuration-t460s.nix
           ./nixos/configuration.nix
-          ./nixos/hardware-configuration-t460s.nix
+          ./nixos/modules/thomaf.nix
+          ./nixos/modules/keybase.nix
+          ./nixos/modules/thinkpad.nix
+          ./nixos/modules/xserver.nix
         ];
       };
     };
