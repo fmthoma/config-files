@@ -10,11 +10,6 @@
     # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
     system.stateVersion = "22.05"; # Did you read the comment?
 
-    nix.settings = {
-      cores = 16;
-      max-jobs = 16;
-    };
-
     services.throttled.enable = true;
     # Throttled service still has old file called 'lenovo_fix.conf'
     environment.etc."throttled.conf".source = "${pkgs.throttled}/etc/throttled.conf";
