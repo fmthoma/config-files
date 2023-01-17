@@ -29,6 +29,9 @@ fi
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
+if [ -d "$HOME/.ghcup/bin" ]; then
+    PATH="$HOME/.ghcup/bin:$PATH"
+fi
 
 export EDITOR=vim
 export PAGER=less
