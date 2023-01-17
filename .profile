@@ -41,3 +41,7 @@ if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]
 else
     export NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/$(id -un)/channels/nixpkgs:nixos-config=/etc/nixos/configuration.nix:/nix/var/nix/profiles/per-user/$(id -un)/channels
 fi
+
+export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
+
+export TERMINFO=/etc/terminfo
