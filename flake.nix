@@ -25,6 +25,7 @@
       (import ./nixpkgs/overlays/superslicer.nix)
       (import ./nixpkgs/overlays/throttled.nix)
       (import ./nixpkgs/overlays/vpype)
+      (import ./nixpkgs/overlays/factorio.nix)
     ];
     modules = {
       overlays = {
