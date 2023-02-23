@@ -5,7 +5,6 @@ cd ~
 
 for DOTFILE in .compton.conf \
                .config \
-               .gitconfig \
                .i3 \
                .i3blocks.conf \
                .msmtprc \
