@@ -71,5 +71,9 @@
 	ff = only
 [tag]
 	sort = version:refname
+[credential]
+	helper = store
+[checkout]
+	defaultRemote = origin
 [init]
 	defaultBranch = main
