@@ -10,7 +10,7 @@ __connect() {
     fi
     if (bluetoothctl info $UUID | grep '0000111e-0000-1000-8000-00805f9b34fb' &> /dev/null); then
         for I in {1..5}; do
-            if (pacmd set-card-profile "bluez_card.$(echo $UUID | tr : _)" headset_head_unit | grep "No card found" &> /dev/null); then
+            if (pacmd set-card-profile "bluez_card.$(echo $UUID | tr : _)" handsfree_head_unit | grep "No card found" &> /dev/null); then
                 echo "Waiting for card..."
                 sleep 1
             else
