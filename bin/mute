@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+DEFAULT_SOURCE=$(pacmd info | grep "Default source" | cut -d" " -f4)
+IS_MUTED=$(
+  pacmd list-sources \
+    | awk "/* index/,/muted/" \
+    | grep "muted" | grep "yes"
+)
+
+case "${1:-on}" in
+  on)
+    pacmd set-source-mute "$DEFAULT_SOURCE" on
+    ;;
+  off)
+    pacmd set-source-mute "$DEFAULT_SOURCE" off
+    ;;
+  toggle)
+    if [ -n "$IS_MUTED" ]; then
+      mute off
+    else
+      mute on
+    fi
+    ;;
+esac
+
