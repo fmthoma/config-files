@@ -137,6 +137,9 @@ bindsym $M1+Shift+p exec "nix-shell -p pass --run passmenu"
 # Lockscreen
 bindsym $M1+l exec loginctl lock-session
 
+# Toggle Mute
+bindsym $M1+m exec mute toggle
+
 # exit i3 (logs you out of your X session)
 bindsym $M2+q exit
 
