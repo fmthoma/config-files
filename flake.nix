@@ -32,7 +32,10 @@
         config.nixpkgs = { inherit overlays; };
       };
       home = username: {
-        imports = [ home-manager.nixosModules.home-manager ];
+        imports = [
+          home-manager.nixosModules.home-manager
+          ./nixos/modules/${username}.nix
+        ];
         home-manager.useGlobalPkgs = true;
         home-manager.users.${username} = import ./home-manager/${username}.nix;
       };
@@ -44,10 +47,10 @@
         modules = [
           modules.overlays
           (modules.home "thomaf")
+          (modules.home "privat")
           ./nixos/machines/t16.nix
           ./nixos/machines/hardware-configuration-t16.nix
           ./nixos/configuration.nix
-          ./nixos/modules/thomaf.nix
           ./nixos/modules/docker.nix
           ./nixos/modules/thinkpad.nix
           ./nixos/modules/xserver.nix
@@ -61,7 +64,6 @@
           ./nixos/machines/t460s.nix
           ./nixos/machines/hardware-configuration-t460s.nix
           ./nixos/configuration.nix
-          ./nixos/modules/thomaf.nix
           ./nixos/modules/keybase.nix
           ./nixos/modules/thinkpad.nix
           ./nixos/modules/xserver.nix
