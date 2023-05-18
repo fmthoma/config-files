@@ -34,7 +34,7 @@
       home = username: {
         imports = [ home-manager.nixosModules.home-manager ];
         home-manager.useGlobalPkgs = true;
-        home-manager.users.${username} = import ./home-manager/home.nix;
+        home-manager.users.${username} = import ./home-manager/${username}.nix;
       };
     };
   in {
