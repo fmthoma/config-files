@@ -6,6 +6,7 @@
   };
 
   home.packages = with pkgs; [
+    android-file-transfer
     arduino
     arduino-cli
     bc
