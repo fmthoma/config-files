@@ -73,6 +73,8 @@
     prometheus.exporters.node.enable = true;
 
     resolved.enable = true;
+
+    udisks2.enable = true;
   };
 
   programs = {
