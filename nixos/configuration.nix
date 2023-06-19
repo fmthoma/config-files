@@ -33,7 +33,6 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
-    gitAndTools.gitFull
     gnupg
     htop
 
@@ -79,6 +78,12 @@
 
   programs = {
     adb.enable = true;
+
+    git = {
+      enable = true;
+      lfs.enable = true;
+      package = pkgs.gitFull;
+    };
 
     gnupg.agent.enable = true;
 
