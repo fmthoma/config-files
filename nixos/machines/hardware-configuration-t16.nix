@@ -13,7 +13,7 @@
   boot.kernelModules = [ "kvm-intel" "i915"];
   boot.extraModulePackages = [ ];
   boot.kernelParams = [ ];
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_1;
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
@@ -25,7 +25,7 @@
     opengl = {
       extraPackages = [
         pkgs.mesa.drivers
-        pkgs.linuxPackages_latest.nvidia_x11.out
+        pkgs.linuxPackages_6_1.nvidia_x11.out
         pkgs.vaapiIntel
         pkgs.vaapiVdpau
         pkgs.libvdpau-va-gl

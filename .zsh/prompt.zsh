@@ -70,11 +70,11 @@ prompt_context() {
   prompt_segment cyan $PRIMARY_FG " ${CLOCK}${current_time}${shell_level} "
 }
 
-rprompt_user() {
+prompt_ssh() {
   local user=`whoami`
 
-  if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CONNECTION" ]]; then
-    rprompt_segment $PRIMARY_FG default " %(!.%{%F{yellow}%}.)$user@%m "
+  if [[ -n "$SSH_CONNECTION" ]]; then
+    prompt_segment red $PRIMARY_FG " %(!.%{%F{yellow}%}.)$user@%m "
   fi
 }
 
@@ -176,6 +176,7 @@ build_prompt() {
   RETVAL=$?
   CURRENT_BG='NONE'
   prompt_status
+  prompt_ssh
   prompt_context
   prompt_dir
   prompt_git
@@ -187,7 +188,6 @@ build_prompt() {
 }
 
 build_rprompt() {
-  #rprompt_user
   rprompt_stats
 
   for BAT in $( ls /sys/class/power_supply/ | grep BAT ); do

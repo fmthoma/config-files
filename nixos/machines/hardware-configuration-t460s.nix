@@ -36,11 +36,6 @@
     [ { device = "/dev/disk/by-uuid/ccf99d96-352f-41c6-b9b5-1802c1449ad8"; }
     ];
 
-  nix = {
-    buildCores = 4;
-    maxJobs = 4;
-  };
-
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   # Fixes 'TSC_DEADLINE disabled due to Errata' message
   # Must be kept enabled, needs to take effect on every boot
