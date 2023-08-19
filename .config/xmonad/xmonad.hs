@@ -8,6 +8,7 @@ import XMonad.Hooks.InsertPosition
 import XMonad.Layout.Accordion
 import XMonad.Layout.CenteredIfSingle
 import XMonad.Layout.Tabbed
+import XMonad.Util.NamedScratchpad
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
 
@@ -25,7 +26,9 @@ myConfig = def
     , focusFollowsMouse = False
     , keys = keymap <> keys def
     , manageHook = composeAll
-        [ insertPosition Below Older ]
+        [ insertPosition Below Older
+        , namedScratchpadManageHook scratchpads
+        ]
     }
   where
     modMask = mod4Mask
@@ -58,6 +61,7 @@ keymap conf@XConfig { modMask } = M.fromList
     , ((modMask .|. controlMask,    xK_Up),     windows W.swapUp)
     , ((modMask .|. controlMask,    xK_Down),   windows W.swapDown)
     , ((modMask,                    xK_Tab),    sendMessage NextLayout)
+    , ((modMask,                    xK_space),  namedScratchpadAction scratchpads "scratchpad")
     ]
 
 ws1, ws2, ws3, ws4 :: WorkspaceId
@@ -65,3 +69,7 @@ ws1 = "1"
 ws2 = "2"
 ws3 = "3"
 ws4 = "4"
+
+scratchpads :: NamedScratchpads
+scratchpads =
+    [ NS "scratchpad" "urxvt -name scratchpad" (resource =? "scratchpad") (customFloating (W.RationalRect 0.5 0.5 0.5 0.5)) ]
