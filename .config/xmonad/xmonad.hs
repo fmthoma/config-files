@@ -6,6 +6,7 @@ import XMonad.Layout.Magnifier
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.InsertPosition
 import XMonad.Layout.Accordion
+import XMonad.Layout.CenteredIfSingle
 import XMonad.Layout.Tabbed
 
 main :: IO ()
@@ -14,9 +15,12 @@ main = xmonad $ ewmhFullscreen $ ewmh $ myConfig
 myConfig = def
     { modMask = mod4Mask
     , layoutHook
+    , terminal = "urxvt"
     , borderWidth = 3
     , normalBorderColor = "#073642"
     , focusedBorderColor = "#859900"
+    , focusFollowsMouse = False
+    , keys = keys def
     , manageHook = composeAll
         [ insertPosition Below Older ]
     } `additionalKeysP` keymap
