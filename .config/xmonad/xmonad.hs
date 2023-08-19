@@ -11,7 +11,6 @@ import XMonad.Layout.Spacing
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Tabbed
 import XMonad.Layout.LayoutModifier
-import XMonad.Layout.WindowNavigation
 import XMonad.Util.NamedScratchpad
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
@@ -36,7 +35,7 @@ myConfig = def
     }
   where
     modMask = mod4Mask
-    layoutHook = windowNavigation (tiled ||| tabbed ||| noBorders Full)
+    layoutHook = tiled ||| tabbed ||| noBorders Full
       where
         tiled = ModifiedLayout spacing $ magnifiercz' 1.5 $ Tall nmaster delta ratio
         spacing = Spacing False (Border 10 10 10 10) True (Border 5 5 5 5) True
@@ -62,16 +61,12 @@ keymap conf@XConfig { modMask } = M.fromList
     , ((modMask .|. controlMask,    xK_F3),     windows (W.shift ws3))
     , ((modMask .|. controlMask,    xK_F4),     windows (W.shift ws4))
     , ((modMask,                    xK_d),      kill)
-    , ((modMask,                    xK_Up),     sendMessage (Go U))
-    , ((modMask,                    xK_Down),   sendMessage (Go D))
-    , ((modMask,                    xK_Left),   sendMessage (Go L))
-    , ((modMask,                    xK_Right),  sendMessage (Go R))
+    , ((modMask,                    xK_Up),     windows W.focusUp)
+    , ((modMask,                    xK_Down),   windows W.focusDown)
     , ((modMask .|. controlMask,    xK_k),      windows W.swapUp)
     , ((modMask .|. controlMask,    xK_j),      windows W.swapDown)
-    , ((modMask .|. controlMask,    xK_Up),     sendMessage (Swap U))
-    , ((modMask .|. controlMask,    xK_Down),   sendMessage (Swap D))
-    , ((modMask .|. controlMask,    xK_Left),   sendMessage (Swap L))
-    , ((modMask .|. controlMask,    xK_Right),  sendMessage (Swap R))
+    , ((modMask .|. controlMask,    xK_Up),     windows W.swapUp)
+    , ((modMask .|. controlMask,    xK_Down),   windows W.swapDown)
     , ((modMask,                    xK_Tab),    sendMessage NextLayout)
     , ((modMask,                    xK_space),  namedScratchpadAction scratchpads "scratchpad")
     , ((modMask,                    xK_Return),  spawn "dmenu_hist_run")
