@@ -7,7 +7,10 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.InsertPosition
 import XMonad.Layout.Accordion
 import XMonad.Layout.CenteredIfSingle
+import XMonad.Layout.Spacing
+import XMonad.Layout.NoBorders
 import XMonad.Layout.Tabbed
+import XMonad.Layout.LayoutModifier
 import XMonad.Util.NamedScratchpad
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
@@ -32,12 +35,16 @@ myConfig = def
     }
   where
     modMask = mod4Mask
-    layoutHook = tiled ||| Mirror tiled ||| simpleTabbed ||| Full
+    layoutHook = tiled ||| tabbed ||| noBorders Full
       where
-        tiled = magnifiercz' 1.5 $ Tall nmaster delta ratio
+        tiled = ModifiedLayout spacing $ magnifiercz' 1.5 $ Tall nmaster delta ratio
+        spacing = Spacing False (Border 10 10 10 10) True (Border 5 5 5 5) True
         nmaster = 1
         ratio = 2/3
         delta = 3/100
+
+        tabbed = ModifiedLayout edge simpleTabbed
+        edge = Spacing False (Border 15 15 15 15) True (Border 0 0 0 0) True
 
 keymap :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 keymap conf@XConfig { modMask } = M.fromList
@@ -62,6 +69,7 @@ keymap conf@XConfig { modMask } = M.fromList
     , ((modMask .|. controlMask,    xK_Down),   windows W.swapDown)
     , ((modMask,                    xK_Tab),    sendMessage NextLayout)
     , ((modMask,                    xK_space),  namedScratchpadAction scratchpads "scratchpad")
+    , ((modMask,                    xK_Return),  spawn "dmenu_hist_run")
     ]
 
 ws1, ws2, ws3, ws4 :: WorkspaceId
