@@ -9,8 +9,11 @@ import XMonad.Layout.Accordion
 import XMonad.Layout.CenteredIfSingle
 import XMonad.Layout.Spacing
 import XMonad.Layout.NoBorders
-import XMonad.Layout.Tabbed
+import XMonad.Layout.Tabbed as Tabbed
 import XMonad.Layout.LayoutModifier
+import XMonad.Layout.IfMax
+import XMonad.Layout.Simplest
+import XMonad.Layout.TallMastersCombo hiding (ws1, ws2, (|||))
 import XMonad.Util.NamedScratchpad
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
@@ -24,8 +27,8 @@ myConfig = def
     , layoutHook
     , terminal = "urxvt"
     , borderWidth = 3
-    , normalBorderColor = "#073642"
-    , focusedBorderColor = "#859900"
+    , normalBorderColor = base02
+    , focusedBorderColor = green
     , focusFollowsMouse = False
     , keys = keymap <> keys def
     , manageHook = composeAll
@@ -35,16 +38,21 @@ myConfig = def
     }
   where
     modMask = mod4Mask
-    layoutHook = tiled ||| tabbed ||| noBorders Full
+    layoutHook = tiled1 ||| tiled2 ||| edge 15 tabbed ||| noBorders Full
       where
-        tiled = ModifiedLayout spacing $ magnifiercz' 1.5 $ Tall nmaster delta ratio
-        spacing = Spacing False (Border 10 10 10 10) True (Border 5 5 5 5) True
+        tiled2 = spacing 5 $ edge 10 $ magnifiercz' 1.5 $ Tall nmaster delta ratio
+
+        tiled1 = edge 10 $ tmsCombineTwo True nmaster delta ratio (spacing 5 $ Tall 0 0 0)
+            $ tmsCombineTwo False 1 delta (1/2)
+                (edge 5 Simplest)
+                (edge 5 tabbed)
+
+        tabbed = Tabbed.tabbed shrinkText solarized
+        edge px    = ModifiedLayout (Spacing False (Border px px px px) True (Border 0 0 0 0) True)
+        spacing px = ModifiedLayout (Spacing False (Border 0 0 0 0) True (Border px px px px) True)
         nmaster = 1
         ratio = 2/3
         delta = 3/100
-
-        tabbed = ModifiedLayout edge simpleTabbed
-        edge = Spacing False (Border 15 15 15 15) True (Border 0 0 0 0) True
 
 keymap :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 keymap conf@XConfig { modMask } = M.fromList
@@ -81,3 +89,40 @@ ws4 = "4"
 scratchpads :: NamedScratchpads
 scratchpads =
     [ NS "scratchpad" "urxvt -name scratchpad" (resource =? "scratchpad") (customFloating (W.RationalRect 0.5 0.5 0.5 0.5)) ]
+
+solarized :: Theme
+solarized = def
+    { activeColor = green
+    , activeBorderColor = green
+    , activeBorderWidth = 3
+    , activeTextColor = base02
+    , inactiveColor = base02
+    , inactiveBorderColor = base02
+    , inactiveBorderWidth = 3
+    , inactiveTextColor = base01
+    , urgentColor = orange
+    , urgentBorderColor = orange
+    , urgentBorderWidth = 3
+    , urgentTextColor = base03
+    , decoHeight = 24
+    }
+
+base03, base02, base01, base00, base0, base1, base2, base3 :: String
+base03 = "#002b36"
+base02 = "#073642"
+base01 = "#586e75"
+base00 = "#657b83"
+base0  = "#839496"
+base1  = "#93a1a1"
+base2  = "#eee8d5"
+base3  = "#fdf6e3"
+
+yellow, orange, red, magenta, violet, blue, cyan, green :: String
+yellow  = "#b58900"
+orange  = "#cb4b16"
+red     = "#dc322f"
+magenta = "#d33682"
+violet  = "#6c71c4"
+blue    = "#268bd2"
+cyan    = "#2aa198"
+green   = "#859900"
