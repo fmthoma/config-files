@@ -2,7 +2,7 @@
 import XMonad
 import XMonad.Util.EZConfig
 import XMonad.Util.Ungrab
-import XMonad.Layout.Magnifier
+import XMonad.Layout.Magnifier hiding (Toggle)
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.InsertPosition
 import XMonad.Layout.Accordion
@@ -13,6 +13,8 @@ import XMonad.Layout.Tabbed as Tabbed
 import XMonad.Layout.LayoutModifier
 import XMonad.Layout.IfMax
 import XMonad.Layout.Simplest
+import XMonad.Layout.MultiToggle
+import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.TallMastersCombo hiding (ws1, ws2, (|||))
 import XMonad.Util.NamedScratchpad
 import qualified XMonad.StackSet as W
@@ -38,7 +40,7 @@ myConfig = def
     }
   where
     modMask = mod4Mask
-    layoutHook = tiled1 ||| tiled2 ||| edge 15 tabbed ||| noBorders Full
+    layoutHook = mkToggle (single NBFULL) (tiled1 ||| tiled2 ||| edge 15 tabbed ||| noBorders Full)
       where
         tiled2 = spacing 5 $ edge 10 $ magnifiercz' 1.5 $ Tall nmaster delta ratio
 
@@ -77,7 +79,8 @@ keymap conf@XConfig { modMask } = M.fromList
     , ((modMask .|. controlMask,    xK_Down),   windows W.swapDown)
     , ((modMask,                    xK_Tab),    sendMessage NextLayout)
     , ((modMask,                    xK_space),  namedScratchpadAction scratchpads "scratchpad")
-    , ((modMask,                    xK_Return),  spawn "dmenu_hist_run")
+    , ((modMask,                    xK_Return), spawn "dmenu_hist_run")
+    , ((modMask,                    xK_f),      sendMessage (Toggle NBFULL))
     ]
 
 ws1, ws2, ws3, ws4 :: WorkspaceId
