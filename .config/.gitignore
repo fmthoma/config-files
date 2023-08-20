@@ -5,6 +5,7 @@
 !/nixpkgs
 !/nvim
 !/ranger
-!/yi
-!/xmonad
+!/taffybar
 !/xmobar
+!/xmonad
+!/yi

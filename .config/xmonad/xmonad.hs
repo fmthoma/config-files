@@ -5,11 +5,13 @@ import XMonad
 import XMonad.Util.EZConfig
 import XMonad.Util.Ungrab
 import XMonad.Layout.Magnifier hiding (Toggle)
+import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.InsertPosition
-import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
+import XMonad.Hooks.TaffybarPagerHints
 import XMonad.Layout.Accordion
 import XMonad.Layout.CenteredIfSingle
 import XMonad.Layout.Spacing
@@ -29,9 +31,7 @@ import Data.Maybe (isJust)
 import Data.List (partition)
 
 main :: IO ()
-main = xmonad $ ewmhFullscreen $ ewmh $ myXmobarProp $ myConfig
-
-myXmobarProp = withEasySB (statusBarProp "xmobar" (pure xmobarPP)) defToggleStrutsKey
+main = xmonad $ docks $ ewmhFullscreen $ ewmh $ pagerHints $ myConfig
 
 myConfig = def
     { modMask = mod4Mask
@@ -50,7 +50,7 @@ myConfig = def
     }
   where
     modMask = mod4Mask
-    layoutHook = smartBorders $ fullscreen $ mkToggle (single NBFULL) (tiled1 ||| tiled2 ||| edge 15 tabbed)
+    layoutHook = avoidStruts $ smartBorders $ fullscreen $ mkToggle (single NBFULL) (tiled1 ||| tiled2 ||| edge 15 tabbed)
       where
         tiled2 = spacing 5 $ edge 10 $ magnifiercz' 1.5 $ Tall nmaster delta ratio
 
