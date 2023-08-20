@@ -1,4 +1,5 @@
 { config, pkgs, options, ... }: {
+  config.environment.systemPackages = [ pkgs.xmobar ];
   config.services.xserver = {
     enable = true;
     layout = "de";

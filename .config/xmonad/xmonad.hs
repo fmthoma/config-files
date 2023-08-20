@@ -7,6 +7,9 @@ import XMonad.Util.Ungrab
 import XMonad.Layout.Magnifier hiding (Toggle)
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.InsertPosition
+import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.StatusBar
+import XMonad.Hooks.StatusBar.PP
 import XMonad.Layout.Accordion
 import XMonad.Layout.CenteredIfSingle
 import XMonad.Layout.Spacing
@@ -26,7 +29,9 @@ import Data.Maybe (isJust)
 import Data.List (partition)
 
 main :: IO ()
-main = xmonad $ ewmhFullscreen $ ewmh $ myConfig
+main = xmonad $ ewmhFullscreen $ ewmh $ myXmobarProp $ myConfig
+
+myXmobarProp = withEasySB (statusBarProp "xmobar" (pure xmobarPP)) defToggleStrutsKey
 
 myConfig = def
     { modMask = mod4Mask
@@ -97,7 +102,7 @@ ws4 = "4"
 
 scratchpads :: NamedScratchpads
 scratchpads =
-    [ NS "scratchpad" "urxvt -name scratchpad" (resource =? "scratchpad") (customFloating (W.RationalRect 0.5 0.5 0.5 0.5)) ]
+    [ NS "scratchpad" "urxvt -name scratchpad" (resource =? "scratchpad") (customFloating (W.RationalRect 0.45 0.45 0.5 0.5)) ]
 
 solarized :: Theme
 solarized = def
