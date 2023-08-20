@@ -45,7 +45,7 @@ myConfig = def
     }
   where
     modMask = mod4Mask
-    layoutHook = fullscreen $ smartBorders $ mkToggle (single NBFULL) (tiled1 ||| tiled2 ||| edge 15 tabbed)
+    layoutHook = smartBorders $ fullscreen $ mkToggle (single NBFULL) (tiled1 ||| tiled2 ||| edge 15 tabbed)
       where
         tiled2 = spacing 5 $ edge 10 $ magnifiercz' 1.5 $ Tall nmaster delta ratio
 
