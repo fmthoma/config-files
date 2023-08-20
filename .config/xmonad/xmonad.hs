@@ -1,98 +1,125 @@
 {-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE FlexibleInstances #-}
+
 import XMonad
-import XMonad.Util.EZConfig
-import XMonad.Util.Ungrab
-import XMonad.Layout.Magnifier hiding (Toggle)
-import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.InsertPosition
+import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.TaffybarPagerHints
 import XMonad.Layout.Accordion
 import XMonad.Layout.CenteredIfSingle
-import XMonad.Layout.Spacing
-import XMonad.Layout.NoBorders
-import XMonad.Layout.Tabbed as Tabbed
-import XMonad.Layout.LayoutModifier
 import XMonad.Layout.IfMax
-import XMonad.Layout.Simplest
+import XMonad.Layout.LayoutModifier
+import XMonad.Layout.Magnifier hiding (Toggle)
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
+import XMonad.Layout.NoBorders
+import XMonad.Layout.Simplest
+import XMonad.Layout.Spacing
+import XMonad.Layout.Tabbed as Tabbed
 import XMonad.Layout.TallMastersCombo hiding (ws1, ws2, (|||))
+import XMonad.Util.EZConfig
 import XMonad.Util.NamedScratchpad
-import qualified XMonad.Util.Rectangle as R
+import XMonad.Util.Ungrab
 import qualified XMonad.StackSet as W
+import qualified XMonad.Util.Rectangle as R
+
 import qualified Data.Map as M
 import Data.Maybe (isJust)
 import Data.List (partition)
 
-main :: IO ()
-main = xmonad $ docks $ ewmhFullscreen $ ewmh $ pagerHints $ myConfig
 
-myConfig = def
-    { modMask = mod4Mask
-    , workspaces = [ws1, ws2, ws3, ws4]
-    , layoutHook
-    , terminal = "urxvt"
-    , borderWidth = 3
+main :: IO ()
+main = xmonad $ foldr (.) id mods layoutsConfig
+
+layoutsConfig = def { layoutHook = avoidStruts $ smartBorders $ fullscreen $ mkToggle (single NBFULL) (tiled1 ||| tiled2 ||| edge 15 tabbed) }
+    where
+    tiled2 = spacing 5 $ edge 10 $ magnifiercz' 1.5 $ Tall nmaster delta ratio
+
+    tiled1 = edge 10 $ tmsCombineTwo True nmaster delta ratio (spacing 5 $ Tall 0 0 0)
+        $ tmsCombineTwo False 1 delta (1/2)
+            (edge 5 Simplest)
+            (edge 5 tabbed)
+
+    tabbed = Tabbed.tabbed shrinkText solarized
+    edge px    = ModifiedLayout (Spacing False (Border px px px px) True (Border 0 0 0 0) True)
+    spacing px = ModifiedLayout (Spacing False (Border 0 0 0 0) True (Border px px px px) True)
+    nmaster = 1
+    ratio = 2/3
+    delta = 3/100
+
+mods :: [XConfig a -> XConfig a]
+mods =
+    [ docks
+    , ewmhFullscreen
+    , ewmh
+    , pagerHints
+    , superKeyConfig
+    , terminalConfig
+    , stylingConfig
+    , keymapConfig
+    , workspacesConfig
+    , hooksConfig
+    ]
+
+superKeyConfig :: XConfig a -> XConfig a
+superKeyConfig cfg = cfg { modMask = mod4Mask }
+
+terminalConfig :: XConfig a -> XConfig a
+terminalConfig cfg = cfg { terminal = "urxvt" }
+
+stylingConfig :: XConfig a -> XConfig a
+stylingConfig cfg = cfg
+    { borderWidth = 3
     , normalBorderColor = base02
     , focusedBorderColor = green
     , focusFollowsMouse = False
-    , keys = keymap <> keys def
-    , manageHook = composeAll
+    }
+
+hooksConfig :: XConfig a -> XConfig a
+hooksConfig cfg = cfg { manageHook }
+  where
+    manageHook = composeAll
         [ insertPosition Below Older
         , namedScratchpadManageHook scratchpads
         ]
-    }
+
+keymapConfig :: XConfig a -> XConfig a
+keymapConfig cfg = cfg { keys = keymap <> keys cfg }
   where
-    modMask = mod4Mask
-    layoutHook = avoidStruts $ smartBorders $ fullscreen $ mkToggle (single NBFULL) (tiled1 ||| tiled2 ||| edge 15 tabbed)
-      where
-        tiled2 = spacing 5 $ edge 10 $ magnifiercz' 1.5 $ Tall nmaster delta ratio
+    keymap conf@XConfig { modMask } = M.fromList
+        [ ((noModMask,                  xK_F1),     windows (W.greedyView ws1))
+        , ((noModMask,                  xK_F2),     windows (W.greedyView ws2))
+        , ((noModMask,                  xK_F3),     windows (W.greedyView ws3))
+        , ((noModMask,                  xK_F4),     windows (W.greedyView ws4))
+        , ((modMask,                    xK_F1),     windows (W.greedyView ws1 . W.shift ws1))
+        , ((modMask,                    xK_F2),     windows (W.greedyView ws2 . W.shift ws2))
+        , ((modMask,                    xK_F3),     windows (W.greedyView ws3 . W.shift ws3))
+        , ((modMask,                    xK_F4),     windows (W.greedyView ws4 . W.shift ws4))
+        , ((modMask .|. controlMask,    xK_F1),     windows (W.shift ws1))
+        , ((modMask .|. controlMask,    xK_F2),     windows (W.shift ws2))
+        , ((modMask .|. controlMask,    xK_F3),     windows (W.shift ws3))
+        , ((modMask .|. controlMask,    xK_F4),     windows (W.shift ws4))
+        , ((modMask,                    xK_d),      kill)
+        , ((modMask,                    xK_Up),     windows W.focusUp)
+        , ((modMask,                    xK_Down),   windows W.focusDown)
+        , ((modMask .|. controlMask,    xK_k),      windows W.swapUp)
+        , ((modMask .|. controlMask,    xK_j),      windows W.swapDown)
+        , ((modMask .|. controlMask,    xK_Up),     windows W.swapUp)
+        , ((modMask .|. controlMask,    xK_Down),   windows W.swapDown)
+        , ((modMask,                    xK_Tab),    sendMessage NextLayout)
+        , ((modMask,                    xK_space),  namedScratchpadAction scratchpads "scratchpad")
+        , ((modMask,                    xK_Return), spawn "dmenu_hist_run")
+        , ((modMask,                    xK_f),      withFocused $ \w -> (broadcastMessage (ToggleFullscreen w) >> sendMessage FullscreenChanged))
+        , ((modMask .|. shiftMask,      xK_f),      withFocused $ \w -> windows (W.float w (W.RationalRect 0.2 0.2 0.6 0.6) ))
+        ]
 
-        tiled1 = edge 10 $ tmsCombineTwo True nmaster delta ratio (spacing 5 $ Tall 0 0 0)
-            $ tmsCombineTwo False 1 delta (1/2)
-                (edge 5 Simplest)
-                (edge 5 tabbed)
-
-        tabbed = Tabbed.tabbed shrinkText solarized
-        edge px    = ModifiedLayout (Spacing False (Border px px px px) True (Border 0 0 0 0) True)
-        spacing px = ModifiedLayout (Spacing False (Border 0 0 0 0) True (Border px px px px) True)
-        nmaster = 1
-        ratio = 2/3
-        delta = 3/100
-
-keymap :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
-keymap conf@XConfig { modMask } = M.fromList
-    [ ((noModMask,                  xK_F1),     windows (W.greedyView ws1))
-    , ((noModMask,                  xK_F2),     windows (W.greedyView ws2))
-    , ((noModMask,                  xK_F3),     windows (W.greedyView ws3))
-    , ((noModMask,                  xK_F4),     windows (W.greedyView ws4))
-    , ((modMask,                    xK_F1),     windows (W.greedyView ws1 . W.shift ws1))
-    , ((modMask,                    xK_F2),     windows (W.greedyView ws2 . W.shift ws2))
-    , ((modMask,                    xK_F3),     windows (W.greedyView ws3 . W.shift ws3))
-    , ((modMask,                    xK_F4),     windows (W.greedyView ws4 . W.shift ws4))
-    , ((modMask .|. controlMask,    xK_F1),     windows (W.shift ws1))
-    , ((modMask .|. controlMask,    xK_F2),     windows (W.shift ws2))
-    , ((modMask .|. controlMask,    xK_F3),     windows (W.shift ws3))
-    , ((modMask .|. controlMask,    xK_F4),     windows (W.shift ws4))
-    , ((modMask,                    xK_d),      kill)
-    , ((modMask,                    xK_Up),     windows W.focusUp)
-    , ((modMask,                    xK_Down),   windows W.focusDown)
-    , ((modMask .|. controlMask,    xK_k),      windows W.swapUp)
-    , ((modMask .|. controlMask,    xK_j),      windows W.swapDown)
-    , ((modMask .|. controlMask,    xK_Up),     windows W.swapUp)
-    , ((modMask .|. controlMask,    xK_Down),   windows W.swapDown)
-    , ((modMask,                    xK_Tab),    sendMessage NextLayout)
-    , ((modMask,                    xK_space),  namedScratchpadAction scratchpads "scratchpad")
-    , ((modMask,                    xK_Return), spawn "dmenu_hist_run")
-    , ((modMask,                    xK_f),      withFocused $ \w -> (broadcastMessage (ToggleFullscreen w) >> sendMessage FullscreenChanged))
-    , ((modMask .|. shiftMask,      xK_f),      withFocused $ \w -> windows (W.float w (W.RationalRect 0.2 0.2 0.6 0.6) ))
-    ]
+workspacesConfig :: XConfig a -> XConfig a
+workspacesConfig cfg = cfg { workspaces = [ws1, ws2, ws3, ws4] }
 
 ws1, ws2, ws3, ws4 :: WorkspaceId
 ws1 = "1"
