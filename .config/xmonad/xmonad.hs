@@ -25,6 +25,7 @@ import XMonad.Layout.TallMastersCombo hiding (ws1, ws2, (|||))
 import XMonad.Util.EZConfig
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Ungrab
+import XMonad.Util.WorkspaceCompare
 import qualified XMonad.StackSet as W
 import qualified XMonad.Util.Rectangle as R
 
@@ -81,7 +82,7 @@ stylingConfig cfg = cfg
     }
 
 hooksConfig :: XConfig a -> XConfig a
-hooksConfig cfg = cfg { manageHook }
+hooksConfig cfg = addEwmhWorkspaceSort (pure $ filterOutWs ["NSP"]) cfg { manageHook }
   where
     manageHook = composeAll
         [ insertPosition Below Older
