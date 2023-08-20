@@ -1,4 +1,6 @@
 {-# LANGUAGE NamedFieldPuns #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE FlexibleInstances #-}
 import XMonad
 import XMonad.Util.EZConfig
 import XMonad.Util.Ungrab
@@ -17,8 +19,11 @@ import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.TallMastersCombo hiding (ws1, ws2, (|||))
 import XMonad.Util.NamedScratchpad
+import qualified XMonad.Util.Rectangle as R
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
+import Data.Maybe (isJust)
+import Data.List (partition)
 
 main :: IO ()
 main = xmonad $ ewmhFullscreen $ ewmh $ myConfig
@@ -40,7 +45,7 @@ myConfig = def
     }
   where
     modMask = mod4Mask
-    layoutHook = smartBorders $ mkToggle (single NBFULL) (tiled1 ||| tiled2 ||| edge 15 tabbed)
+    layoutHook = fullscreen $ smartBorders $ mkToggle (single NBFULL) (tiled1 ||| tiled2 ||| edge 15 tabbed)
       where
         tiled2 = spacing 5 $ edge 10 $ magnifiercz' 1.5 $ Tall nmaster delta ratio
 
@@ -80,7 +85,8 @@ keymap conf@XConfig { modMask } = M.fromList
     , ((modMask,                    xK_Tab),    sendMessage NextLayout)
     , ((modMask,                    xK_space),  namedScratchpadAction scratchpads "scratchpad")
     , ((modMask,                    xK_Return), spawn "dmenu_hist_run")
-    , ((modMask,                    xK_f),      sendMessage (Toggle NBFULL))
+    , ((modMask,                    xK_f),      withFocused $ \w -> (broadcastMessage (ToggleFullscreen w) >> sendMessage FullscreenChanged))
+    , ((modMask .|. shiftMask,      xK_f),      withFocused $ \w -> windows (W.float w (W.RationalRect 0.2 0.2 0.6 0.6) ))
     ]
 
 ws1, ws2, ws3, ws4 :: WorkspaceId
@@ -129,3 +135,42 @@ violet  = "#6c71c4"
 blue    = "#268bd2"
 cyan    = "#2aa198"
 green   = "#859900"
+
+data Fullscreen a = Fullscreen (M.Map a (Maybe W.RationalRect, Bool))
+    deriving (Read, Show)
+
+data FullscreenMessage = ToggleFullscreen Window | FullscreenChanged
+
+instance Message FullscreenMessage
+
+instance LayoutModifier Fullscreen Window where
+    handleMess ff@(Fullscreen fulls) m = case fromMessage m of
+        Just (ToggleFullscreen win) -> case M.lookup win fulls of
+            Just (Just frect, True) -> pure $ Just $ Fullscreen $ M.adjust (\(a, b) -> (a, False)) win fulls
+            Just _                  -> pure $ Just $ Fullscreen $ M.delete win fulls
+            Nothing -> do
+                maybeFloatingRect <- M.lookup win . W.floating <$> gets windowset
+                pure $ Just $ Fullscreen $ M.insert win (maybeFloatingRect, True) fulls
+        Just FullscreenChanged -> do
+            st@XState { windowset = ws } <- get
+            let floatingFulls = M.filter (isJust . fst) fulls
+                flt = W.floating ws
+                flt' = M.intersectionWith doFull floatingFulls flt
+                  where
+                    doFull (Just rect, False) _ = rect
+                    doFull _                  _ = frect
+                    frect = W.RationalRect 0 0 1 1
+            put st { windowset = ws { W.floating = M.union flt' flt } }
+            pure $ Just $ Fullscreen $ M.filter snd fulls
+        _ -> pure Nothing
+
+    pureModifier (Fullscreen fulls) rect _ list = (visfulls' ++ rest', Nothing)
+      where
+        (visfulls, rest) = partition ((`M.member` fulls) . fst) list
+        visfulls' = map (\(w, _) -> (w, rect)) visfulls
+        rest' = if null visfulls'
+            then rest
+            else filter (not . R.supersetOf rect . snd) rest
+
+fullscreen :: LayoutClass l a => l a -> ModifiedLayout Fullscreen l a
+fullscreen = ModifiedLayout $ Fullscreen M.empty
