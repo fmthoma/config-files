@@ -67,7 +67,7 @@ exampleTaffybarConfig =
         cpu = pollingGraphNew cpuCfg 0.5 cpuCallback
         mem = pollingGraphNew memCfg 1 memCallback
         net = networkGraphNew netCfg Nothing
-        clock = textClockNewWith def
+        clock = textClockNewWith def { clockFormatString = "%a %e %b %H:%M:%S"}
         layout = layoutNew def
         windowsW = windowsNew def
         -- See https://github.com/taffybar/gtk-sni-tray#statusnotifierwatcher
@@ -80,9 +80,9 @@ exampleTaffybarConfig =
                 ]
             , centerWidgets = [ windowsW >>= buildContentsBox ]
             , endWidgets = map (>>= buildContentsBox)
-                [ batteryIconNew
+                [ tray
                 , clock
-                , tray
+                , batteryIconNew
                 , cpu
                 , mem
                 , net
