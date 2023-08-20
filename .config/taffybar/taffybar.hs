@@ -60,7 +60,7 @@ exampleTaffybarConfig :: TaffybarConfig
 exampleTaffybarConfig =
     let myWorkspacesConfig = def
             { minIcons = 1
-            , widgetGap = 0
+            , widgetGap = 5
             , showWorkspaceFn = hideEmpty
             }
         workspaces = workspacesNew myWorkspacesConfig
@@ -75,7 +75,10 @@ exampleTaffybarConfig =
         tray = sniTrayThatStartsWatcherEvenThoughThisIsABadWayToDoIt
         myConfig = def
             { startWidgets =
-                workspaces : map (>>= buildContentsBox) [ layout, windowsW ]
+                [ workspaces
+                , layout >>= buildContentsBox
+                ]
+            , centerWidgets = [ windowsW >>= buildContentsBox ]
             , endWidgets = map (>>= buildContentsBox)
                 [ batteryIconNew
                 , clock
@@ -85,9 +88,9 @@ exampleTaffybarConfig =
                 , net
                 , mpris2New
                 ]
-            , barPosition = Top
-            , barPadding = 10
-            , barHeight = ExactSize 50
+            , barPosition = Bottom
+            , barPadding = 0
+            , barHeight = ExactSize 32
             , widgetSpacing = 0
             }
     in withBatteryRefresh $ withLogServer $ withToggleServer $ toTaffyConfig myConfig

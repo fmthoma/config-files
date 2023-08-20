@@ -123,10 +123,10 @@ workspacesConfig :: XConfig a -> XConfig a
 workspacesConfig cfg = cfg { workspaces = [ws1, ws2, ws3, ws4] }
 
 ws1, ws2, ws3, ws4 :: WorkspaceId
-ws1 = "1"
-ws2 = "2"
-ws3 = "3"
-ws4 = "4"
+ws1 = "\62075"
+ws2 = "\61729"
+ws3 = "\62057"
+ws4 = "\61728"
 
 scratchpads :: NamedScratchpads
 scratchpads =

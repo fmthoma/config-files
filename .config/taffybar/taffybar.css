@@ -9,6 +9,23 @@
 @define-color menu-background-color @white;
 @define-color menu-font-color @black;
 
+@define-color base03  #002b36;
+@define-color base02  #073642;
+@define-color base01  #586e75;
+@define-color base00  #657b83;
+@define-color base0   #839496;
+@define-color base1   #93a1a1;
+@define-color base2   #eee8d5;
+@define-color base3   #fdf6e3;
+@define-color yellow  #b58900;
+@define-color orange  #cb4b16;
+@define-color red     #dc322f;
+@define-color magenta #d33682;
+@define-color violet  #6c71c4;
+@define-color blue    #268bd2;
+@define-color cyan    #2aa198;
+@define-color green   #859900;
+
 /* Top level styling */
 
 .taffy-window * {
@@ -18,28 +35,27 @@
 	*/
 	all: unset;
 
-	font-family: "Noto Sans", sans-serif;
-	font-size: 10pt;
-	color: @font-color;
+	font-family: "Imposevka Expanded Heavy", sans-serif;
+	font-size: 20px;
+	color: @base1;
 }
 
 .taffy-box {
-	border-radius: 10px;
-	background-color: rgba(0, 0, 0, 0.3);
+	background-color: transparent;
 }
 
 .inner-pad {
-	padding-bottom: 5px;
-	padding-top: 5px;
-	padding-left: 2px;
-	padding-right: 2px;
+	padding-bottom: 0px;
+	padding-top: 0px;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 
 .contents {
-	padding-bottom: 4px;
-	padding-top: 4px;
-	padding-right: 2px;
-	padding-left: 2px;
+	padding-bottom: 2px;
+	padding-top: 2px;
+	padding-right: 8px;
+	padding-left: 8px;
 	transition: background-color .5s;
 	border-radius: 5px;
 }
@@ -47,13 +63,16 @@
 /* Workspaces styling */
 
 .workspace-label {
-	padding-right: 3px;
-	padding-left: 2px;
-	font-size: 12pt;
+	padding-right: 4px;
+	padding-left: 0px;
 }
 
 .active .contents {
-	background-color: rgba(0, 0, 0, 0.5);
+    background-color: @green;
+}
+
+.active .contents * {
+    color: @base3;
 }
 
 .visible .contents {
@@ -68,7 +87,7 @@
 /* This gives space for the box-shadow (they look like underlines) that follow.
    This will actually affect all widgets, (not just the workspace icons), but
    that is what we want since we want the icons to look the same. */
-.auto-size-image, .sni-tray {
+.auto-size-image {
 	padding-top: 3px;
 	padding-bottom: 3px;
 }
