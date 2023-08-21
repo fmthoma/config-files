@@ -72,7 +72,7 @@ exampleTaffybarConfig =
         windowsW = windowsNew def
         -- See https://github.com/taffybar/gtk-sni-tray#statusnotifierwatcher
         -- for a better way to set up the sni tray
-        tray = sniTrayThatStartsWatcherEvenThoughThisIsABadWayToDoIt
+        tray = sniTrayNew
         myConfig = def
             { startWidgets =
                 [ workspaces

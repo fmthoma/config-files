@@ -9,6 +9,7 @@
     android-file-transfer
     arduino
     arduino-cli
+    at-spi2-core # for `AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name org.a11y.Bus was not provided by any .service files` error messages in all GTK applications
     bc
     binutils
     chromium
@@ -70,8 +71,8 @@
   ];
 
   programs = {
-      firefox.enable = true;
-      browserpass.enable = true;
+    firefox.enable = true;
+    browserpass.enable = true;
   };
 
   services = {
@@ -91,7 +92,36 @@
     blueman-applet.enable = true;
     pasystray.enable = true;
     syncthing.enable = true;
+    status-notifier-watcher.enable = true; # required for taffybar
     taffybar.enable = true;
+    xsettingsd.enable = true;
   };
   xdg.configFile."picom/picom.conf".text = lib.mkForce (lib.readFile ./picom.conf);
+
+  gtk = {
+    enable = true;
+    theme.name = "Adwaita";
+    iconTheme.name = "Papirus";
+    iconTheme.package = pkgs.papirus-icon-theme;
+    cursorTheme.name = "Adwaita";
+    cursorTheme.package = pkgs.gnome.adwaita-icon-theme;
+  };
+
+  # Fixes https://github.com/nix-community/home-manager/pull/4316 (already on master, but not on release-22.11 yet)
+  systemd.user.services.taffybar = {
+    Unit = {
+      StartLimitBurst = 5;
+      StartLimitIntervalSec = 10;
+    };
+    Service.RestartSec = "2s";
+  };
+
+  systemd.user.targets.tray = {
+    Unit = {
+      Description = "Home Manager System Tray";
+      Requires = [ "graphical-session-pre.target" ];
+    };
+  };
+
+  xsession.preferStatusNotifierItems = true;
 }

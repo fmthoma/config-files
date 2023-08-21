@@ -17,16 +17,24 @@
     };
     displayManager = {
       lightdm.enable = true;
-      defaultSession = "none+i3";
+      defaultSession = "none+xmonad";
       autoLogin = {
         user = "thomaf";
         enable = true;
       };
       sessionCommands = ''
-        if test -e $HOME/.Xresources; then
-          ${pkgs.xorg.xrdb}/bin/xrdb --merge $HOME/.Xresources
-        fi
+        dbus-update-activation-environment --verbose --systemd --all
       '';
     };
+    gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
+  };
+
+  config.programs.dconf.enable = true;
+
+  config.gtk.iconCache.enable = true;
+
+  config.xdg.portal = {
+    enable = true;
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 }
