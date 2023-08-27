@@ -49,6 +49,7 @@
     powertop
     ranger
     restic
+    rofi
     signal-desktop
     stack
     stylish-haskell
