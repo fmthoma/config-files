@@ -82,7 +82,6 @@ exampleTaffybarConfig =
             , endWidgets = map (>>= buildContentsBox)
                 [ tray
                 , clock
-                , batteryIconNew
                 , cpu
                 , mem
                 , net
@@ -93,4 +92,4 @@ exampleTaffybarConfig =
             , barHeight = ExactSize 32
             , widgetSpacing = 0
             }
-    in withBatteryRefresh $ withLogServer $ withToggleServer $ toTaffyConfig myConfig
+    in withLogServer $ withToggleServer $ toTaffyConfig myConfig
