@@ -22,12 +22,13 @@
       })
       (import ./nixpkgs/overlays/co2monitor)
       (import ./nixpkgs/overlays/dmenu)
+      (import ./nixpkgs/overlays/factorio.nix)
       (import ./nixpkgs/overlays/iosevka)
       (import ./nixpkgs/overlays/petname.nix)
+      (import ./nixpkgs/overlays/rofi.nix)
       (import ./nixpkgs/overlays/superslicer.nix)
       (import ./nixpkgs/overlays/throttled.nix)
       (import ./nixpkgs/overlays/vpype)
-      (import ./nixpkgs/overlays/factorio.nix)
     ];
     modules = {
       overlays = {
