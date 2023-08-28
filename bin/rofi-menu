@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+case "$1" in
+    --settings)
+        ENTRIES=(
+            "n,[N],Connect to network,nm-connect"
+            "d,[D],Disconnect from network,nm-disconnect"
+            "b,[B],Bluetooth,rofi-bluetooth"
+            "l,[L],Lock screen,loginctl lock-session"
+            "s,[S],Suspend,systemctl suspend"
+        )
+        ;;
+    *)
+        ENTRIES=(
+            "Return,↵,Run Desktop,rofi -show drun"
+            "Super+Return,+↵,Run Command,rofi -show run"
+            "r,[R],Ranger,urxvt -e ranger"
+            "t,[T],Terminal,urxvt"
+            "f,[F],Firefox,firefox"
+            "c,[C],Chrome,google-chrome || chromium-browser"
+            "i,[I],IntelliJ,idea"
+            "m,[M],Mail,evolution || thunderbird || urxvt -e mutt"
+            "s,[S],Settings,rofi-menu --settings"
+        )
+        ;;
+esac
+
+KEYS=$(
+    I=0
+    for ENTRY in "${ENTRIES[@]}"; do
+        I=$(( I + 1 ))
+        echo -kb-select-$I $(echo $ENTRY | cut -d, -f1)
+    done
+)
+
+CMD=$(
+    for ENTRY in "${ENTRIES[@]}"; do
+        echo $ENTRY | tr ',' "\t"
+    done | rofi -dmenu $KEYS -kb-accept-entry "" -display-columns 2,3 | cut -f4
+)
+
+exec $CMD

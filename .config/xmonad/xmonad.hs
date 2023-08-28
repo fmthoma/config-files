@@ -116,7 +116,7 @@ keymapConfig cfg = cfg { keys = keymap <> keys cfg, modMask = modMask }
         , ((modMask .|. controlMask,                xK_Down),   windows W.swapDown)
         , ((modMask,                                xK_Tab),    sendMessage NextLayout)
         , ((modMask,                                xK_space),  namedScratchpadAction scratchpads "scratchpad")
-        , ((modMask,                                xK_Return), spawn "dmenu_hist_run")
+        , ((modMask,                                xK_Return), spawn "rofi-menu")
         , ((modMask,                                xK_f),      withFocused $ \w -> (broadcastMessage (ToggleFullscreen w) >> sendMessage FullscreenChanged))
         , ((modMask .|. controlMask,                xK_f),      withFocused toggleFloat)
         , ((modMask,                                xK_r),      spawn "rofi -show emoji")
