@@ -87,6 +87,7 @@ hooksConfig cfg = addEwmhWorkspaceSort (pure $ filterOutWs ["NSP"]) cfg { manage
         [ insertPosition Below Newer
         , namedScratchpadManageHook scratchpads
         , className =? "feh" --> placeHook (fixed (0.5, 0.5)) <> doFloat
+        , className =? "firefox" --> doShift ws3
         ]
 
 keymapConfig :: XConfig a -> XConfig a

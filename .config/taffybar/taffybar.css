@@ -144,3 +144,9 @@ button:checked, button:hover .Contents:hover {
 .taffy-window menuitem:hover > label, menuitem:hover > label {
 	color: @white;
 }
+
+.sni-tray {
+    padding: 0px 8px;
+    background-color: alpha(@base03, 0.5);
+	border-radius: 5px;
+}
