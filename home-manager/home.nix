@@ -50,6 +50,11 @@
     ranger
     restic
     rofi
+    rofi-bluetooth
+    rofi-menugen
+    rofi-pass
+    rofi-pulse-select
+    rofi-vpn
     signal-desktop
     stack
     stylish-haskell

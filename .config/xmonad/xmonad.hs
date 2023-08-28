@@ -5,8 +5,10 @@
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.Focus
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.Place
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.TaffybarPagerHints
@@ -32,6 +34,7 @@ import qualified XMonad.Util.Rectangle as R
 import qualified Data.Map as M
 import Data.Maybe (isJust)
 import Data.List (partition)
+import System.Exit (exitSuccess)
 
 
 main :: IO ()
@@ -59,16 +62,12 @@ mods =
     , ewmhFullscreen
     , ewmh
     , pagerHints
-    , superKeyConfig
     , terminalConfig
     , stylingConfig
     , keymapConfig
     , workspacesConfig
     , hooksConfig
     ]
-
-superKeyConfig :: XConfig a -> XConfig a
-superKeyConfig cfg = cfg { modMask = mod4Mask }
 
 terminalConfig :: XConfig a -> XConfig a
 terminalConfig cfg = cfg { terminal = "urxvt" }
@@ -85,39 +84,52 @@ hooksConfig :: XConfig a -> XConfig a
 hooksConfig cfg = addEwmhWorkspaceSort (pure $ filterOutWs ["NSP"]) cfg { manageHook }
   where
     manageHook = composeAll
-        [ insertPosition Below Older
+        [ insertPosition Below Newer
         , namedScratchpadManageHook scratchpads
+        , className =? "feh" --> placeHook (fixed (0.5, 0.5)) <> doFloat
         ]
 
 keymapConfig :: XConfig a -> XConfig a
-keymapConfig cfg = cfg { keys = keymap <> keys cfg }
+keymapConfig cfg = cfg { keys = keymap <> keys cfg, modMask = modMask }
   where
-    keymap conf@XConfig { modMask } = M.fromList
-        [ ((noModMask,                  xK_F1),     windows (W.greedyView ws1))
-        , ((noModMask,                  xK_F2),     windows (W.greedyView ws2))
-        , ((noModMask,                  xK_F3),     windows (W.greedyView ws3))
-        , ((noModMask,                  xK_F4),     windows (W.greedyView ws4))
-        , ((modMask,                    xK_F1),     windows (W.greedyView ws1 . W.shift ws1))
-        , ((modMask,                    xK_F2),     windows (W.greedyView ws2 . W.shift ws2))
-        , ((modMask,                    xK_F3),     windows (W.greedyView ws3 . W.shift ws3))
-        , ((modMask,                    xK_F4),     windows (W.greedyView ws4 . W.shift ws4))
-        , ((modMask .|. controlMask,    xK_F1),     windows (W.shift ws1))
-        , ((modMask .|. controlMask,    xK_F2),     windows (W.shift ws2))
-        , ((modMask .|. controlMask,    xK_F3),     windows (W.shift ws3))
-        , ((modMask .|. controlMask,    xK_F4),     windows (W.shift ws4))
-        , ((modMask,                    xK_d),      kill)
-        , ((modMask,                    xK_Up),     windows W.focusUp)
-        , ((modMask,                    xK_Down),   windows W.focusDown)
-        , ((modMask .|. controlMask,    xK_k),      windows W.swapUp)
-        , ((modMask .|. controlMask,    xK_j),      windows W.swapDown)
-        , ((modMask .|. controlMask,    xK_Up),     windows W.swapUp)
-        , ((modMask .|. controlMask,    xK_Down),   windows W.swapDown)
-        , ((modMask,                    xK_Tab),    sendMessage NextLayout)
-        , ((modMask,                    xK_space),  namedScratchpadAction scratchpads "scratchpad")
-        , ((modMask,                    xK_Return), spawn "dmenu_hist_run")
-        , ((modMask,                    xK_f),      withFocused $ \w -> (broadcastMessage (ToggleFullscreen w) >> sendMessage FullscreenChanged))
-        , ((modMask .|. shiftMask,      xK_f),      withFocused $ \w -> windows (W.float w (W.RationalRect 0.2 0.2 0.6 0.6) ))
+    keymap conf@XConfig { modMask } = M.fromList (workspaceBindings ++ otherBindings)
+    modMask = mod4Mask
+    workspaceBindings = concat $ zipWith3
+        (\ws fkey nkey ->
+            [ ((noModMask,                               fkey), windows (W.greedyView ws))
+            , ((modMask,                                 fkey), windows (W.greedyView ws . W.shift ws))
+            , ((modMask .|. controlMask,                 fkey), windows (W.shift ws))
+            , ((modMask,                                 nkey), windows (W.greedyView ws))
+            , ((modMask .|. controlMask,                 nkey), windows (W.greedyView ws . W.shift ws))
+            , ((modMask .|. controlMask .|. shiftMask,   nkey), windows (W.shift ws))
+            ])
+        [ws1, ws2, ws3, ws4]
+        [xK_F1 .. xK_F4]
+        [xK_1 .. xK_4]
+    otherBindings =
+        [ ((modMask,                                xK_d),      kill)
+        , ((modMask,                                xK_Up),     windows W.focusUp)
+        , ((modMask,                                xK_Down),   windows W.focusDown)
+        , ((modMask .|. controlMask,                xK_k),      windows W.swapUp)
+        , ((modMask .|. controlMask,                xK_j),      windows W.swapDown)
+        , ((modMask .|. controlMask,                xK_Up),     windows W.swapUp)
+        , ((modMask .|. controlMask,                xK_Down),   windows W.swapDown)
+        , ((modMask,                                xK_Tab),    sendMessage NextLayout)
+        , ((modMask,                                xK_space),  namedScratchpadAction scratchpads "scratchpad")
+        , ((modMask,                                xK_Return), spawn "dmenu_hist_run")
+        , ((modMask,                                xK_f),      withFocused $ \w -> (broadcastMessage (ToggleFullscreen w) >> sendMessage FullscreenChanged))
+        , ((modMask .|. controlMask,                xK_f),      withFocused toggleFloat)
+        , ((modMask,                                xK_r),      spawn "rofi -show emoji")
+        , ((modMask,                                xK_n),      spawn "feh -B '#002b36' $HOME/.i3/neo{1..6}.png")
+        , ((noModMask,                              xK_Print),  spawn "scrot -e 'xclip -selection clipboard -t image/png $f'")
+        , ((controlMask,                            xK_Print),  spawn "sleep 0.1; scrot -s -e 'xclip -selection clipboard -t image/png $f'")
+        , ((modMask .|. controlMask,                xK_r),      spawn "xmonad --recompile && xmonad --restart")
+        , ((modMask .|. controlMask,                xK_q),      io exitSuccess)
         ]
+    toggleFloat w = windows $ \s -> if w `M.member` W.floating s
+        then W.sink w s
+        else W.float w (W.RationalRect 0.2 0.2 0.6 0.6) s
+
 
 workspacesConfig :: XConfig a -> XConfig a
 workspacesConfig cfg = cfg { workspaces = [ws1, ws2, ws3, ws4] }
