@@ -97,11 +97,11 @@ keymapConfig cfg = cfg { keys = keymap <> keys cfg, modMask = modMask }
     modMask = mod4Mask
     workspaceBindings = concat $ zipWith3
         (\ws fkey nkey ->
-            [ ((noModMask,                               fkey), windows (W.greedyView ws))
-            , ((modMask,                                 fkey), windows (W.greedyView ws . W.shift ws))
+            [ ((noModMask,                               fkey), windows (W.view ws))
+            , ((modMask,                                 fkey), windows (W.view ws . W.shift ws))
             , ((modMask .|. controlMask,                 fkey), windows (W.shift ws))
-            , ((modMask,                                 nkey), windows (W.greedyView ws))
-            , ((modMask .|. controlMask,                 nkey), windows (W.greedyView ws . W.shift ws))
+            , ((modMask,                                 nkey), windows (W.view ws))
+            , ((modMask .|. controlMask,                 nkey), windows (W.view ws . W.shift ws))
             , ((modMask .|. controlMask .|. shiftMask,   nkey), windows (W.shift ws))
             ])
         [ws1, ws2, ws3, ws4]
