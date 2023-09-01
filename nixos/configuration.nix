@@ -61,7 +61,7 @@
 
     openssh = {
       enable = true;
-      passwordAuthentication = false;
+      settings.PasswordAuthentication = false;
     };
 
     printing = {

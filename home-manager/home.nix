@@ -25,7 +25,7 @@
     gnome.nautilus
     google-chrome
     gucharmap
-    haskellPackages.vgrep
+    release-22_11.haskellPackages.vgrep
     i3blocks
     i3lock
     i3status
