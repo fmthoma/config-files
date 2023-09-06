@@ -15,6 +15,7 @@ import XMonad.Hooks.TaffybarPagerHints
 import XMonad.Layout.Accordion
 import XMonad.Layout.CenteredIfSingle
 import XMonad.Layout.IfMax
+import XMonad.Layout.IndependentScreens
 import XMonad.Layout.LayoutModifier
 import XMonad.Layout.Magnifier hiding (Toggle)
 import XMonad.Layout.MultiToggle
@@ -32,8 +33,8 @@ import qualified XMonad.StackSet as W
 import qualified XMonad.Util.Rectangle as R
 
 import qualified Data.Map as M
-import Data.Maybe (isJust)
-import Data.List (partition)
+import Data.Maybe (isJust, fromMaybe)
+import Data.List (find, partition)
 import System.Exit (exitSuccess)
 
 
@@ -97,12 +98,12 @@ keymapConfig cfg = cfg { keys = keymap <> keys cfg, modMask = modMask }
     modMask = mod4Mask
     workspaceBindings = concat $ zipWith3
         (\ws fkey nkey ->
-            [ ((noModMask,                               fkey), windows (W.view ws))
-            , ((modMask,                                 fkey), windows (W.view ws . W.shift ws))
-            , ((modMask .|. controlMask,                 fkey), windows (W.shift ws))
-            , ((modMask,                                 nkey), windows (W.view ws))
-            , ((modMask .|. controlMask,                 nkey), windows (W.view ws . W.shift ws))
-            , ((modMask .|. controlMask .|. shiftMask,   nkey), windows (W.shift ws))
+            [ ((noModMask,                               fkey), windows (withWorkspaceInstanceOnScreen W.view ws))
+            , ((modMask,                                 fkey), windows (withWorkspaceInstanceOnScreen W.view ws . withWorkspaceInstanceOnScreen W.shift ws))
+            , ((modMask .|. controlMask,                 fkey), windows (withWorkspaceInstanceOnScreen W.shift ws))
+            , ((modMask,                                 nkey), windows (withWorkspaceInstanceOnScreen W.view ws))
+            , ((modMask .|. controlMask,                 nkey), windows (withWorkspaceInstanceOnScreen W.view ws . withWorkspaceInstanceOnScreen W.shift ws))
+            , ((modMask .|. controlMask .|. shiftMask,   nkey), windows (withWorkspaceInstanceOnScreen W.shift ws))
             ])
         [ws1, ws2, ws3, ws4]
         [xK_F1 .. xK_F4]
@@ -115,6 +116,8 @@ keymapConfig cfg = cfg { keys = keymap <> keys cfg, modMask = modMask }
         , ((modMask .|. controlMask,                xK_j),      windows W.swapDown)
         , ((modMask .|. controlMask,                xK_Up),     windows W.swapUp)
         , ((modMask .|. controlMask,                xK_Down),   windows W.swapDown)
+        , ((modMask .|. controlMask .|. shiftMask,  xK_Up),     shiftCurrentWorkspaceInstanceToScreen (+1))
+        , ((modMask .|. controlMask .|. shiftMask,  xK_Down),   shiftCurrentWorkspaceInstanceToScreen (subtract 1))
         , ((modMask,                                xK_Tab),    sendMessage NextLayout)
         , ((modMask,                                xK_space),  namedScratchpadAction scratchpads "scratchpad")
         , ((modMask,                                xK_Return), spawn "rofi-menu")
@@ -131,9 +134,36 @@ keymapConfig cfg = cfg { keys = keymap <> keys cfg, modMask = modMask }
         then W.sink w s
         else W.float w (W.RationalRect 0.2 0.2 0.6 0.6) s
 
+withWorkspaceInstanceOnScreen :: (PhysicalWorkspace -> WindowSet -> a) -> VirtualWorkspace -> WindowSet -> a
+withWorkspaceInstanceOnScreen f vws ws =
+    let pwss = filter ((== vws) . snd . unmarshall . W.tag) $ W.workspaces ws
+        currentScreenId = W.screen $ W.current ws
+        pws = fromMaybe
+            (marshall currentScreenId vws)
+            (W.tag <$> find (isJust . W.stack) pwss)
+        (screenId, _) = unmarshall pws
+    in f pws (focusScreen screenId ws)
+
+shiftCurrentWorkspaceInstanceToScreen :: (ScreenId -> ScreenId) -> X ()
+shiftCurrentWorkspaceInstanceToScreen screenInc = do
+    nScreens <- countScreens
+    windows $ \ws ->
+        let (currentScreenId, currentWsp) = unmarshall (W.currentTag ws)
+            newScreenId = (screenInc currentScreenId + nScreens) `mod` nScreens
+            ws' = modifyCurrentStack (const Nothing) ws
+            ws'' = onCurrentScreen W.view currentWsp $ focusScreen newScreenId ws'
+            ws''' = modifyCurrentStack (const (W.stack $ W.workspace $ W.current ws)) ws''
+            -- TODO: The stack should be empty, but if it isn't, then we would lose windows. So we should conservatively merge stacks.
+        in ws'''
+  where
+    modifyCurrentStack f ws = 
+        let current = W.current ws
+            workspace = W.workspace current
+            stack = W.stack workspace
+        in ws { W.current = current { W.workspace = workspace { W.stack = f stack } } }
 
 workspacesConfig :: XConfig a -> XConfig a
-workspacesConfig cfg = cfg { workspaces = [ws1, ws2, ws3, ws4] }
+workspacesConfig cfg = cfg { workspaces = withScreens 3 [ws1, ws2, ws3, ws4] }
 
 ws1, ws2, ws3, ws4 :: WorkspaceId
 ws1 = "\62075"
