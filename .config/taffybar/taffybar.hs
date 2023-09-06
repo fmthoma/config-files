@@ -1,9 +1,18 @@
 {-# LANGUAGE OverloadedStrings #-}
 module Main where
 
+import Control.Concurrent.MVar
+import Control.Monad.Trans
+import Control.Monad.Trans.Reader
+import Control.Monad.Trans.Maybe
 import Data.Default (def)
+import Data.List (isPrefixOf)
+import Data.Maybe (fromMaybe)
+import qualified GI.Gtk.Objects.Window as Gtk
+import qualified GI.Gdk.Objects.Screen as Gtk
+import qualified Graphics.UI.GIGtkStrut as Gtk
 import System.Taffybar
-import System.Taffybar.Context (TaffybarConfig(..))
+import System.Taffybar.Context (TaffybarConfig(..), Context(..), BarConfig(strutConfig))
 import System.Taffybar.Hooks
 import System.Taffybar.Information.CPU
 import System.Taffybar.Information.Memory
@@ -58,12 +67,17 @@ cpuCallback = do
 
 exampleTaffybarConfig :: TaffybarConfig
 exampleTaffybarConfig =
-    let myWorkspacesConfig = def
+    let myWorkspacesConfig screenNumber = def
             { minIcons = 1
             , widgetGap = 5
-            , showWorkspaceFn = hideEmpty
+            , showWorkspaceFn = \ws -> hideEmpty ws && show screenNumber `isPrefixOf` workspaceName ws
+            , labelSetter = pure . tail . dropWhile (/= '_') . workspaceName
             }
-        workspaces = workspacesNew myWorkspacesConfig
+        workspaces = do
+            screenNumber <- runMaybeT $ do
+                bar <- MaybeT $ asks contextBarConfig
+                MaybeT $ pure $ Gtk.strutMonitor $ strutConfig bar
+            workspacesNew (myWorkspacesConfig (fromMaybe 0 screenNumber))
         cpu = pollingGraphNew cpuCfg 0.5 cpuCallback
         mem = pollingGraphNew memCfg 1 memCallback
         net = networkGraphNew netCfg Nothing
@@ -93,3 +107,7 @@ exampleTaffybarConfig =
             , widgetSpacing = 0
             }
     in withLogServer $ withToggleServer $ toTaffyConfig myConfig
+
+
+asksContextVar :: (r -> MVar b) -> ReaderT r IO b
+asksContextVar getter = asks getter >>= lift . readMVar
