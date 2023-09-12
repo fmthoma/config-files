@@ -150,11 +150,11 @@ shiftCurrentWorkspaceInstanceToScreen screenInc = do
     windows $ \ws ->
         let (currentScreenId, currentWsp) = unmarshall (W.currentTag ws)
             newScreenId = (screenInc currentScreenId + nScreens) `mod` nScreens
-            ws' = modifyCurrentStack (const Nothing) ws
-            ws'' = onCurrentScreen W.view currentWsp $ focusScreen newScreenId ws'
-            ws''' = modifyCurrentStack (const (W.stack $ W.workspace $ W.current ws)) ws''
-            -- TODO: The stack should be empty, but if it isn't, then we would lose windows. So we should conservatively merge stacks.
-        in ws'''
+        in modifyCurrentStack (const (W.stack $ W.workspace $ W.current ws)) -- TODO: The stack should be empty, but if it isn't, then we would lose windows. So we should conservatively merge stacks.
+            . onCurrentScreen W.view currentWsp
+            . focusScreen newScreenId
+            . modifyCurrentStack (const Nothing)
+            $ ws
   where
     modifyCurrentStack f ws = 
         let current = W.current ws
