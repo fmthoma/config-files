@@ -137,9 +137,9 @@ keymapConfig cfg = cfg { keys = keymap <> keys cfg, modMask = modMask }
 
 withWorkspaceInstanceOnScreen :: (PhysicalWorkspace -> WindowSet -> a) -> VirtualWorkspace -> WindowSet -> a
 withWorkspaceInstanceOnScreen f virtualWorkspace ws =
-    let physicalWorkspaces = filter ((== virtualWorkspace) . snd . unmarshall . W.tag) $ W.workspaces ws
+    let physicalWorkspacesForVirtualWsp = filter ((== virtualWorkspace) . snd . unmarshall . W.tag) $ physicalWorkspaces ws
         currentScreenId = W.screen $ W.current ws
-        currentlyOccupiedPhysicalWorkspace = W.tag <$> find (isJust . W.stack) physicalWorkspaces
+        currentlyOccupiedPhysicalWorkspace = W.tag <$> find (isJust . W.stack) physicalWorkspacesForVirtualWsp
         currentlyVisiblePhysicalWorkspace = find ((== virtualWorkspace) . snd . unmarshall) (W.tag . W.workspace <$> W.visible ws)
         fallbackPhysicalWorkspaceOnCurrentScreen = marshall currentScreenId virtualWorkspace
         physicalWorkspace = fromMaybe
@@ -157,6 +157,7 @@ shiftCurrentWorkspaceInstanceToScreen screenInc = do
         in modifyCurrentStack (const (W.stack $ W.workspace $ W.current ws)) -- TODO: The stack should be empty, but if it isn't, then we would lose windows. So we should conservatively merge stacks.
             . onCurrentScreen W.view currentWsp
             . focusScreen newScreenId
+            . switchToNextVisibleWorkspace currentScreenId
             . modifyCurrentStack (const Nothing)
             $ ws
   where
@@ -165,6 +166,14 @@ shiftCurrentWorkspaceInstanceToScreen screenInc = do
             workspace = W.workspace current
             stack = W.stack workspace
         in ws { W.current = current { W.workspace = workspace { W.stack = f stack } } }
+    switchToNextVisibleWorkspace screenId ws =
+        let nextVisibleWorkspaceOnCurrentScreen = find (isJust . W.stack) $ workspacesOn screenId $ physicalWorkspaces ws
+        in case nextVisibleWorkspaceOnCurrentScreen of
+            Just wsp -> W.view (W.tag wsp) ws
+            Nothing  -> ws
+
+physicalWorkspaces :: W.StackSet String l a s sd -> [W.Workspace String l a] 
+physicalWorkspaces = filter ((/= "NSP") . W.tag) . W.workspaces
 
 workspacesConfig :: XConfig a -> XConfig a
 workspacesConfig cfg = cfg { workspaces = withScreens 3 [ws1, ws2, ws3, ws4] }
