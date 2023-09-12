@@ -32,6 +32,7 @@ import XMonad.Util.WorkspaceCompare
 import qualified XMonad.StackSet as W
 import qualified XMonad.Util.Rectangle as R
 
+import Control.Applicative ((<|>))
 import qualified Data.Map as M
 import Data.Maybe (isJust, fromMaybe)
 import Data.List (find, partition)
@@ -135,14 +136,17 @@ keymapConfig cfg = cfg { keys = keymap <> keys cfg, modMask = modMask }
         else W.float w (W.RationalRect 0.2 0.2 0.6 0.6) s
 
 withWorkspaceInstanceOnScreen :: (PhysicalWorkspace -> WindowSet -> a) -> VirtualWorkspace -> WindowSet -> a
-withWorkspaceInstanceOnScreen f vws ws =
-    let pwss = filter ((== vws) . snd . unmarshall . W.tag) $ W.workspaces ws
+withWorkspaceInstanceOnScreen f virtualWorkspace ws =
+    let physicalWorkspaces = filter ((== virtualWorkspace) . snd . unmarshall . W.tag) $ W.workspaces ws
         currentScreenId = W.screen $ W.current ws
-        pws = fromMaybe
-            (marshall currentScreenId vws)
-            (W.tag <$> find (isJust . W.stack) pwss)
-        (screenId, _) = unmarshall pws
-    in f pws (focusScreen screenId ws)
+        currentlyOccupiedPhysicalWorkspace = W.tag <$> find (isJust . W.stack) physicalWorkspaces
+        currentlyVisiblePhysicalWorkspace = find ((== virtualWorkspace) . snd . unmarshall) (W.tag . W.workspace <$> W.visible ws)
+        fallbackPhysicalWorkspaceOnCurrentScreen = marshall currentScreenId virtualWorkspace
+        physicalWorkspace = fromMaybe
+            fallbackPhysicalWorkspaceOnCurrentScreen 
+            (currentlyOccupiedPhysicalWorkspace <|> currentlyVisiblePhysicalWorkspace)
+        (screenId, _) = unmarshall physicalWorkspace
+    in f physicalWorkspace (focusScreen screenId ws)
 
 shiftCurrentWorkspaceInstanceToScreen :: (ScreenId -> ScreenId) -> X ()
 shiftCurrentWorkspaceInstanceToScreen screenInc = do
