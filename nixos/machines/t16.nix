@@ -13,5 +13,7 @@
     services.throttled.enable = true;
     # Throttled service still has old file called 'lenovo_fix.conf'
     environment.etc."throttled.conf".source = "${pkgs.throttled}/etc/throttled.conf";
+
+    services.hardware.bolt.enable = true;
   };
 }
