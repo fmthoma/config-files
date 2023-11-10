@@ -66,7 +66,7 @@
     xkcdpass
     xsel
     yq
-    zoom
+    zoom-us
   ];
 
   programs = {
