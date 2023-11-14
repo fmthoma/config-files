@@ -117,7 +117,7 @@ bindsym $M1+r layout toggle split
 bindsym F1 $w1
 bindsym F2 $w2
 bindsym F3 $w3
-bindsym F4 $w4
+#bindsym F4 $w4
 # ergodox bindings
 bindsym $M1+1 $w1
 bindsym $M1+2 $w2
@@ -187,13 +187,15 @@ bindsym $M1+Return mode $mode_run
 bindsym level3+h mode $mode_settings
 bindsym Mod3+h mode $mode_settings
 
-set $mode_settings " [] Brightness  |  [] Volume  |  [N]etwork [D]isconnect | [L]ock [S]uspend | [1] [2] Monitor(s)"
+set $mode_settings " [] Brightness  |  [] Volume  | [B]luetooth |  [N]etwork [D]isconnect | [L]ock [S]uspend | [1] [2] Monitor(s)"
 mode $mode_settings {
     bindsym Up   exec "light -A 10"
     bindsym Down exec "light -U 10"
 
     bindsym Left  exec "pactl set-sink-volume 1 -10%"
     bindsym Right exec "pactl set-sink-volume 1 +10%"
+
+    bindsym b exec rofi-bluetooth; mode "default"
 
     bindsym n exec nm-connect; mode "default"
     bindsym d exec nm-disconnect; mode "default"
