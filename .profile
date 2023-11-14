@@ -32,6 +32,9 @@ fi
 if [ -d "$HOME/.ghcup/bin" ]; then
     PATH="$HOME/.ghcup/bin:$PATH"
 fi
+if [ -d "$HOME/.rbenv/shims" ]; then
+    PATH="$HOME/.rbenv/shims:$PATH"
+fi
 
 export EDITOR=vim
 export PAGER=less
