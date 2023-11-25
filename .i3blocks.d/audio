@@ -1,23 +1,25 @@
 #!/usr/bin/env bash
 
-function active_sink() {
-  pacmd list-sinks \
+item=${1:-sink}
+
+function active_item() {
+  pacmd list-${item}s \
     | grep "* index" \
     | awk '{print $3}'
 }
 
 function is_muted() {
   sink=$1
-  pacmd list-sinks \
+  pacmd list-${item}s \
     | awk "/index: ${sink}/,/active port/" \
     | grep "muted" | grep "yes"
 
 }
 
 function current_vol() {
-  sink=$1
+  id=$1
   pacmd dump-volumes \
-    | grep "Sink ${sink}" \
+    | grep -i "${item} ${id}" \
     | sed 's/, /\n/g' \
     | grep reference \
     | tr ' ' '\n' \
@@ -26,20 +28,35 @@ function current_vol() {
 }
 
 function toggle_mute() {
-  sink=$1
-  if [ -n "$( is_muted $sink )" ]; then
-    pacmd set-sink-mute "$sink" off
+  id=$1
+  if [ -n "$( is_muted $id )" ]; then
+    pacmd set-${item}-mute "$id" off
   else
-    pacmd set-sink-mute "$sink" on
+    pacmd set-${item}-mute "$id" on
   fi
 }
 
 
-ACTIVE_SINK=$( active_sink )
-CURRENT_VOL="$( current_vol $ACTIVE_SINK )%"
-IS_MUTED=$( is_muted $ACTIVE_SINK )
-[ -n "$IS_MUTED" ] && CURRENT_VOL="MUTE"
+ACTIVE=$( active_item )
 
-[ "${BLOCK_BUTTON:-0}" -eq "1" ] && toggle_mute "$ACTIVE_SINK"
+[ "${BLOCK_BUTTON:-0}" -eq "1" ] && toggle_mute "$ACTIVE"
 
-echo " <span color='#cb4b16'></span> ${CURRENT_VOL} "
+CURRENT_VOL="$( current_vol $ACTIVE )%"
+IS_MUTED=$( is_muted $ACTIVE )
+
+case $item in
+  sink)
+    if [ -n "$IS_MUTED" ]; then
+      echo "<span bgcolor='#dc322f' color='#fdf6e3'>  MUTE </span>"
+    else
+      echo " <span color='#cb4b16'></span> ${CURRENT_VOL} "
+    fi
+    ;;
+  source)
+    if [ -n "$IS_MUTED" ]; then
+      echo "<span bgcolor='#dc322f' color='#fdf6e3'>  MUTE </span>"
+    else
+      echo " <span color='#cb4b16'></span> ${CURRENT_VOL} "
+    fi
+    ;;
+esac
