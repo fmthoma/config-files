@@ -1,5 +1,5 @@
 self: super: {
-  idea-ultimate = super.idea.idea-ultimate.overrideAttrs (oldAttrs: rec {
+  idea-ultimate = super.jetbrains.idea-ultimate.overrideAttrs (oldAttrs: rec {
     name = "idea-ultimate-${version}";
     version = "2019.1.1";
     src = super.fetchurl {
