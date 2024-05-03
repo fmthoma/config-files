@@ -208,6 +208,7 @@ mode $mode_settings {
 
 bindsym $M1+space exec scratchpad
 for_window [class="URxvt" instance="scratchpad"] floating enable
+for_window [class="URxvt" instance="scratchpad"] sticky enable
 for_window [class="^zoom$" title="^zoom$"] floating enable
 
 bindsym $M1+plus        resize grow width 10 px or 10 ppt;   resize grow height 10 px or 10 ppt
