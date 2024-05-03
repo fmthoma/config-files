@@ -13,6 +13,15 @@ set $w1 workspace "1:    "
 set $w2 workspace "2:    "
 set $w3 workspace "3:    "
 set $w4 workspace "4:    "
+set $wv workspace "1: 1 "
+set $wl workspace "2: 2 "
+set $wc workspace "3: 3 "
+set $wi workspace "4: 4 "
+set $wa workspace "5: 5 "
+set $we workspace "6: 6 "
+set $wö workspace "7: 7 "
+set $wä workspace "8: 8 "
+set $wp workspace "9: 9 "
 
 for_window [class="feh"] floating enable
 
@@ -40,6 +49,25 @@ set $green   #859900e0
 
 set $transparent #00000000
 
+# Experimental workspaces
+bindsym $M1+v          $wv
+bindsym $M1+l          $wl
+bindsym $M1+c          $wc
+bindsym $M1+i          $wi
+bindsym $M1+a          $wa
+bindsym $M1+e          $we
+bindsym $M1+odiaeresis $wö
+bindsym $M1+adiaeresis $wä
+bindsym $M1+p          $wp
+bindsym $M2+v          move container to $wv; $wv
+bindsym $M2+l          move container to $wl; $wl
+bindsym $M2+c          move container to $wc; $wc
+bindsym $M2+i          move container to $wi; $wi
+bindsym $M2+a          move container to $wa; $wa
+bindsym $M2+e          move container to $we; $we
+bindsym $M2+odiaeresis move container to $wö; $wö
+bindsym $M2+adiaeresis move container to $wä; $wä
+bindsym $M2+p          move container to $wp; $wp
 
 # change focus
 bindsym $M1+Left focus left
@@ -52,10 +80,6 @@ bindsym $M2+Left move left
 bindsym $M2+Down move down
 bindsym $M2+Up move up
 bindsym $M2+Right move right
-bindsym $M2+h move left
-bindsym $M2+j move down
-bindsym $M2+k move up
-bindsym $M2+l move right
 bindsym $M3+Left move workspace to output left
 bindsym $M3+Down move workspace to output down
 bindsym $M3+Up move workspace to output up
@@ -75,19 +99,15 @@ bindsym $M1+KP_3 $lower_right
 bindsym $M1+KP_0 floating disable
 
 # focus the parent container
-bindsym $M1+a focus parent
+bindsym $M1+s focus parent
 
 # focus the child container
-bindsym $M1+s focus child
-
-# change split
-bindsym $M1+v split v
-bindsym $M1+h split h
+bindsym $M2+s focus child
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $M1+t layout tabbed
 bindsym $M2+t layout stacking
-bindsym $M1+c layout toggle split
+bindsym $M1+r layout toggle split
 
 
 # change workspace
@@ -129,13 +149,6 @@ bindsym Control+$alt+t exec urxvt
 
 # kill focused window
 bindsym $M1+d kill
-
-# pass menu
-bindsym $M1+p exec "nix-shell -p pass --run 'passmenu --type'"
-bindsym $M1+Shift+p exec "nix-shell -p pass --run passmenu"
-
-# Lockscreen
-bindsym $M1+l exec loginctl lock-session
 
 # Toggle Mute
 bindsym $M1+m exec mute toggle
