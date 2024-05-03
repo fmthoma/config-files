@@ -57,6 +57,7 @@
     tmux
     tree
     unzip
+    v4l-utils
     vim
     vistafonts
     vscode
