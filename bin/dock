@@ -1,0 +1,7 @@
+xrandr --output DP-1-3 --auto --left-of eDP-1
+xrandr --output DP-1-1 --auto --left-of DP-1-3 --rotate right
+xrandr --output DP-1-3 --pos 1440x600
+xrandr --output eDP-1 --pos 4000x840
+feh --bg-fill ~/wallpaper ~/wallpaper_portrait ~/wallpaper
+v4l2-ctl -d4 --set-ctrl zoom_absolute=150
+v4l2-ctl -d4 --set-ctrl backlight_compensation=1
