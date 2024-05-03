@@ -1,2 +1,10 @@
-xrandr --auto
+#!/usr/bin/env bash
+set -euo pipefail
+
+for OUTPUT in $(xrandr | grep '\<connected\>' | cut -d' ' -f1 | grep -v eDP); do
+    for MONITOR in $(xrandr --listmonitors | grep -o "${OUTPUT}-[L,R]"); do
+        xrandr --delmonitor $MONITOR
+    done
+    xrandr --output $OUTPUT --off
+done
 feh --bg-fill ~/wallpaper
