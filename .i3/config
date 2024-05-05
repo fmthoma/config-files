@@ -9,19 +9,19 @@ set $lower_left "floating enable; move position 40 px 830 px"
 set $lower_right "floating enable; move position 1520 px 830 px"
 set $center "floating enable; move position center"
 
-set $w1 workspace "1:    "
-set $w2 workspace "2:    "
-set $w3 workspace "3:    "
-set $w4 workspace "4:    "
-set $wv workspace "1: 1 "
-set $wl workspace "2: 2 "
-set $wc workspace "3: 3 "
-set $wi workspace "4: 4 "
-set $wa workspace "5: 5 "
-set $we workspace "6: 6 "
-set $wö workspace "7: 7 "
-set $wä workspace "8: 8 "
-set $wp workspace "9: 9 "
+set $w1 workspace number "1:    "
+set $w2 workspace number "4:    "
+set $w3 workspace number "7:    "
+set $w4 workspace number "4:    "
+set $wv workspace number "1: 1 "
+set $wl workspace number "2: 2 "
+set $wc workspace number "3: 3 "
+set $wi workspace number "4: 4 "
+set $wa workspace number "5: 5 "
+set $we workspace number "6: 6 "
+set $wö workspace number "7: 7 "
+set $wä workspace number "8: 8 "
+set $wp workspace number "9: 9 "
 
 for_window [class="feh"] floating enable
 
@@ -232,6 +232,7 @@ client.focused_inactive $base01     $base01     $base02   $base01
 client.urgent           $orange     $orange     $base03   $orange
 client.background       $base03
 
+for_window [all] title_window_icon yes
 assign [class="Firefox"] $w3
 assign [class="Slack"]   $w1
 
