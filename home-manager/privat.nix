@@ -10,6 +10,5 @@
     skypeforlinux
     super-slicer
     tdesktop
-    vpype
   ];
 }
