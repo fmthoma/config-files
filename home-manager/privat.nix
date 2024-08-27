@@ -10,5 +10,6 @@
     skypeforlinux
     super-slicer
     tdesktop
+    unstable.prusa-slicer
   ];
 }
