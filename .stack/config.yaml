@@ -16,4 +16,5 @@ nix:
             , pkg-config # for cairo/gtk
             , cairo
             , gtkd, gtk2 # for gtk2hs
+            , pcre2, xorg.libXdmcp, util-linux, libselinux # for svgcairo
             ]
