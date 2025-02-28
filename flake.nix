@@ -1,14 +1,15 @@
 {
   inputs = {
-    nixos.url = "github:nixos/nixpkgs/release-24.05";
+    nixos.url = "github:nixos/nixpkgs/release-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-24_05.url = "github:nixos/nixpkgs/release-24.05";
     nixpkgs-23_11.url = "github:nixos/nixpkgs/release-23.11";
     nixpkgs-23_05.url = "github:nixos/nixpkgs/release-23.05";
     nixpkgs-22_11.url = "github:nixos/nixpkgs/release-22.11";
     nixpkgs-22_05.url = "github:nixos/nixpkgs/release-22.05";
     nixpkgs-21_11.url = "github:nixos/nixpkgs/release-21.11";
     nixpkgs-21_05.url = "github:nixos/nixpkgs/release-21.05";
-    home-manager.url = "github:nix-community/home-manager/release-24.05";
+    home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixos";
     keymap-visualizer.url = "github:fmthoma/keymap-visualizer/main";
   };
@@ -18,6 +19,7 @@
     overlays = [
       (_: _: {
         unstable = import inputs.nixpkgs-unstable { system = "x86_64-linux"; inherit overlays; };
+        release-24_05 = import inputs.nixpkgs-24_05 { system = "x86_64-linux"; inherit overlays; };
         release-23_11 = import inputs.nixpkgs-23_11 { system = "x86_64-linux"; inherit overlays; };
         release-23_05 = import inputs.nixpkgs-23_05 { system = "x86_64-linux"; inherit overlays; };
         release-22_11 = import inputs.nixpkgs-22_11 { system = "x86_64-linux"; inherit overlays; };
@@ -31,7 +33,6 @@
       (import ./nixpkgs/overlays/petname.nix)
       (import ./nixpkgs/overlays/superslicer.nix)
       (import ./nixpkgs/overlays/throttled.nix)
-      (import ./nixpkgs/overlays/factorio.nix)
       (inputs.keymap-visualizer.overlays.default)
     ];
     modules = {
