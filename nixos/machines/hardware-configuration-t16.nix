@@ -18,6 +18,7 @@
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware = {
+    nvidia.open = false;
     nvidia.modesetting.enable = true;
     nvidia.prime.sync.enable = true;
     nvidia.prime.intelBusId = "PCI:0:2:0";
@@ -30,7 +31,6 @@
         pkgs.vaapiVdpau
         pkgs.libvdpau-va-gl
       ];
-      driSupport = true;
       driSupport32Bit = true;
     };
   };

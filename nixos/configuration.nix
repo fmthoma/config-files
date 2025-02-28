@@ -3,8 +3,6 @@
   hardware = {
     trackpoint.emulateWheel = true;
     bluetooth.enable = true;
-    pulseaudio.enable = true;
-    pulseaudio.package = pkgs.pulseaudioFull;
   };
 
   # Use the systemd-boot EFI boot loader.
