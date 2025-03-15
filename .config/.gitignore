@@ -7,3 +7,9 @@
 !/nvim
 !/ranger
 !/yi
+!/Code
+/Code/*
+!/Code/Preferences
+!/Code/User
+/Code/User/*
+!/Code/User/*.json
