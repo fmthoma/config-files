@@ -7,4 +7,11 @@ for OUTPUT in $(xrandr | grep '\<connected\>' | cut -d' ' -f1 | grep -v eDP); do
     done
     xrandr --output $OUTPUT --off
 done
+
+for MONITOR in $(xrandr --listmonitors | grep -o "[^ ]\+-[L,R]"); do
+    xrandr --delmonitor $MONITOR
+done
+
+xrandr --auto
+
 feh --bg-fill ~/wallpaper
