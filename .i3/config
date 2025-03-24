@@ -25,7 +25,10 @@ set $wp workspace "9: 9 "
 
 for_window [class="feh"] floating enable
 
-bindsym $M1+n exec "feh -B '#002b36' $HOME/.i3/neo{1..6}.png"
+bindsym $M1+n exec keymap-visualizer
+for_window [class="keymap-visualizer"] $center
+for_window [class="keymap-visualizer"] sticky enable
+
 bindsym $M2+f floating toggle
 
 # Solarized colors
