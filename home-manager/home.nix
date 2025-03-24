@@ -34,6 +34,7 @@
     inkscape
     iosevka
     jq
+    keymap-visualizer
     libreoffice
     lsd
     meld
