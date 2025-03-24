@@ -10,6 +10,7 @@
     nixpkgs-21_05.url = "github:nixos/nixpkgs/release-21.05";
     home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixos";
+    keymap-visualizer.url = "github:fmthoma/keymap-visualizer/main";
   };
 
   outputs = { self, nixos, home-manager, ... }@inputs:
@@ -31,6 +32,7 @@
       (import ./nixpkgs/overlays/superslicer.nix)
       (import ./nixpkgs/overlays/throttled.nix)
       (import ./nixpkgs/overlays/factorio.nix)
+      (inputs.keymap-visualizer.overlays.default)
     ];
     modules = {
       overlays = {

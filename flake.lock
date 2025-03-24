@@ -21,6 +21,25 @@
         "type": "github"
       }
     },
+    "keymap-visualizer": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1742842198,
+        "narHash": "sha256-k/c4A4bfYUvTZ7f7I8EMbps1F6MR0U9ukfJSnKhm1E0=",
+        "owner": "fmthoma",
+        "repo": "keymap-visualizer",
+        "rev": "6f1f818f51d7c244e60072f97989918c9d8586d7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fmthoma",
+        "ref": "main",
+        "repo": "keymap-visualizer",
+        "type": "github"
+      }
+    },
     "nixos": {
       "locked": {
         "lastModified": 1735651292,
@@ -33,6 +52,22 @@
       "original": {
         "owner": "nixos",
         "ref": "release-24.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1742751704,
+        "narHash": "sha256-rBfc+H1dDBUQ2mgVITMGBPI1PGuCznf9rcWX/XIULyE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f0946fa5f1fb876a9dc2e1850d9d3a4e3f914092",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-24.11",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -152,6 +187,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "keymap-visualizer": "keymap-visualizer",
         "nixos": "nixos",
         "nixpkgs-21_05": "nixpkgs-21_05",
         "nixpkgs-21_11": "nixpkgs-21_11",
