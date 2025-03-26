@@ -25,7 +25,10 @@ set $wp workspace number "9: 9 "
 
 for_window [class="feh"] floating enable
 
-bindsym $M1+n exec bash -c "feh -B '#002b36' $HOME/.i3/neo{1..6}.png"
+bindsym $M1+n exec bash -c "(echo -n "toggle" | nc -UN /tmp/keymap.sock) || /home/thomaf/projects/keymap/release/build/KeymapVisualizer-0.1.0.AppImage"
+for_window [class="keymap-visualizer"] $center
+for_window [class="keymap-visualizer"] sticky enable
+
 bindsym $M2+f floating toggle
 
 # Solarized colors
