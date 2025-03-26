@@ -151,7 +151,7 @@ bindsym Control+$alt+t exec urxvt
 bindsym $M1+d kill
 
 # Toggle Mute
-bindsym $M1+m exec mute toggle
+bindsym $M1+m exec mute toggle; exec pkill -SIGRTMIN+1 i3blocks
 
 # exit i3 (logs you out of your X session)
 bindsym $M2+q exit
