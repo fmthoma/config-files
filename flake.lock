@@ -26,11 +26,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1742842198,
-        "narHash": "sha256-k/c4A4bfYUvTZ7f7I8EMbps1F6MR0U9ukfJSnKhm1E0=",
+        "lastModified": 1743184003,
+        "narHash": "sha256-K7IQFoF/ZCBbnSaqdyDrXDNtVULc7YkEwuBBNXldpO4=",
         "owner": "fmthoma",
         "repo": "keymap-visualizer",
-        "rev": "6f1f818f51d7c244e60072f97989918c9d8586d7",
+        "rev": "ec94ac1b96ad9ff6679063031089386c93ded058",
         "type": "github"
       },
       "original": {
