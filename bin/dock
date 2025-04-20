@@ -9,16 +9,17 @@ dock-ultrawide() {
     undock
     case "$SIDE" in
       right)
+        xrandr --output $INTERNAL --scale 0.78125 # Scaled size: 1500x938
         xrandr --output $OUTPUT --auto --left-of $INTERNAL
-        xrandr --output $INTERNAL --pos 3840x400
+        xrandr --output $INTERNAL --pos 3840x0
         xrandr --setmonitor "${OUTPUT}-L" 1280/293x1600/367+0+0 none
         xrandr --setmonitor "${OUTPUT}-R" 2560/587x1600/367+1280+0 $OUTPUT
         ;;
       *)
-        xrandr --output $OUTPUT --auto --right-of $INTERNAL
-        xrandr --output $INTERNAL --pos 0x400
-        xrandr --setmonitor "${OUTPUT}-L" 2560/587x1600/367+1920+0 none
-        xrandr --setmonitor "${OUTPUT}-R" 1280/293x1600/367+4480+0 $OUTPUT
+        xrandr --output $INTERNAL --scale 0.78125 # Scaled size: 1500x938
+        xrandr --output $OUTPUT --auto --pos 1500x0
+        xrandr --setmonitor "${OUTPUT}-L" 2560/587x1600/367+1500+0 none
+        xrandr --setmonitor "${OUTPUT}-R" 1280/293x1600/367+4060+0 $OUTPUT
         ;;
     esac
     feh --bg-fill ~/wallpaper
