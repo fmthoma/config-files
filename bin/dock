@@ -5,11 +5,22 @@ INTERNAL=$(xrandr | grep eDP | cut -d' ' -f1)
 
 dock-ultrawide() {
     OUTPUT="$1"
+    SIDE="${2:-left}"
     undock
-    xrandr --output $OUTPUT --auto --left-of $INTERNAL
-    xrandr --output $INTERNAL --pos 3840x400
-    xrandr --setmonitor "${OUTPUT}-L" 1280/293x1600/367+0+0 none
-    xrandr --setmonitor "${OUTPUT}-R" 2560/587x1600/367+1280+0 $OUTPUT
+    case "$SIDE" in
+      right)
+        xrandr --output $OUTPUT --auto --left-of $INTERNAL
+        xrandr --output $INTERNAL --pos 3840x400
+        xrandr --setmonitor "${OUTPUT}-L" 1280/293x1600/367+0+0 none
+        xrandr --setmonitor "${OUTPUT}-R" 2560/587x1600/367+1280+0 $OUTPUT
+        ;;
+      *)
+        xrandr --output $OUTPUT --auto --right-of $INTERNAL
+        xrandr --output $INTERNAL --pos 0x400
+        xrandr --setmonitor "${OUTPUT}-L" 2560/587x1600/367+1920+0 none
+        xrandr --setmonitor "${OUTPUT}-R" 1280/293x1600/367+4480+0 $OUTPUT
+        ;;
+    esac
     feh --bg-fill ~/wallpaper
 }
 
@@ -26,9 +37,9 @@ dock-dual() {
 }
 
 if UHD_OUTPUT=$(xrandr | awk '/\<connected\>/ {name=$1} /3840x/ {print name}' | cut -d' ' -f1 | head -n1); then
-    dock-ultrawide $UHD_OUTPUT
+    dock-ultrawide $UHD_OUTPUT $@
 elif REGULAR_OUTPUTS=$(xrandr | grep '\<connected\>' | grep -v eDP | cut -d' ' -f1); then
-    dock-dual $REGULAR_OUTPUTS
+    dock-dual $REGULAR_OUTPUTS $@
 fi
 
 v4l2-ctl -d4 --set-ctrl zoom_absolute=150
