@@ -23,7 +23,7 @@
     nvidia.prime.sync.enable = true;
     nvidia.prime.intelBusId = "PCI:0:2:0";
     nvidia.prime.nvidiaBusId = "PCI:3:0:0";
-    opengl = {
+    graphics = {
       extraPackages = [
         pkgs.mesa.drivers
         pkgs.linuxPackages_6_1.nvidia_x11.out
@@ -31,7 +31,7 @@
         pkgs.vaapiVdpau
         pkgs.libvdpau-va-gl
       ];
-      driSupport32Bit = true;
+      enable32Bit = true;
     };
   };
 

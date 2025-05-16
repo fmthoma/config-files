@@ -13,7 +13,6 @@
     binutils
     chromium
     cloc
-    co2monitor
     delta
     dmenu
     evince
@@ -22,7 +21,7 @@
     feh
     freeplane
     ghcid
-    gnome.nautilus
+    nautilus
     google-chrome
     gucharmap
     release-22_11.haskellPackages.vgrep
