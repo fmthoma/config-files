@@ -27,7 +27,6 @@
         release-21_11 = import inputs.nixpkgs-21_11 { system = "x86_64-linux"; inherit overlays; };
         release-21_05 = import inputs.nixpkgs-21_05 { system = "x86_64-linux"; inherit overlays; };
       })
-      (import ./nixpkgs/overlays/co2monitor)
       (import ./nixpkgs/overlays/dmenu)
       (import ./nixpkgs/overlays/iosevka)
       (import ./nixpkgs/overlays/petname.nix)
