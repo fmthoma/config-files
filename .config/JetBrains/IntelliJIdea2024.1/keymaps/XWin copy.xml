@@ -7,14 +7,19 @@
     <keyboard-shortcut first-keystroke="alt left" />
   </action>
   <action id="DatabaseView.OpenDdlInConsole" />
+  <action id="EditorJoinLines" />
   <action id="Forward">
     <mouse-shortcut keystroke="button5" />
     <keyboard-shortcut first-keystroke="alt right" />
   </action>
+  <action id="ImplementMethods" />
+  <action id="InsertLiveTemplate" />
   <action id="NextTab">
     <keyboard-shortcut first-keystroke="ctrl alt right" />
   </action>
   <action id="PreviousTab">
     <keyboard-shortcut first-keystroke="ctrl alt left" />
   </action>
+  <action id="UsageFiltering.Imports" />
+  <action id="org.intellij.plugins.markdown.ui.actions.styling.ToggleItalicAction" />
 </keymap>
