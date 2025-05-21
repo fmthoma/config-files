@@ -21,5 +21,8 @@
     <keyboard-shortcut first-keystroke="ctrl alt left" />
   </action>
   <action id="UsageFiltering.Imports" />
+  <action id="main.toolbar.Project">
+    <keyboard-shortcut first-keystroke="shift ctrl alt o" />
+  </action>
   <action id="org.intellij.plugins.markdown.ui.actions.styling.ToggleItalicAction" />
 </keymap>
