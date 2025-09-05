@@ -38,7 +38,7 @@ dock-dual() {
     feh --bg-fill ~/wallpaper ~/wallpaper_portrait ~/wallpaper
 }
 
-if UHD_OUTPUT=$(xrandr | awk '/\<connected\>/ {name=$1} /3840x/ {print name}' | cut -d' ' -f1 | head -n1); then
+if UHD_OUTPUT=$(xrandr | awk '/\<connected\>/ {name=$0} /3840x/ {print name}' | cut -d' ' -f1 | head -n1); then
     dock-ultrawide $UHD_OUTPUT $@
 elif REGULAR_OUTPUTS=$(xrandr | grep '\<connected\>' | grep -v eDP | cut -d' ' -f1); then
     dock-dual $REGULAR_OUTPUTS $@
