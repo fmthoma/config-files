@@ -48,7 +48,6 @@
     powertop
     ranger
     restic
-    signal-desktop
     stack
     stylish-haskell
     svgbob
