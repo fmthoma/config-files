@@ -24,7 +24,6 @@
       (import ./nixpkgs/overlays/dmenu)
       (import ./nixpkgs/overlays/iosevka)
       (import ./nixpkgs/overlays/petname.nix)
-      (import ./nixpkgs/overlays/superslicer.nix)
       (inputs.keymap-visualizer.overlays.default)
     ];
     modules = {
