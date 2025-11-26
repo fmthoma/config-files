@@ -11,5 +11,6 @@
     unstable.super-slicer.beta
     tdesktop
     unstable.prusa-slicer
+    vpype
   ];
 }
