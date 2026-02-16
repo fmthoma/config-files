@@ -85,6 +85,8 @@
 
     gnupg.agent.enable = true;
 
+    nix-ld.enable = true;
+
     zsh = {
       enable = true;
       syntaxHighlighting.enable = true;
