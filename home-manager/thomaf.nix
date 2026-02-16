@@ -3,7 +3,7 @@
 
   home.packages = with pkgs; [
     awscli2
-    jetbrains.idea-ultimate
+    jetbrains.idea
     slack
   ];
 }

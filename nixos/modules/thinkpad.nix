@@ -8,10 +8,10 @@
       ];
     };
 
-    logind.extraConfig = ''
-      HandleLidSwitch=lock
-      HandleLidSwitchDocked=ignore
-    '';
+    logind.settings.Login = {
+      HandleLidSwitch = "lock";
+      HandleLidSwitchDocked = "ignore";
+    };
 
     tlp.enable = true;
 

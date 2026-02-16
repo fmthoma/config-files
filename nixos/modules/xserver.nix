@@ -7,10 +7,7 @@
         variant = "neo";
       };
       windowManager = {
-        i3 = {
-          enable = true;
-          package = pkgs.i3-gaps;
-        };
+        i3.enable = true;
       };
       displayManager = {
         lightdm.enable = true;
