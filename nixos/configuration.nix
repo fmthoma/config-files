@@ -3,6 +3,7 @@
   hardware = {
     trackpoint.emulateWheel = true;
     bluetooth.enable = true;
+    pulseaudio.enable = true;
   };
 
   # Use the systemd-boot EFI boot loader.
@@ -61,6 +62,8 @@
       enable = true;
       settings.PasswordAuthentication = false;
     };
+
+    pipewire.enable = false;
 
     printing = {
       enable = true;
