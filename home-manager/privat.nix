@@ -7,10 +7,9 @@
     freecad
     gmsh
     openscad
-    skypeforlinux
     unstable.super-slicer.beta
-    tdesktop
+    telegram-desktop
     unstable.prusa-slicer
-    vpype
+    release-24_11.vpype
   ];
 }

@@ -25,10 +25,10 @@
     nvidia.prime.nvidiaBusId = "PCI:3:0:0";
     graphics = {
       extraPackages = [
-        pkgs.mesa.drivers
+        pkgs.mesa
         pkgs.linuxPackages_6_1.nvidia_x11.out
-        pkgs.vaapiIntel
-        pkgs.vaapiVdpau
+        pkgs.intel-vaapi-driver
+        pkgs.libva-vdpau-driver
         pkgs.libvdpau-va-gl
       ];
       enable32Bit = true;
