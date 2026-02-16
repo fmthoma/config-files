@@ -34,6 +34,8 @@ alias uiae='setxkbmap de'
 
 alias clip='xsel -op | xsel -ib'
 
+alias oc='alacritty -e opencode'
+
 alias r='ranger'
 
 alias gradle='./gradlew'

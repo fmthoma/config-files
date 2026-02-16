@@ -148,7 +148,7 @@ bindsym $M3+3 move container to $w3
 bindsym $M3+4 move container to $w4
 
 # start a terminal
-bindsym Control+$alt+t exec urxvt
+bindsym Control+$alt+t exec alacritty
 
 # kill focused window
 bindsym $M1+d kill
@@ -166,14 +166,14 @@ set $mode_run " [R]anger  [T]erminal  [E]macs [F]irefox  [C]hrome  [I]ntelliJ  [
 mode $mode_run {
     bindsym Return exec --no-startup-id i3-dmenu-hist-desktop; mode "default"
     bindsym $M1+Return exec --no-startup-id dmenu_hist_run; mode "default"
-    bindsym r exec urxvt -e ranger; mode "default"
-    bindsym t exec urxvt; mode "default"
+    bindsym r exec alacritty -e ranger; mode "default"
+    bindsym t exec alacritty; mode "default"
     bindsym e exec emacsclient -cnq; mode "default"
     bindsym f exec firefox; mode "default"
     bindsym c exec "google-chrome || chromium-browser"; mode "default"
     bindsym i exec idea; mode "default"
     bindsym p exec pstorm; mode "default"
-    bindsym m exec "thunderbird || urxvt -e mutt"; mode "default"
+    bindsym m exec "thunderbird || alacritty -e mutt"; mode "default"
 
     bindsym s mode $mode_settings
 
@@ -210,8 +210,8 @@ mode $mode_settings {
 }
 
 bindsym $M1+space exec scratchpad
-for_window [class="URxvt" instance="scratchpad"] floating enable
-for_window [class="URxvt" instance="scratchpad"] sticky enable
+for_window [instance="scratchpad"] floating enable
+for_window [instance="scratchpad"] sticky enable
 for_window [class="^zoom$" title="^zoom$"] floating enable
 
 bindsym $M1+plus        resize grow width 10 px or 10 ppt;   resize grow height 10 px or 10 ppt
