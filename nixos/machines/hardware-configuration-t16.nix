@@ -15,24 +15,26 @@
   boot.kernelParams = [ ];
   boot.kernelPackages = pkgs.linuxPackages;
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = [ "modesetting" "nvidia" ];
 
-  hardware = {
-    nvidia.open = false;
-    nvidia.modesetting.enable = true;
-    nvidia.prime.sync.enable = true;
-    nvidia.prime.intelBusId = "PCI:0:2:0";
-    nvidia.prime.nvidiaBusId = "PCI:3:0:0";
-    graphics = {
-      extraPackages = [
-        pkgs.mesa
-        pkgs.linuxPackages.nvidia_x11.out
-        pkgs.intel-vaapi-driver
-        pkgs.libva-vdpau-driver
-        pkgs.libvdpau-va-gl
-      ];
-      enable32Bit = true;
+  hardware.nvidia = {
+    open = false;
+    modesetting.enable = true;
+    prime = {
+      reverseSync.enable = true;
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:3:0:0";
     };
+  };
+  hardware.graphics = {
+    extraPackages = [
+      pkgs.mesa
+      pkgs.linuxPackages.nvidia_x11.out
+      pkgs.intel-vaapi-driver
+      pkgs.libva-vdpau-driver
+      pkgs.libvdpau-va-gl
+    ];
+    enable32Bit = true;
   };
 
 
