@@ -1,4 +1,4 @@
-#include ".Xresources.d/solarized-dark.xresources"
+#include ".Xresources.d/solarized-light.xresources"
 #include ".Xresources.d/tango-colors.xresources"
 
 Xft.dpi: 96
@@ -8,8 +8,8 @@ URxvt.scrollBar: false
 URxvt.secondaryScroll: true
 URxvt.font: xft:Imposevka Expanded:size=12
 URxvt.depth: 32
-URxvt.background: [95]#002b36
-scratchpad.background: [80]#002b36
+URxvt.background: #fdf6e3
+scratchpad.background: #fdf6e3
 
 URxvt-tango-light.foreground: TANGO_0
 URxvt-tango-light.background: TANGO_15
