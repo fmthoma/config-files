@@ -34,7 +34,7 @@
 	pager = delta
 [delta]
 	navigate = true
-	light = false
+  light = true
 	commit-decoration-style = ul ol bold red
 	commit-style = bold raw
 	hunk-header-decoration-style = none
