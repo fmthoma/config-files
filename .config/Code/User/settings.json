@@ -11,5 +11,6 @@
         "git diff",
         "git show"
     ],
-    "roo-cline.deniedCommands": []
+    "roo-cline.deniedCommands": [],
+    "workbench.colorTheme": "Light Modern"
 }
