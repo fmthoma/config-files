@@ -22,6 +22,7 @@
       (import ./nixpkgs/overlays/dmenu)
       (import ./nixpkgs/overlays/iosevka)
       (import ./nixpkgs/overlays/petname.nix)
+      (import ./nixpkgs/overlays/open-code-review.nix)
       (import ./nixpkgs/overlays/vpype)
       (inputs.keymap-visualizer.overlays.default)
     ];
