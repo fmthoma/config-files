@@ -53,6 +53,7 @@
           ./nixos/modules/docker.nix
           ./nixos/modules/thinkpad.nix
           ./nixos/modules/xserver.nix
+          ./nixos/modules/niri.nix
         ];
       };
       thomaf-t460s = nixos.lib.nixosSystem {

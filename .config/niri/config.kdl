@@ -1,0 +1,201 @@
+// Niri config — based on .i3/config
+//
+// Modifier mapping:
+//   $M1  (Mod4)                → Mod
+//   $M2  (Control+Mod4)        → Mod+Ctrl
+//   $M3  (Shift+Control+Mod4)  → Mod+Ctrl+Shift
+//   $alt (Mod1)                → Alt
+
+environment {
+    QT_QPA_PLATFORM "wayland"
+    XDG_SESSION_TYPE "wayland"
+}
+
+input {
+    keyboard {
+        xkb {
+            layout "de"
+            variant "neo"
+        }
+    }
+    // focus-follows-mouse is off by default in niri
+}
+
+prefer-no-csd
+
+layout {
+    gaps 10
+    focus-ring {
+        on
+        width 3
+        active-color "#859900"   // green (solarized)
+        inactive-color "#073642" // base02
+        urgent-color "#cb4b16"   // orange
+    }
+    border {
+        off
+    }
+    background-color "#002b36" // base03
+}
+
+// ── Window rules (from i3 for_window / assign) ──────────────────────
+
+window-rule {
+    match app-id="feh"
+    open-floating true
+}
+
+window-rule {
+    match app-id="keymap-visualizer"
+    open-floating true
+}
+
+window-rule {
+    match app-id="urxvt" title="scratchpad"
+    open-floating true
+}
+
+window-rule {
+    match app-id="zoom" title="zoom"
+    open-floating true
+}
+
+window-rule {
+    match app-id="firefox"
+    open-on-workspace "7"
+}
+
+window-rule {
+    match app-id="slack"
+    open-on-workspace "1"
+}
+
+// ── Autostart ───────────────────────────────────────────────────────
+// NOTE: feh and xss-lock are X11 tools. Under Wayland consider
+//   swaybg --image $HOME/wallpaper
+//   swaylock -i $HOME/wallpaper
+// These are left commented out — uncomment and adjust as needed.
+
+// spawn-at-startup "swaybg" "--image" "$HOME/wallpaper"
+// spawn-at-startup "swaylock"
+spawn-at-startup "waybar"
+
+binds {
+    // ── Launchers ───────────────────────────────────────────────────
+    // Mod+Return enters "run mode" in i3; niri has no modes, so we
+    // launch dmenu_hist_run directly.
+    Mod+Return { spawn "dmenu_hist_run"; }
+    Mod+N      { spawn "keymap-visualizer"; }
+    Mod+Space  { spawn "scratchpad"; }
+    Ctrl+Alt+T { spawn "urxvt"; }
+
+    // ── Window management ───────────────────────────────────────────
+    Mod+D       { close-window; }
+    Mod+F       { fullscreen-window; }
+    Mod+Ctrl+F  { toggle-window-floating; }
+    Mod+M       { spawn "mute" "toggle"; }
+
+    // ── Focus ───────────────────────────────────────────────────────
+    Mod+Left  { focus-column-left; }
+    Mod+Down  { focus-window-down; }
+    Mod+Up    { focus-window-up; }
+    Mod+Right { focus-column-right; }
+
+    // ── Move ────────────────────────────────────────────────────────
+    Mod+Ctrl+Left  { move-column-left; }
+    Mod+Ctrl+Down  { move-window-down; }
+    Mod+Ctrl+Up    { move-window-up; }
+    Mod+Ctrl+Right { move-column-right; }
+
+    // ── Move to monitor (approximate; see notes) ────────────────────
+    Mod+Ctrl+Shift+Left  { move-column-left-or-to-monitor-left; }
+    Mod+Ctrl+Shift+Right { move-column-right-or-to-monitor-right; }
+
+    // ── Workspaces (v l c i a e ö ä p → 1-9) ────────────────────────
+    Mod+V            { focus-workspace 1; }
+    Mod+L            { focus-workspace 2; }
+    Mod+C            { focus-workspace 3; }
+    Mod+I            { focus-workspace 4; }
+    Mod+A            { focus-workspace 5; }
+    Mod+E            { focus-workspace 6; }
+    Mod+odiaeresis   { focus-workspace 7; }
+    Mod+adiaeresis   { focus-workspace 8; }
+    Mod+P            { focus-workspace 9; }
+
+    Mod+Ctrl+V            { move-column-to-workspace 1; }
+    Mod+Ctrl+L            { move-column-to-workspace 2; }
+    Mod+Ctrl+C            { move-column-to-workspace 3; }
+    Mod+Ctrl+I            { move-column-to-workspace 4; }
+    Mod+Ctrl+A            { move-column-to-workspace 5; }
+    Mod+Ctrl+E            { move-column-to-workspace 6; }
+    Mod+Ctrl+odiaeresis   { move-column-to-workspace 7; }
+    Mod+Ctrl+adiaeresis   { move-column-to-workspace 8; }
+    Mod+Ctrl+P            { move-column-to-workspace 9; }
+
+    // ── Workspaces (F1-F4 / numbered) ───────────────────────────────
+    // $w1=ws1  $w2=ws4  $w3=ws7  $w4=ws4
+    F1    { focus-workspace 1; }
+    F2    { focus-workspace 4; }
+    F3    { focus-workspace 7; }
+
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 4; }
+    Mod+3 { focus-workspace 7; }
+    Mod+4 { focus-workspace 4; }
+
+    // move + switch (F-keys)
+    Mod+F1 { move-column-to-workspace 1; }
+    Mod+F2 { move-column-to-workspace 4; }
+    Mod+F3 { move-column-to-workspace 7; }
+    Mod+F4 { move-column-to-workspace 4; }
+
+    // move without switch (F-keys)
+    Mod+Ctrl+F1 { move-column-to-workspace 1 focus=false; }
+    Mod+Ctrl+F2 { move-column-to-workspace 4 focus=false; }
+    Mod+Ctrl+F3 { move-column-to-workspace 7 focus=false; }
+    Mod+Ctrl+F4 { move-column-to-workspace 4 focus=false; }
+
+    // move + switch (ergodox numbered)
+    Mod+Ctrl+1 { move-column-to-workspace 1; }
+    Mod+Ctrl+2 { move-column-to-workspace 4; }
+    Mod+Ctrl+3 { move-column-to-workspace 7; }
+    Mod+Ctrl+4 { move-column-to-workspace 4; }
+
+    // move without switch (ergodox numbered)
+    Mod+Ctrl+Shift+1 { move-column-to-workspace 1 focus=false; }
+    Mod+Ctrl+Shift+2 { move-column-to-workspace 4 focus=false; }
+    Mod+Ctrl+Shift+3 { move-column-to-workspace 7 focus=false; }
+    Mod+Ctrl+Shift+4 { move-column-to-workspace 4 focus=false; }
+
+    // ── Alt+Tab ─────────────────────────────────────────────────────
+    Alt+Tab       { focus-workspace-down; }
+    Alt+Shift+Tab { focus-workspace-up; }
+
+    // ── Floating / center (numpad) ──────────────────────────────────
+    Mod+KP_5 { center-column; }
+    Mod+KP_0 { toggle-window-floating; }
+
+    // ── Column display ──────────────────────────────────────────────
+    Mod+T { toggle-column-tabbed-display; }
+
+    // ── Resize ──────────────────────────────────────────────────────
+    // i3 grows/shrinks both width and height on one key. Niri allows
+    // only one action per keybind, so we grow/shrink the column width.
+    // Use Mod+Shift+Plus / Mod+Shift+Minus for window height.
+    Mod+Plus        { set-column-width "+10%"; }
+    Mod+KP_Add      { set-column-width "+10%"; }
+    Mod+Minus       { set-column-width "-10%"; }
+    Mod+KP_Subtract { set-column-width "-10%"; }
+
+    Mod+Shift+Plus        { set-window-height "+10%"; }
+    Mod+Shift+KP_Add      { set-window-height "+10%"; }
+    Mod+Shift+Minus       { set-window-height "-10%"; }
+    Mod+Shift+KP_Subtract { set-window-height "-10%"; }
+
+    // ── Screenshots ─────────────────────────────────────────────────
+    Print      { screenshot; }
+    Ctrl+Print { screenshot-screen; }
+
+    // ── Session ─────────────────────────────────────────────────────
+    Mod+Ctrl+Q { quit; }
+}

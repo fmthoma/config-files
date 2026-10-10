@@ -10,7 +10,6 @@
         i3.enable = true;
       };
       displayManager = {
-        lightdm.enable = true;
         sessionCommands = ''
           if test -e $HOME/.Xresources; then
             ${pkgs.xorg.xrdb}/bin/xrdb --merge $HOME/.Xresources
@@ -19,6 +18,10 @@
       };
     };
     displayManager = {
+      sddm = {
+        enable = true;
+        wayland.enable = true;
+      };
       defaultSession = "none+i3";
       autoLogin = {
         user = "thomaf";
