@@ -81,10 +81,11 @@ window-rule {
 spawn-at-startup "waybar"
 
 binds {
+    // ── Show keybindings overlay ────────────────────────────────────
+    Mod+H { show-hotkey-overlay; }
+
     // ── Launchers ───────────────────────────────────────────────────
-    // Mod+Return enters "run mode" in i3; niri has no modes, so we
-    // launch dmenu_hist_run directly.
-    Mod+Return { spawn "dmenu_hist_run"; }
+    Mod+Return { spawn "fuzzel"; }
     Mod+N      { spawn "keymap-visualizer"; }
     Mod+Space  { spawn "scratchpad"; }
     Ctrl+Alt+T { spawn "urxvt"; }
