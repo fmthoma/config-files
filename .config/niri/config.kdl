@@ -132,41 +132,6 @@ binds {
     Mod+Ctrl+adiaeresis   { move-column-to-workspace 8; }
     Mod+Ctrl+P            { move-column-to-workspace 9; }
 
-    // ── Workspaces (F1-F4 / numbered) ───────────────────────────────
-    // $w1=ws1  $w2=ws4  $w3=ws7  $w4=ws4
-    F1    { focus-workspace 1; }
-    F2    { focus-workspace 4; }
-    F3    { focus-workspace 7; }
-
-    Mod+1 { focus-workspace 1; }
-    Mod+2 { focus-workspace 4; }
-    Mod+3 { focus-workspace 7; }
-    Mod+4 { focus-workspace 4; }
-
-    // move + switch (F-keys)
-    Mod+F1 { move-column-to-workspace 1; }
-    Mod+F2 { move-column-to-workspace 4; }
-    Mod+F3 { move-column-to-workspace 7; }
-    Mod+F4 { move-column-to-workspace 4; }
-
-    // move without switch (F-keys)
-    Mod+Ctrl+F1 { move-column-to-workspace 1 focus=false; }
-    Mod+Ctrl+F2 { move-column-to-workspace 4 focus=false; }
-    Mod+Ctrl+F3 { move-column-to-workspace 7 focus=false; }
-    Mod+Ctrl+F4 { move-column-to-workspace 4 focus=false; }
-
-    // move + switch (ergodox numbered)
-    Mod+Ctrl+1 { move-column-to-workspace 1; }
-    Mod+Ctrl+2 { move-column-to-workspace 4; }
-    Mod+Ctrl+3 { move-column-to-workspace 7; }
-    Mod+Ctrl+4 { move-column-to-workspace 4; }
-
-    // move without switch (ergodox numbered)
-    Mod+Ctrl+Shift+1 { move-column-to-workspace 1 focus=false; }
-    Mod+Ctrl+Shift+2 { move-column-to-workspace 4 focus=false; }
-    Mod+Ctrl+Shift+3 { move-column-to-workspace 7 focus=false; }
-    Mod+Ctrl+Shift+4 { move-column-to-workspace 4 focus=false; }
-
     // ── Alt+Tab ─────────────────────────────────────────────────────
     Alt+Tab       { focus-workspace-down; }
     Alt+Shift+Tab { focus-workspace-up; }
