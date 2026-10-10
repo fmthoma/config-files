@@ -21,6 +21,7 @@
     '' + (if builtins.pathExists /etc/nixos/hosts.local.nix then import /etc/nixos/hosts.local.nix else "");
     firewall.allowedTCPPorts = [ 9100 ];
     networkmanager.enable = true;
+    networkmanager.plugins = [ pkgs.networkmanager-openvpn ];
   };
 
   i18n.defaultLocale = "en_GB.UTF-8";
