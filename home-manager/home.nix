@@ -1,10 +1,6 @@
 { pkgs, lib, ... }: {
   home.stateVersion = "22.11";
 
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
-
   home.packages = with pkgs; [
     android-file-transfer
     arduino
@@ -13,7 +9,6 @@
     binutils
     chromium
     cloc
-    co2monitor
     delta
     dmenu
     evince
@@ -22,7 +17,7 @@
     feh
     freeplane
     ghcid
-    gnome.nautilus
+    nautilus
     google-chrome
     gucharmap
     release-22_11.haskellPackages.vgrep
@@ -30,16 +25,16 @@
     i3lock
     i3status
     imagemagick
-    imposevka
+    release-24_11.imposevka
     inkscape
-    iosevka
+    release-24_11.iosevka
     jq
     keymap-visualizer
     libreoffice
     lsd
     meld
     msmtp
-    mutt-with-sidebar
+    mutt
     nload
     pandoc
     parallel
@@ -49,7 +44,6 @@
     powertop
     ranger
     restic
-    signal-desktop
     stack
     stylish-haskell
     svgbob
@@ -60,7 +54,7 @@
     unzip
     v4l-utils
     vim
-    vistafonts
+    vista-fonts
     vscode
     w3m
     xclip

@@ -3,8 +3,6 @@
   hardware = {
     trackpoint.emulateWheel = true;
     bluetooth.enable = true;
-    pulseaudio.enable = true;
-    pulseaudio.package = pkgs.pulseaudioFull;
   };
 
   # Use the systemd-boot EFI boot loader.
@@ -52,7 +50,7 @@
   services = {
     avahi = {
       enable = true;
-      nssmdns = true;
+      nssmdns4 = true;
     };
 
     blueman.enable = true;
@@ -63,6 +61,9 @@
       enable = true;
       settings.PasswordAuthentication = false;
     };
+
+    pipewire.enable = false;
+    pulseaudio.enable = true;
 
     printing = {
       enable = true;
@@ -86,6 +87,8 @@
     };
 
     gnupg.agent.enable = true;
+
+    nix-ld.enable = true;
 
     zsh = {
       enable = true;

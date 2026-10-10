@@ -19,7 +19,6 @@
 , pillow
 , pyside2
 , qt5
-, hatched
 , deduplicate
 }:
 
@@ -95,7 +94,6 @@ buildPythonPackage rec {
     moderngl
     pillow
     pyside2
-    hatched
     deduplicate
   ];
 }

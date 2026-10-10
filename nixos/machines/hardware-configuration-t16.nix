@@ -13,26 +13,28 @@
   boot.kernelModules = [ "kvm-intel" "i915"];
   boot.extraModulePackages = [ ];
   boot.kernelParams = [ ];
-  boot.kernelPackages = pkgs.linuxPackages_6_1;
+  boot.kernelPackages = pkgs.linuxPackages;
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = [ "modesetting" "nvidia" ];
 
-  hardware = {
-    nvidia.modesetting.enable = true;
-    nvidia.prime.sync.enable = true;
-    nvidia.prime.intelBusId = "PCI:0:2:0";
-    nvidia.prime.nvidiaBusId = "PCI:3:0:0";
-    opengl = {
-      extraPackages = [
-        pkgs.mesa.drivers
-        pkgs.linuxPackages_6_1.nvidia_x11.out
-        pkgs.vaapiIntel
-        pkgs.vaapiVdpau
-        pkgs.libvdpau-va-gl
-      ];
-      driSupport = true;
-      driSupport32Bit = true;
+  hardware.nvidia = {
+    open = false;
+    modesetting.enable = true;
+    prime = {
+      reverseSync.enable = true;
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:3:0:0";
     };
+  };
+  hardware.graphics = {
+    extraPackages = [
+      pkgs.mesa
+      pkgs.linuxPackages.nvidia_x11.out
+      pkgs.intel-vaapi-driver
+      pkgs.libva-vdpau-driver
+      pkgs.libvdpau-va-gl
+    ];
+    enable32Bit = true;
   };
 
 
