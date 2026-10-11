@@ -23,6 +23,8 @@ input {
 
 prefer-no-csd
 
+workspace "stash"
+
 layout {
     gaps 10
     focus-ring {
@@ -51,8 +53,12 @@ window-rule {
 }
 
 window-rule {
-    match app-id="alacritty" title="scratchpad"
+    match app-id="scratchpad"
+    open-on-workspace "stash"
     open-floating true
+    default-floating-position x=16 y=16 relative-to="bottom-right"
+    default-column-width { fixed 800; }
+    default-window-height { fixed 500; }
 }
 
 window-rule {
@@ -79,6 +85,12 @@ window-rule {
 // spawn-at-startup "swaybg" "--image" "$HOME/wallpaper"
 // spawn-at-startup "swaylock"
 spawn-at-startup "waybar"
+spawn-at-startup "alacritty" "--class" "scratchpad"
+// NOTE: niri-float-sticky makes floating windows follow across workspaces, but
+// conflicts with niri-scratchpad (prevents hiding by moving window back from
+// "stash"). Uncomment only if always-visible sticky behavior is preferred over
+// toggle hide/show:
+// spawn-at-startup "niri-float-sticky" "-app-id" "scratchpad"
 
 binds {
     // ── Show keybindings overlay ────────────────────────────────────
@@ -87,7 +99,7 @@ binds {
     // ── Launchers ───────────────────────────────────────────────────
     Mod+Return { spawn "fuzzel"; }
     Mod+N      { spawn "keymap-visualizer"; }
-    Mod+Space  { spawn "scratchpad"; }
+    Mod+Space  { spawn "niri-scratchpad" "target" "--spawn" "alacritty --class scratchpad" "appid" "scratchpad"; }
     Ctrl+Alt+T { spawn "alacritty"; }
 
     // ── Window management ───────────────────────────────────────────

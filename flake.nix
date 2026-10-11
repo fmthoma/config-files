@@ -8,6 +8,8 @@
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixos";
     keymap-visualizer.url = "github:fmthoma/keymap-visualizer/main";
+    niri-scratchpad-rs.url = "github:argosnothing/niri-scratchpad-rs";
+    niri-float-sticky.url = "github:probeldev/niri-float-sticky";
   };
 
   outputs = { self, nixos, home-manager, ... }@inputs:
@@ -25,6 +27,10 @@
       (import ./nixpkgs/overlays/open-code-review.nix)
       (import ./nixpkgs/overlays/vpype)
       (inputs.keymap-visualizer.overlays.default)
+      (_: _: {
+        niri-scratchpad = inputs.niri-scratchpad-rs.packages.x86_64-linux.default;
+        niri-float-sticky = inputs.niri-float-sticky.packages.x86_64-linux.default;
+      })
     ];
     modules = {
       overlays = {
