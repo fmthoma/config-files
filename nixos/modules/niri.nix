@@ -7,6 +7,8 @@
     alacritty
     fuzzel
     grim
+    niri-float-sticky
+    niri-scratchpad
     slurp
     swaybg
     swaylock
