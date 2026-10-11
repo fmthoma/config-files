@@ -1,0 +1,92 @@
+# Alacritty config — translated from .Xresources (urxvt)
+# Solarized Light theme with Tango palette overrides
+
+[general]
+import = []
+
+[terminal]
+shell = { program = "/run/current-system/sw/bin/zsh" }
+
+[window]
+opacity = 1.0
+padding = { x = 2, y = 2 }
+dynamic_padding = false
+decorations = "none"
+startup_mode = "Windowed"
+
+[scrolling]
+history = 10000
+
+[font]
+size = 12.0
+
+[font.normal]
+family = "Imposevka Expanded"
+style = "Regular"
+
+[font.bold]
+family = "Imposevka Expanded"
+style = "Bold"
+
+[font.italic]
+family = "Imposevka Expanded"
+style = "Italic"
+
+[font.bold_italic]
+family = "Imposevka Expanded"
+style = "Bold Italic"
+
+# Solarized Light
+[colors.primary]
+background = "#fdf6e3"        # base3
+foreground = "#657b83"        # base00
+dim_foreground = "#586e75"    # base01
+bright_foreground = "#073642" # base02
+
+[colors.cursor]
+text = "#fdf6e3"              # base3
+cursor = "#586e75"            # base01
+
+[colors.selection]
+text = "CellForeground"
+background = "#eee8d5"        # base2
+
+[colors.normal]
+# Solarized dark/light mapping from .Xresources.d/solarized-light
+black   = "#002b36"           # base02
+red     = "#dc322f"           # red
+green   = "#859900"           # green
+yellow  = "#b58900"           # yellow
+blue    = "#268bd2"           # blue
+magenta = "#d33682"           # magenta
+cyan    = "#2aa198"           # cyan
+white   = "#eee8d5"           # base2
+
+[colors.bright]
+black   = "#073642"           # base03
+red     = "#cb4b16"           # orange
+green   = "#586e75"           # base01
+yellow  = "#657b83"           # base00
+blue    = "#839496"           # base0
+magenta = "#6c71c4"           # violet
+cyan    = "#93a1a1"           # base1
+white   = "#fdf6e3"           # base3
+
+[colors.search.matches]
+foreground = "#073642"        # base02
+background = "#b58900"        # yellow
+
+[colors.search.focused_match]
+foreground = "#fdf6e3"        # base3
+background = "#859900"        # green
+
+[keyboard]
+bindings = [
+  # Fix ctrl+arrow in vim (urxvt keysym remapping)
+  { key = "Left",     mods = "Control", chars = "\u001b[1;5D" },
+  { key = "Right",    mods = "Control", chars = "\u001b[1;5C" },
+  # Font size (urxvt perl:font-size)
+  { key = "Up",       mods = "Control", action = "IncreaseFontSize" },
+  { key = "Down",     mods = "Control", action = "DecreaseFontSize" },
+  { key = "Equals",   mods = "Control", action = "ResetFontSize" },
+]
