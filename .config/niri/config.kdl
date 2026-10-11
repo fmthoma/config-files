@@ -181,6 +181,7 @@ binds {
     Mod+N      { spawn "keymap-visualizer"; }
     Mod+Space  { spawn "niri-scratchpad" "target" "--spawn" "alacritty --class scratchpad" "appid" "scratchpad"; }
     Ctrl+Alt+T { spawn "alacritty"; }
+    Mod+udiaeresis { spawn-sh "$HOME/config-files/bin/passmenu"; }
 
     // ── Window management ───────────────────────────────────────────
     Mod+D       { close-window; }
