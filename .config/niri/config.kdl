@@ -6,6 +6,10 @@
 //   $M3  (Shift+Control+Mod4)  → Mod+Ctrl+Shift
 //   $alt (Mod1)                → Alt
 
+hotkey-overlay {
+    skip-at-startup
+}
+
 environment {
     QT_QPA_PLATFORM "wayland"
     XDG_SESSION_TYPE "wayland"
@@ -23,13 +27,22 @@ input {
 
 prefer-no-csd
 
+workspace "1"
+workspace "2"
+workspace "3"
+workspace "4"
+workspace "5"
+workspace "6"
+workspace "7"
+workspace "8"
+workspace "9"
 workspace "stash"
 
 layout {
-    gaps 10
+    gaps 8
     focus-ring {
         on
-        width 3
+        width 2
         active-color "#859900"   // green (solarized)
         inactive-color "#073642" // base02
         urgent-color "#cb4b16"   // orange
@@ -37,7 +50,47 @@ layout {
     border {
         off
     }
-    background-color "#002b36" // base03
+    background-color "#00000000" // transparent
+    center-focused-column "on-overflow"
+    preset-column-widths {
+        fixed 628 // proportion 0.33333
+        fixed 948 // proportion 0.5
+        fixed 1268 // proportion 0.66667
+        fixed 1908 // proportion 1.0
+    }
+    default-column-width {
+        fixed 1268
+    }
+    tab-indicator {
+        width 16
+        corner-radius 8
+        position "left"
+        gap 8
+        gaps-between-tabs 8
+        place-within-column
+        length total-proportion=0.25
+    }
+    shadow {
+        on
+        softness 32
+        spread 8
+        offset x=4 y=4
+        color "#002b3680"
+    }
+}
+
+// Make the wallpaper stationary, rather than moving with workspaces.
+layer-rule {
+    // This is for swaybg; change for other wallpaper tools.
+    // Find the right namespace by running niri msg layers.
+    match namespace="^wallpaper$"
+    place-within-backdrop true
+}
+
+window-rule {
+    geometry-corner-radius 8
+    clip-to-geometry true
+    open-fullscreen false
 }
 
 // ── Window rules (from i3 for_window / assign) ──────────────────────
@@ -52,6 +105,15 @@ window-rule {
     open-floating true
 }
 
+// Open the Firefox picture-in-picture player as floating by default.
+window-rule {
+    // This app-id regular expression will work for both:
+    // - host Firefox (app-id is "firefox")
+    // - Flatpak Firefox (app-id is "org.mozilla.firefox")
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+
 window-rule {
     match app-id="scratchpad"
     open-on-workspace "stash"
@@ -59,6 +121,13 @@ window-rule {
     default-floating-position x=16 y=16 relative-to="bottom-right"
     default-column-width { fixed 800; }
     default-window-height { fixed 500; }
+}
+
+window-rule {
+    match app-id="Alacritty"
+    default-column-width {
+        fixed 628
+    }
 }
 
 window-rule {
@@ -76,16 +145,27 @@ window-rule {
     open-on-workspace "1"
 }
 
+window-rule {
+    match is-active=false
+    //exclude app-id="^firefox$"
+    //exclude app-id="^chromium-browser$"
+    exclude app-id="^zoom$"
+
+    opacity 0.9
+    // needs 26.x
+    //background-effect {
+    //    saturation 0.8
+    //}
+}
+
 // ── Autostart ───────────────────────────────────────────────────────
 // NOTE: feh and xss-lock are X11 tools. Under Wayland consider
 //   swaybg --image $HOME/wallpaper
 //   swaylock -i $HOME/wallpaper
 // These are left commented out — uncomment and adjust as needed.
 
-// spawn-at-startup "swaybg" "--image" "$HOME/wallpaper"
+spawn-sh-at-startup "swaybg -i ~/wallpaper -m fill"
 // spawn-at-startup "swaylock"
-spawn-at-startup "waybar"
-spawn-at-startup "alacritty" "--class" "scratchpad"
 // NOTE: niri-float-sticky makes floating windows follow across workspaces, but
 // conflicts with niri-scratchpad (prevents hiding by moving window back from
 // "stash"). Uncomment only if always-visible sticky behavior is preferred over
@@ -110,8 +190,8 @@ binds {
 
     // ── Focus ───────────────────────────────────────────────────────
     Mod+Left  { focus-column-left; }
-    Mod+Down  { focus-window-down; }
-    Mod+Up    { focus-window-up; }
+    Mod+Down  { focus-window-or-workspace-down; }
+    Mod+Up    { focus-window-or-workspace-up; }
     Mod+Right { focus-column-right; }
 
     // ── Move ────────────────────────────────────────────────────────
@@ -119,31 +199,40 @@ binds {
     Mod+Ctrl+Down  { move-window-down; }
     Mod+Ctrl+Up    { move-window-up; }
     Mod+Ctrl+Right { move-column-right; }
+    Mod+Comma      { consume-or-expel-window-left; }
+    Mod+Period     { consume-or-expel-window-right; }
+    Mod+J          { switch-preset-column-width; }
+    Mod+Page_Up    { move-workspace-up; }
+    Mod+Page_Down  { move-workspace-down; }
 
     // ── Move to monitor (approximate; see notes) ────────────────────
-    Mod+Ctrl+Shift+Left  { move-column-left-or-to-monitor-left; }
-    Mod+Ctrl+Shift+Right { move-column-right-or-to-monitor-right; }
+    Mod+Ctrl+Shift+Left  { move-workspace-to-monitor-left; }
+    Mod+Ctrl+Shift+Right { move-workspace-to-monitor-right; }
+    Mod+Ctrl+Shift+Up    { move-workspace-to-monitor-left; }
+    Mod+Ctrl+Shift+Down  { move-workspace-to-monitor-right; }
 
     // ── Workspaces (v l c i a e ö ä p → 1-9) ────────────────────────
-    Mod+V            { focus-workspace 1; }
-    Mod+L            { focus-workspace 2; }
-    Mod+C            { focus-workspace 3; }
-    Mod+I            { focus-workspace 4; }
-    Mod+A            { focus-workspace 5; }
-    Mod+E            { focus-workspace 6; }
-    Mod+odiaeresis   { focus-workspace 7; }
-    Mod+adiaeresis   { focus-workspace 8; }
-    Mod+P            { focus-workspace 9; }
+    Mod+V            { focus-workspace "1"; }
+    Mod+L            { focus-workspace "2"; }
+    Mod+C            { focus-workspace "3"; }
+    Mod+I            { focus-workspace "4"; }
+    Mod+A            { focus-workspace "5"; }
+    Mod+E            { focus-workspace "6"; }
+    Mod+odiaeresis   { focus-workspace "7"; }
+    Mod+adiaeresis   { focus-workspace "8"; }
+    Mod+P            { focus-workspace "9"; }
 
-    Mod+Ctrl+V            { move-column-to-workspace 1; }
-    Mod+Ctrl+L            { move-column-to-workspace 2; }
-    Mod+Ctrl+C            { move-column-to-workspace 3; }
-    Mod+Ctrl+I            { move-column-to-workspace 4; }
-    Mod+Ctrl+A            { move-column-to-workspace 5; }
-    Mod+Ctrl+E            { move-column-to-workspace 6; }
-    Mod+Ctrl+odiaeresis   { move-column-to-workspace 7; }
-    Mod+Ctrl+adiaeresis   { move-column-to-workspace 8; }
-    Mod+Ctrl+P            { move-column-to-workspace 9; }
+    Mod+Ctrl+V            { move-column-to-workspace "1"; }
+    Mod+Ctrl+L            { move-column-to-workspace "2"; }
+    Mod+Ctrl+C            { move-column-to-workspace "3"; }
+    Mod+Ctrl+I            { move-column-to-workspace "4"; }
+    Mod+Ctrl+A            { move-column-to-workspace "5"; }
+    Mod+Ctrl+E            { move-column-to-workspace "6"; }
+    Mod+Ctrl+odiaeresis   { move-column-to-workspace "7"; }
+    Mod+Ctrl+adiaeresis   { move-column-to-workspace "8"; }
+    Mod+Ctrl+P            { move-column-to-workspace "9"; }
+
+    Mod+O repeat=false { toggle-overview; }
 
     // ── Alt+Tab ─────────────────────────────────────────────────────
     Alt+Tab       { focus-workspace-down; }
@@ -175,5 +264,6 @@ binds {
     Ctrl+Print { screenshot-screen; }
 
     // ── Session ─────────────────────────────────────────────────────
+    Mod+Q { spawn "dbus-send" "--system" "--type=method_call" "--dest=org.freedesktop.DisplayManager" "/org/freedesktop/DisplayManager/Seat0" "org.freedesktop.DisplayManager.Seat.SwitchToGreeter"; }
     Mod+Ctrl+Q { quit; }
 }

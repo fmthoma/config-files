@@ -3,10 +3,13 @@
     "position": "top",
     "height": 30,
     "modules-left": ["niri/workspaces"],
-    "modules-center": ["clock"],
-    "modules-right": ["tray"],
+    "modules-center": ["niri/window"],
+    "modules-right": ["tray", "clock"],
     "niri/workspaces": {
-        "format": "{index}"
+        "format": "{name}"
+    },
+    "niri/window": {
+        "format": "{title}"
     },
     "clock": {
         "format": "{:%Y-%m-%d %H:%M}"
