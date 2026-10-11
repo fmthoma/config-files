@@ -51,7 +51,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id="urxvt" title="scratchpad"
+    match app-id="alacritty" title="scratchpad"
     open-floating true
 }
 
@@ -88,7 +88,7 @@ binds {
     Mod+Return { spawn "fuzzel"; }
     Mod+N      { spawn "keymap-visualizer"; }
     Mod+Space  { spawn "scratchpad"; }
-    Ctrl+Alt+T { spawn "urxvt"; }
+    Ctrl+Alt+T { spawn "alacritty"; }
 
     // ── Window management ───────────────────────────────────────────
     Mod+D       { close-window; }
