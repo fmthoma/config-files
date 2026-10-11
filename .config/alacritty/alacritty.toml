@@ -9,7 +9,7 @@ shell = { program = "/run/current-system/sw/bin/zsh" }
 
 [window]
 opacity = 1.0
-padding = { x = 2, y = 2 }
+padding = { x = 0, y = 0 }
 dynamic_padding = false
 decorations = "none"
 startup_mode = "Windowed"
