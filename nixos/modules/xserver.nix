@@ -23,10 +23,6 @@
         wayland.enable = true;
       };
       defaultSession = "none+i3";
-      autoLogin = {
-        user = "thomaf";
-        enable = true;
-      };
     };
     libinput.enable = true;
   };
