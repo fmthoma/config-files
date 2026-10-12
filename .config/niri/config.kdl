@@ -116,7 +116,6 @@ window-rule {
 
 window-rule {
     match app-id="scratchpad"
-    open-on-workspace "stash"
     open-floating true
     default-floating-position x=16 y=16 relative-to="bottom-right"
     default-column-width { fixed 800; }
@@ -181,7 +180,13 @@ binds {
     Mod+N      { spawn "keymap-visualizer"; }
     Mod+Space  { spawn "niri-scratchpad" "target" "--spawn" "alacritty --class scratchpad" "appid" "scratchpad"; }
     Ctrl+Alt+T { spawn "alacritty"; }
-    Mod+udiaeresis { spawn-sh "$HOME/config-files/bin/passmenu"; }
+    Mod+Alt+P  { spawn-sh "$HOME/config-files/bin/passmenu"; }
+    Mod+Alt+T  { spawn "alacritty"; }
+    Mod+Alt+F  { spawn "firefox"; }
+    Mod+Alt+C  { spawn "chromium-browser"; }
+    Mod+Alt+B  { spawn "rofi-bluetooth"; }
+    Mod+Alt+N  { spawn "nm-connect"; }
+    Mod+Alt+D  { spawn "nm-disconnect"; }
 
     // ── Window management ───────────────────────────────────────────
     Mod+D       { close-window; }
