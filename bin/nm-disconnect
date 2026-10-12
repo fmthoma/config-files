@@ -1,4 +1,10 @@
 #!/bin/sh
 
-CONN=$(nmcli -t -f name connection show --active | dmenu -i)
+if [ -n $WAYLAND_DISPLAY ]; then
+  dmenu="fuzzel -d"
+else
+  dmenu=dmenu
+fi
+
+CONN=$(nmcli -t -f name connection show --active | $dmenu -i)
 [ -n "$CONN" ] && notify-send -a "NetworkManager" "$(nmcli connection down "$CONN")"
