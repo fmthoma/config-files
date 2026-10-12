@@ -1,0 +1,79 @@
+* {
+  font-family:  "Imposevka", "Iosevka Expanded", "DejaVu Sans Mono";
+  font-size: 16px;
+  font-weight: bold;
+  min-height: 0;
+  border: none;
+  text-shadow: 0px 0px 3px rgba(0, 0, 0, 1);
+}
+
+window#waybar {
+  background: transparent;
+  border-bottom: 3px solid transparent;
+  color: #93a1a1;
+}
+
+button {
+  border-radius: 0;
+}
+
+button:hover {
+  background: inherit;
+  box-shadow: none;
+}
+
+#workspaces button {
+  padding: 0 8px;
+  color: #93a1a1;
+}
+
+#workspaces button.active,
+#workspaces button.focused {
+  color: #859900;
+  border-bottom: 3px solid #859900;
+}
+
+#workspace button.hover {
+  border-bottom: 3px solid #859900;
+}
+
+#workspaces button.urgent {
+  color: #dc322f;
+}
+
+#niri-workspaces,
+#niri-window,
+#pulseaudio,
+#network,
+#battery,
+#custom-power,
+#clock {
+  padding: 0 8px;
+}
+
+#clock {
+  color: #93a1a1;
+}
+
+#battery {
+  color: #859900;
+}
+
+#battery.warning {
+  color: #b58900;
+}
+
+#battery.critical {
+  color: #dc322f;
+}
+
+#network {
+  color: #93a1a1;
+}
+
+#pulseaudio.muted,
+#pulseaudio.source-muted,
+#pulseaudio.mic.source-muted {
+  background: #dc322f;
+  color: #fdf6e3;
+}
