@@ -180,7 +180,7 @@ binds {
     Mod+N      { spawn "keymap-visualizer"; }
     Mod+Space  { spawn "niri-scratchpad" "target" "--spawn" "alacritty --class scratchpad" "appid" "scratchpad"; }
     Ctrl+Alt+T { spawn "alacritty"; }
-    Mod+Alt+P  { spawn-sh "$HOME/config-files/bin/passmenu"; }
+    Mod+Alt+P  { spawn "passmenu"; }
     Mod+Alt+T  { spawn "alacritty"; }
     Mod+Alt+F  { spawn "firefox"; }
     Mod+Alt+C  { spawn "chromium-browser"; }

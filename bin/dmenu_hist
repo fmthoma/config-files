@@ -9,7 +9,13 @@ done
 
 histfile=${histfile:-"$HOME/.dmenu_history"}
 
-sel=$(cat <(tac $histfile) <(while read line; do echo $line; done) | awk '!_[$0]++' | /usr/bin/env dmenu $args)
+if [ -n $WAYLAND_DISPLAY ]; then
+  dmenu="fuzzel -d"
+else
+  dmenu=dmenu
+fi
+
+sel=$(cat <(tac $histfile) <(while read line; do echo $line; done) | awk '!_[$0]++' | /usr/bin/env $dmenu $args)
 if [ -n "$sel" ]; then
   sed -i "\|$sel|d" $histfile
   echo "$sel" >> $histfile
