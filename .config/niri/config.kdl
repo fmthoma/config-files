@@ -140,10 +140,10 @@ window-rule {
     open-on-workspace "7"
 }
 
-window-rule {
-    match app-id="slack"
-    open-on-workspace "1"
-}
+// window-rule {
+//     match app-id="slack"
+//     open-on-workspace "1"
+// }
 
 window-rule {
     match is-active=false
