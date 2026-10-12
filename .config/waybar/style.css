@@ -4,13 +4,13 @@
   font-weight: bold;
   min-height: 0;
   border: none;
-  text-shadow: 0px 0px 3px rgba(0, 0, 0, 1);
 }
 
 window#waybar {
   background: transparent;
   border-bottom: 3px solid transparent;
   color: #93a1a1;
+  text-shadow: 0px 0px 3px black;
 }
 
 button {
@@ -51,10 +51,6 @@ button:hover {
   padding: 0 8px;
 }
 
-#clock {
-  color: #93a1a1;
-}
-
 #battery {
   color: #859900;
 }
@@ -67,12 +63,11 @@ button:hover {
   color: #dc322f;
 }
 
-#network {
-  color: #93a1a1;
+#pulseaudio {
+  border-radius: 999px;
 }
 
 #pulseaudio.muted,
-#pulseaudio.source-muted,
 #pulseaudio.mic.source-muted {
   background: #dc322f;
   color: #fdf6e3;

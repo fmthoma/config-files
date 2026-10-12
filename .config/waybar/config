@@ -2,9 +2,22 @@
     "layer": "top",
     "position": "top",
     "height": 30,
-    "modules-left": ["niri/workspaces"],
-    "modules-center": ["niri/window"],
-    "modules-right": ["tray", "pulseaudio", "pulseaudio#mic", "network", "battery", "clock", "custom/power"],
+    "modules-left": [
+        "niri/workspaces",
+        "niri/window"
+    ],
+    "modules-center": [
+    ],
+    "modules-right": [
+        "pulseaudio",
+        "pulseaudio#mic",
+        "network",
+        "battery",
+        "clock",
+        "tray",
+        "custom/power"
+    ],
+
     "niri/workspaces": {
         "format": "{name}"
     },
@@ -40,21 +53,27 @@
         "on-click": "nm-connection-editor"
     },
     "pulseaudio": {
-        "format": "<span foreground='#cb4b16'></span> {volume}%",
-        "format-muted": " MUTE ",
-        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+        "format": " {volume}%",
+        "format-muted": " MUTE",
+        "min-length": 7,
+        "align": 0,
+        "on-click": "pavucontrol"
     },
     "pulseaudio#mic": {
-        "target": "source",
-        "format": "<span foreground='#cb4b16'></span> {volume}%",
-        "format-muted": " MUTE ",
+        "format": "{format_source}",
+        "format-source": " {volume}%",
+        "format-source-muted": " MUTE",
+        "min-length": 7,
+        "align": 0,
+        "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +1%",
+        "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -1%",
         "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
     },
     "tray": {
         "icon-size": 18
     },
     "custom/power": {
-        "format" : "⏻ ",
+        "format" : "⏻",
 		"tooltip": false,
 		"menu": "on-click",
 		"menu-file": "$HOME/.config/waybar/power_menu.xml",
