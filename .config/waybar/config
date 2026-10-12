@@ -1,7 +1,7 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 30,
+    "height": 24,
     "modules-left": [
         "niri/workspaces",
         "niri/window"
@@ -70,7 +70,7 @@
         "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
     },
     "tray": {
-        "icon-size": 18
+        "icon-size": 16
     },
     "custom/power": {
         "format" : "⏻",
