@@ -5,7 +5,7 @@
 import = []
 
 [terminal]
-shell = { program = "/run/current-system/sw/bin/zsh" }
+shell = { program = "zsh" }
 
 [window]
 opacity = 1.0
@@ -90,3 +90,6 @@ bindings = [
   { key = "Down",     mods = "Control", action = "DecreaseFontSize" },
   { key = "Equals",   mods = "Control", action = "ResetFontSize" },
 ]
+
+[selection]
+save_to_clipboard = true
