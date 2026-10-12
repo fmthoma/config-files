@@ -1,3 +1,21 @@
+/* Solarized palette */
+@define-color base03  #002b36;
+@define-color base02  #073642;
+@define-color base01  #586e75;
+@define-color base00  #657b83;
+@define-color base0   #839496;
+@define-color base1   #93a1a1;
+@define-color base2   #eee8d5;
+@define-color base3   #fdf6e3;
+@define-color yellow  #b58900;
+@define-color orange  #cb4b16;
+@define-color red     #dc322f;
+@define-color magenta #d33682;
+@define-color violet  #6c71c4;
+@define-color blue    #268bd2;
+@define-color cyan    #2aa198;
+@define-color green   #859900;
+
 * {
   font-family:  "Imposevka", "Iosevka Expanded", "DejaVu Sans Mono";
   font-size: 16px;
@@ -7,9 +25,9 @@
 }
 
 window#waybar {
-  background: transparent;
-  border-bottom: 3px solid transparent;
-  color: #93a1a1;
+  background: alpha(@base03, 0.5);
+  border-bottom: 3px solid alpha(@base01, 0.5);
+  color: @base1;
   text-shadow: 0px 0px 3px black;
 }
 
@@ -24,21 +42,21 @@ button:hover {
 
 #workspaces button {
   padding: 0 8px;
-  color: #93a1a1;
+  color: @base1;
 }
 
 #workspaces button.active,
 #workspaces button.focused {
-  color: #859900;
-  border-bottom: 3px solid #859900;
+  color: @green;
+  border-bottom: 3px solid @green;
 }
 
 #workspace button.hover {
-  border-bottom: 3px solid #859900;
+  border-bottom: 3px solid @green;
 }
 
 #workspaces button.urgent {
-  color: #dc322f;
+  color: @red;
 }
 
 #niri-workspaces,
@@ -52,15 +70,15 @@ button:hover {
 }
 
 #battery {
-  color: #859900;
+  color: @green;
 }
 
 #battery.warning {
-  color: #b58900;
+  color: @yellow;
 }
 
 #battery.critical {
-  color: #dc322f;
+  color: @red;
 }
 
 #pulseaudio {
@@ -69,6 +87,6 @@ button:hover {
 
 #pulseaudio.muted,
 #pulseaudio.mic.source-muted {
-  background: #dc322f;
-  color: #fdf6e3;
+  background: @red;
+  color: @base3;
 }
