@@ -70,9 +70,9 @@
         "format-source-muted": "\uf131 MUTE",
         "min-length": 7,
         "align": 0,
-        "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +1%",
-        "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -1%",
-        "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+        "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%+",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%-",
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
     },
     "backlight": {
         "format": "{icon} {percent}%",

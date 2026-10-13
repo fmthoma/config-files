@@ -1,25 +1,21 @@
 #!/usr/bin/env bash
 
-DEFAULT_SOURCE=$(pacmd info | grep "Default source" | cut -d" " -f4)
-IS_MUTED=$(
-  pacmd list-sources \
-    | awk "/\* index/,/muted/" \
-    | grep "muted" | grep "yes"
-)
+is_muted() {
+  wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q "MUTED"
+}
 
 case "${1:-on}" in
   on)
-    pacmd set-source-mute "$DEFAULT_SOURCE" on
+    wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 1
     ;;
   off)
-    pacmd set-source-mute "$DEFAULT_SOURCE" off
+    wpctl set-mute @DEFAULT_AUDIO_SOURCE@ 0
     ;;
   toggle)
-    if [ -n "$IS_MUTED" ]; then
-      mute off
+    if is_muted; then
+      "$0" off
     else
-      mute on
+      "$0" on
     fi
     ;;
 esac
-
