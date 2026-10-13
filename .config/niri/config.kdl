@@ -53,13 +53,13 @@ layout {
     background-color "#00000000" // transparent
     center-focused-column "on-overflow"
     preset-column-widths {
-        fixed 628 // proportion 0.33333
-        fixed 948 // proportion 0.5
-        fixed 1268 // proportion 0.66667
-        fixed 1908 // proportion 1.0
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+        proportion 1.0
     }
     default-column-width {
-        fixed 1268
+        proportion 0.66667
     }
     tab-indicator {
         width 16
@@ -76,6 +76,29 @@ layout {
         spread 8
         offset x=4 y=4
         color "#002b3680"
+    }
+    struts {
+        left 16
+        right 16
+    }
+}
+
+output "eDP-1" {
+    position x=0 y=0
+}
+
+output "Dell Inc. DELL U3824DW BQCQZR3" {
+    position x=1920 y=0
+    layout {
+        preset-column-widths {
+            proportion 0.25
+            proportion 0.3333
+            proportion 0.5
+            proportion 0.66667
+        }
+        default-column-width {
+            proportion 0.5
+        }
     }
 }
 
@@ -139,10 +162,10 @@ window-rule {
     open-on-workspace "7"
 }
 
-// window-rule {
-//     match app-id="slack"
-//     open-on-workspace "1"
-// }
+window-rule {
+    match app-id="slack"
+    open-on-workspace "1"
+}
 
 window-rule {
     match is-active=false
@@ -217,32 +240,28 @@ binds {
     Mod+Ctrl+Shift+Up    { move-workspace-to-monitor-left; }
     Mod+Ctrl+Shift+Down  { move-workspace-to-monitor-right; }
 
-    // ── Workspaces (v l c i a e ö ä p → 1-9) ────────────────────────
-    Mod+V            { focus-workspace "1"; }
+    // ── Workspaces (c l v e a i p ä ö → 1-9) ────────────────────────
+    Mod+C            { focus-workspace "1"; }
     Mod+L            { focus-workspace "2"; }
-    Mod+C            { focus-workspace "3"; }
-    Mod+I            { focus-workspace "4"; }
+    Mod+V            { focus-workspace "3"; }
+    Mod+E            { focus-workspace "4"; }
     Mod+A            { focus-workspace "5"; }
-    Mod+E            { focus-workspace "6"; }
-    Mod+odiaeresis   { focus-workspace "7"; }
+    Mod+I            { focus-workspace "6"; }
+    Mod+P            { focus-workspace "7"; }
     Mod+adiaeresis   { focus-workspace "8"; }
-    Mod+P            { focus-workspace "9"; }
+    Mod+odiaeresis   { focus-workspace "9"; }
 
-    Mod+Ctrl+V            { move-column-to-workspace "1"; }
+    Mod+Ctrl+C            { move-column-to-workspace "1"; }
     Mod+Ctrl+L            { move-column-to-workspace "2"; }
-    Mod+Ctrl+C            { move-column-to-workspace "3"; }
-    Mod+Ctrl+I            { move-column-to-workspace "4"; }
+    Mod+Ctrl+V            { move-column-to-workspace "3"; }
+    Mod+Ctrl+E            { move-column-to-workspace "4"; }
     Mod+Ctrl+A            { move-column-to-workspace "5"; }
-    Mod+Ctrl+E            { move-column-to-workspace "6"; }
-    Mod+Ctrl+odiaeresis   { move-column-to-workspace "7"; }
+    Mod+Ctrl+I            { move-column-to-workspace "6"; }
+    Mod+Ctrl+P            { move-column-to-workspace "7"; }
     Mod+Ctrl+adiaeresis   { move-column-to-workspace "8"; }
-    Mod+Ctrl+P            { move-column-to-workspace "9"; }
+    Mod+Ctrl+odiaeresis   { move-column-to-workspace "9"; }
 
     Mod+O repeat=false { toggle-overview; }
-
-    // ── Alt+Tab ─────────────────────────────────────────────────────
-    Alt+Tab       { focus-workspace-down; }
-    Alt+Shift+Tab { focus-workspace-up; }
 
     // ── Floating / center (numpad) ──────────────────────────────────
     Mod+KP_5 { center-column; }
@@ -272,4 +291,29 @@ binds {
     // ── Session ─────────────────────────────────────────────────────
     Mod+Q { spawn "dbus-send" "--system" "--type=method_call" "--dest=org.freedesktop.DisplayManager" "/org/freedesktop/DisplayManager/Seat0" "org.freedesktop.DisplayManager.Seat.SwitchToGreeter"; }
     Mod+Ctrl+Q { quit; }
+}
+
+recent-windows {
+    debounce-ms 750
+
+    open-delay-ms 150
+
+    highlight {
+        active-color "#859900"
+        urgent-color "#cb4b16"
+        padding 16
+        corner-radius 8
+    }
+
+    previews {
+        max-height 480
+        max-scale 0.5
+    }
+
+    binds {
+        Mod+Tab            { next-window; }
+        Mod+Shift+Tab      { previous-window; }
+        Mod+Ctrl+Tab       { next-window     scope="workspace"; }
+        Mod+Ctrl+Shift+Tab { previous-window scope="workspace"; }
+    }
 }
