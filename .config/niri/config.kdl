@@ -25,6 +25,10 @@ input {
     // focus-follows-mouse is off by default in niri
 }
 
+gestures {
+    hot-corners { off; }
+}
+
 prefer-no-csd
 
 workspace "1"
@@ -116,24 +120,39 @@ window-rule {
     open-fullscreen false
 }
 
+// ── Screencasting ──────────────────────
+
+window-rule {
+    match is-window-cast-target=true
+
+    focus-ring {
+        active-color "#d33682"
+        inactive-color "#6c71c4"
+    }
+
+    shadow {
+        color "#d33682"
+    }
+
+    tab-indicator {
+        active-color "#d33682"
+        inactive-color "#6c71c4"
+    }
+}
+
 // ── Window rules (from i3 for_window / assign) ──────────────────────
 
 window-rule {
     match app-id="feh"
-    open-floating true
-}
-
-window-rule {
     match app-id="keymap-visualizer"
-    open-floating true
-}
-
-// Open the Firefox picture-in-picture player as floating by default.
-window-rule {
-    // This app-id regular expression will work for both:
-    // - host Firefox (app-id is "firefox")
-    // - Flatpak Firefox (app-id is "org.mozilla.firefox")
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    match app-id="zenity" title="omac"
+    match app-id="zoom" title="zoom"
+    match app-id="zoom" title="as_preview"
+    match app-id="zoom" title="as_toolbar"
+    match app-id="zoom" title="annotate_toolbar"
+    match app-id="zoom" title="Toolbar Menu"
+
     open-floating true
 }
 
@@ -148,13 +167,16 @@ window-rule {
 window-rule {
     match app-id="Alacritty"
     default-column-width {
-        fixed 628
+        fixed 618
     }
 }
 
 window-rule {
-    match app-id="zoom" title="zoom"
-    open-floating true
+    match app-id="ai.opencode.desktop"
+    open-on-workspace "6"
+    default-column-width {
+        fixed 932
+    }
 }
 
 window-rule {
@@ -237,8 +259,8 @@ binds {
     // ── Move to monitor (approximate; see notes) ────────────────────
     Mod+Ctrl+Shift+Left  { move-workspace-to-monitor-left; }
     Mod+Ctrl+Shift+Right { move-workspace-to-monitor-right; }
-    Mod+Ctrl+Shift+Up    { move-workspace-to-monitor-left; }
-    Mod+Ctrl+Shift+Down  { move-workspace-to-monitor-right; }
+    Mod+Ctrl+Shift+Up    { move-workspace-to-monitor-up; }
+    Mod+Ctrl+Shift+Down  { move-workspace-to-monitor-down; }
 
     // ── Workspaces (c l v e a i p ä ö → 1-9) ────────────────────────
     Mod+C            { focus-workspace "1"; }
