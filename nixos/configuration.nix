@@ -37,7 +37,7 @@
 
     libnotify
     rxvt-unicode-emoji
-    xorg.xwininfo
+    xwininfo
     xss-lock
 
     cryptsetup
@@ -79,8 +79,6 @@
   };
 
   programs = {
-    adb.enable = true;
-
     git = {
       enable = true;
       lfs.enable = true;
