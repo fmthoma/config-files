@@ -1,8 +1,9 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, config, ... }: {
   home.stateVersion = "22.11";
 
   home.packages = with pkgs; [
     android-file-transfer
+    android-tools
     arduino
     arduino-cli
     bc
@@ -67,6 +68,7 @@
 
   programs = {
       firefox.enable = true;
+      firefox.configPath = "${config.xdg.configHome}/mozilla/firefox";
       browserpass.enable = true;
   };
 
