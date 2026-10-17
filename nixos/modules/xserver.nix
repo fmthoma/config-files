@@ -12,7 +12,7 @@
       displayManager = {
         sessionCommands = ''
           if test -e $HOME/.Xresources; then
-            ${pkgs.xorg.xrdb}/bin/xrdb --merge $HOME/.Xresources
+            ${pkgs.xrdb}/bin/xrdb --merge $HOME/.Xresources
           fi
         '';
       };

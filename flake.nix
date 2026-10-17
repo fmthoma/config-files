@@ -1,11 +1,12 @@
 {
   inputs = {
-    nixos.url = "github:nixos/nixpkgs/release-25.11";
+    nixos.url = "github:nixos/nixpkgs/release-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-25_11.url = "github:nixos/nixpkgs/release-25.11";
     nixpkgs-25_05.url = "github:nixos/nixpkgs/release-25.05";
     nixpkgs-24_11.url = "github:nixos/nixpkgs/release-24.11";
     nixpkgs-22_11.url = "github:nixos/nixpkgs/release-22.11";
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixos";
     keymap-visualizer.url = "github:fmthoma/keymap-visualizer/main";
     niri-scratchpad-rs.url = "github:argosnothing/niri-scratchpad-rs";

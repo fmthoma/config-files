@@ -3,7 +3,7 @@
 DEFAULT_SOURCE=$(pacmd info | grep "Default source" | cut -d" " -f4)
 IS_MUTED=$(
   pacmd list-sources \
-    | awk "/* index/,/muted/" \
+    | awk "/\* index/,/muted/" \
     | grep "muted" | grep "yes"
 )
 

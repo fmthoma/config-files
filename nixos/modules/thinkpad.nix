@@ -3,8 +3,8 @@
     actkbd = {
       enable = true;
       bindings = [
-      { keys = [ 224 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -U 10"; }
-      { keys = [ 225 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -A 10"; }
+      { keys = [ 224 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/brightnessctl set 10%-"; }
+      { keys = [ 225 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/brightnessctl set 10%+"; }
       ];
     };
 
@@ -22,8 +22,7 @@
       percentageAction = 10;
     };
   };
-
-  config.programs = {
-    light.enable = true;
-  };
+  config.environment.systemPackages = with pkgs; [
+    brightnessctl
+  ];
 }
