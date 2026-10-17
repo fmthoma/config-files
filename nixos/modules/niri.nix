@@ -25,6 +25,7 @@
     slurp
     swaybg
     swaylock
+    wdisplays
     wl-clipboard
     xwayland-satellite
   ];
