@@ -88,11 +88,11 @@ layout {
 }
 
 output "eDP-1" {
-    position x=0 y=0
+    position x=1760 y=2000
 }
 
 output "Dell Inc. DELL U3824DW BQCQZR3" {
-    position x=1920 y=0
+    position x=3680 y=2000
     layout {
         preset-column-widths {
             proportion 0.25
@@ -100,6 +100,20 @@ output "Dell Inc. DELL U3824DW BQCQZR3" {
             proportion 0.5
             proportion 0.66667
         }
+        default-column-width {
+            proportion 0.5
+        }
+    }
+}
+
+output "Dell Inc. DELL U2719D 8TRLSS2" {
+    position x=1440 y=560
+}
+
+output "Dell Inc. DELL U2722D 4G2GZG3" {
+    position x=0 y=0
+    transform "270"
+    layout {
         default-column-width {
             proportion 0.5
         }
