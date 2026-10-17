@@ -1,7 +1,7 @@
 {
     "layer": "top",
     "position": "bottom",
-    "height": 24,
+    "height": 32,
     "modules-left": [
         "niri/workspaces",
         "niri/window"
@@ -9,9 +9,10 @@
     "modules-center": [
     ],
     "modules-right": [
-        "pulseaudio",
+        "pulseaudio#spk",
         "pulseaudio#mic",
         "network",
+        "backlight",
         "battery",
         "clock",
         "tray",
@@ -19,7 +20,8 @@
     ],
 
     "niri/workspaces": {
-        "format": "{name}"
+        "format": "{name}",
+        "hide-empty": true
     },
     "niri/window": {
         "format": "{title}",
@@ -52,10 +54,9 @@
         "tooltip-format-wifi": "{essid} ({signal}%)",
         "on-click": "nm-connection-editor"
     },
-    "pulseaudio": {
+    "pulseaudio#spk": {
         "format": " {volume}%",
         "format-muted": " MUTE",
-        "min-length": 7,
         "align": 0,
         "on-click": "pavucontrol"
     },
@@ -68,6 +69,12 @@
         "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +1%",
         "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -1%",
         "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+    },
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{icon} {percent}%",
+        "format-icons": [""],
+        "min-brightness": 1
     },
     "tray": {
         "icon-size": 16
