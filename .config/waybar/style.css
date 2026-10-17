@@ -17,18 +17,32 @@
 @define-color green   #859900;
 
 * {
-  font-family:  "Imposevka", "Iosevka Expanded", "DejaVu Sans Mono";
-  font-size: 16px;
-  font-weight: bold;
-  min-height: 0;
   border: none;
 }
 
 window#waybar {
-  background: alpha(@base03, 0.5);
-  border-bottom: 3px solid alpha(@base01, 0.5);
-  color: @base1;
-  text-shadow: 0px 0px 3px black;
+  font-family:  "Imposevka", "Iosevka Expanded", "DejaVu Sans Mono";
+  font-weight: bold;
+  font-size: 15px;
+  background: none;
+  color: @base00;
+  min-height: 28px;
+}
+
+window#waybar > box.horizontal {
+  margin: 0 16px;
+}
+
+.module {
+  margin: 4px 8px 8px;
+  margin-bottom: 8px;
+  border: 2px solid @base2;
+  border-radius: 12px;
+  min-height: 20px;
+  background-color: @base3;
+  box-shadow: 0px 0px 4px @base3;
+  color: @base00;
+  padding: 0 8px;
 }
 
 button {
@@ -40,53 +54,81 @@ button:hover {
   box-shadow: none;
 }
 
+#workspaces {
+  padding: 0;
+}
+
+#workspaces button#niri-workspace-stash, #workspaces button#niri-workspace-11 {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  min-height: 0;
+  font-size: 0;
+  opacity: 0
+}
+
 #workspaces button {
+  border-radius: 12px;
+  margin: -2px;
   padding: 0 8px;
-  color: @base1;
+  color: @base01;
 }
 
 #workspaces button.active,
-#workspaces button.focused {
-  color: @green;
-  border-bottom: 3px solid @green;
+#workspaces button.active:hover,
+#workspaces button.focused,
+#workspaces button.focused:hover {
+  color: @base02;
+  background: @green;
+  box-shadow: 0px 0px 6px @green;
 }
 
-#workspace button.hover {
-  border-bottom: 3px solid @green;
+#workspaces button:hover {
+  background: @base2;
 }
 
 #workspaces button.urgent {
-  color: @red;
+  color: @base2;
+  background: @red;
+  box-shadow: 0px 0px 6px @red;
 }
 
-#niri-workspaces,
-#niri-window,
-#pulseaudio,
-#network,
-#battery,
-#custom-power,
-#clock {
-  padding: 0 8px;
-}
-
-#battery {
-  color: @green;
+#window {
+  padding: 0 12px;
 }
 
 #battery.warning {
-  color: @yellow;
+  background: @yellow;
+  border-color: @yellow;
+  box-shadow: 0px 0px 6px @yellow;
+  color: @base3;
 }
 
 #battery.critical {
-  color: @red;
+  background: @red;
+  border-color: @red;
+  box-shadow: 0px 0px 6px @red;
+  color: @base3;
 }
 
-#pulseaudio {
-  border-radius: 999px;
+#pulseaudio.spk {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  margin-right: 0;
 }
 
-#pulseaudio.muted,
+#pulseaudio.mic {
+  margin-left: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+#pulseaudio.spk.muted,
 #pulseaudio.mic.source-muted {
   background: @red;
+  border-color: @red;
+  box-shadow: 0px 0px 6px @red;
   color: @base3;
 }
