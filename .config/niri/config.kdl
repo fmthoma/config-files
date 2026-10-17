@@ -203,17 +203,25 @@ window-rule {
     open-on-workspace "1"
 }
 
+blur {
+    passes 2
+    offset 2
+    noise 0.01
+    saturation 1.5
+}
+
 window-rule {
     match is-active=false
     //exclude app-id="^firefox$"
     //exclude app-id="^chromium-browser$"
     exclude app-id="^zoom$"
 
-    opacity 0.9
+    opacity 0.8
     // needs 26.x
-    //background-effect {
-    //    saturation 0.8
-    //}
+    background-effect {
+        saturation 0.8
+        blur true
+    }
 }
 
 // ── Autostart ───────────────────────────────────────────────────────
