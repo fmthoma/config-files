@@ -10,3 +10,9 @@
 !/ranger
 !/waybar
 !/yi
+!/Code
+/Code/*
+!/Code/User
+/Code/User/*
+!/Code/User/settings.json
+!/Code/User/keybindings.json

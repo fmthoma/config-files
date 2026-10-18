@@ -1,0 +1,7 @@
+{
+    "files.autoSave": "afterDelay",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "reflowMarkdown.preferredLineLength": 60,
+    "workbench.colorTheme": "Light Modern"
+}
