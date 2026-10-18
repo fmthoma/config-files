@@ -13,10 +13,10 @@
 
 !/Code
 /Code/*
-!/Code/Preferences
 !/Code/User
 /Code/User/*
-!/Code/User/*.json
+!/Code/User/settings.json
+!/Code/User/keybindings.json
 
 !/JetBrains/
 /JetBrains/*/*

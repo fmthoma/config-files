@@ -3,14 +3,5 @@
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
     "reflowMarkdown.preferredLineLength": 60,
-    "roo-cline.allowedCommands": [
-        "npm test",
-        "npm install",
-        "tsc",
-        "git log",
-        "git diff",
-        "git show"
-    ],
-    "roo-cline.deniedCommands": [],
     "workbench.colorTheme": "Light Modern"
 }
