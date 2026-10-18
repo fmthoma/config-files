@@ -46,6 +46,10 @@
     which
     moreutils
     pciutils
+
+    adwaita-icon-theme
+    glib
+    gsettings-desktop-schemas
   ];
 
   services = {
