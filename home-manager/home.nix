@@ -91,4 +91,29 @@
     syncthing.enable = true;
   };
   xdg.configFile."picom/picom.conf".text = lib.mkForce (lib.readFile ./picom.conf);
+
+  gtk = {
+    enable = true;
+    iconTheme = {
+      name = "HighContrast";
+      package = pkgs.adwaita-icon-theme;
+    };
+    cursorTheme = {
+      name = "Adwaita";
+      package = pkgs.adwaita-icon-theme;
+    };
+    theme = {
+      name = "Adwaita";
+      package = pkgs.gnome-themes-extra;
+    };
+  };
+
+  dconf.enable = true;
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      icon-theme = "HighContrast";
+      cursor-theme = "Adwaita";
+      color-scheme = "prefer-light";
+    };
+  };
 }
