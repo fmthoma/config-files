@@ -1,7 +1,7 @@
 {
     "layer": "top",
     "position": "bottom",
-    "height": 32,
+    "height": 40,
     "modules-left": [
         "niri/workspaces",
         "niri/window"
@@ -32,7 +32,10 @@
     },
     "battery": {
         "interval": 10,
-        "format": "{capacity}% {icon}",
+        "format": "{capacity}% {icon} {time}",
+        "format-full": "\uf1e6",
+        "format-charging": "{capacity}% \uf0e7 {time}",
+        "format-time": "{H}:{m}",
         "format-icons": [
             "\uf244",
             "\uf243",
@@ -40,11 +43,12 @@
             "\uf241",
             "\uf240"
         ],
+        "design-capacity": true,
         "states": {
             "warning": 40,
             "critical": 20
         },
-        "tooltip-format": "{timeTo}"
+        "tooltip-format": "{capacity}% • {power}W • {timeTo} • {health}% health"
     },
     "network": {
         "interval": 5,
@@ -55,15 +59,15 @@
         "on-click": "nm-connection-editor"
     },
     "pulseaudio#spk": {
-        "format": " {volume}%",
-        "format-muted": " MUTE",
+        "format": "\uf028 {volume}%",
+        "format-muted": "\uf467 MUTE",
         "align": 0,
         "on-click": "pavucontrol"
     },
     "pulseaudio#mic": {
         "format": "{format_source}",
-        "format-source": " {volume}%",
-        "format-source-muted": " MUTE",
+        "format-source": "\uf130 {volume}%",
+        "format-source-muted": "\uf131 MUTE",
         "min-length": 7,
         "align": 0,
         "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +1%",
@@ -71,9 +75,8 @@
         "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
     },
     "backlight": {
-        // "device": "acpi_video1",
         "format": "{icon} {percent}%",
-        "format-icons": [""],
+        "format-icons": ["\uf185"],
         "min-brightness": 1
     },
     "tray": {

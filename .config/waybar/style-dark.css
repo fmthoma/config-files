@@ -1,0 +1,141 @@
+/* Solarized palette */
+@define-color base03  #002b36;
+@define-color base02  #073642;
+@define-color base01  #586e75;
+@define-color base00  #657b83;
+@define-color base0   #839496;
+@define-color base1   #93a1a1;
+@define-color base2   #eee8d5;
+@define-color base3   #fdf6e3;
+@define-color yellow  #b58900;
+@define-color orange  #cb4b16;
+@define-color red     #dc322f;
+@define-color magenta #d33682;
+@define-color violet  #6c71c4;
+@define-color blue    #268bd2;
+@define-color cyan    #2aa198;
+@define-color green   #859900;
+
+* {
+  border: none;
+}
+
+window#waybar {
+  font-family:  "Imposevka", "Iosevka Expanded", "DejaVu Sans Mono";
+  font-weight: bold;
+  font-size: 15px;
+  background: none;
+  color: @base0;
+  min-height: 28px;
+}
+
+window#waybar > box.horizontal {
+  margin: 8px 16px 0;
+}
+
+.module {
+  margin: 4px 8px 8px;
+  margin-bottom: 8px;
+  border: 2px solid @base02;
+  border-radius: 12px;
+  min-height: 20px;
+  background-color: @base03;
+  box-shadow: 0px 0px 4px @base03;
+  color: @base00;
+  padding: 0 8px;
+}
+
+button {
+  border-radius: 0;
+}
+
+button:hover {
+  background: inherit;
+  box-shadow: none;
+}
+
+#workspaces {
+  padding: 0;
+}
+
+#workspaces button#niri-workspace-stash, #workspaces button#niri-workspace-11 {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  min-height: 0;
+  font-size: 0;
+  opacity: 0
+}
+
+#workspaces button {
+  border-radius: 12px;
+  min-height: 10px;
+  padding: 0 8px;
+  color: @base1;
+}
+
+#workspaces button.active,
+#workspaces button.active:hover,
+#workspaces button.focused,
+#workspaces button.focused:hover {
+  color: @base02;
+  background: @green;
+  box-shadow: 0px 0px 6px @green;
+}
+
+#workspaces button:hover {
+  background: @base02;
+}
+
+#workspaces button.urgent {
+  color: @base2;
+  background: @red;
+  box-shadow: 0px 0px 6px @red;
+}
+
+#window {
+  padding: 0 12px;
+}
+
+#battery.warning {
+  background: @yellow;
+  border-color: @yellow;
+  box-shadow: 0px 0px 6px @yellow;
+  color: @base3;
+}
+
+#battery.critical {
+  background: @red;
+  border-color: @red;
+  box-shadow: 0px 0px 6px @red;
+  color: @base3;
+}
+
+#battery.charging, #battery.full {
+  background: @blue;
+  border-color: @blue;
+  box-shadow: 0px 0px 6px @blue;
+  color: @base3;
+}
+
+#pulseaudio.spk {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  margin-right: 0;
+}
+
+#pulseaudio.mic {
+  margin-left: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+#pulseaudio.spk.muted,
+#pulseaudio.mic.source-muted {
+  background: @red;
+  border-color: @red;
+  box-shadow: 0px 0px 6px @red;
+  color: @base3;
+}
