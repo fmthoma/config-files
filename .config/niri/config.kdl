@@ -82,6 +82,7 @@ layout {
         color "#002b3680"
     }
     struts {
+        bottom -8
         left 16
         right 16
     }

@@ -30,7 +30,7 @@ window#waybar {
 }
 
 window#waybar > box.horizontal {
-  margin: 0 16px;
+  margin: 8px 16px 0;
 }
 
 .module {
@@ -71,7 +71,7 @@ button:hover {
 
 #workspaces button {
   border-radius: 12px;
-  margin: -2px;
+  min-height: 10px;
   padding: 0 8px;
   color: @base01;
 }
@@ -110,6 +110,13 @@ button:hover {
   background: @red;
   border-color: @red;
   box-shadow: 0px 0px 6px @red;
+  color: @base3;
+}
+
+#battery.charging, #battery.full {
+  background: @blue;
+  border-color: @blue;
+  box-shadow: 0px 0px 6px @blue;
   color: @base3;
 }
 
