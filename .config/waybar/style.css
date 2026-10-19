@@ -33,9 +33,8 @@ window#waybar > box.horizontal {
   margin: 8px 16px 0;
 }
 
-.module {
+.module, box#network {
   margin: 4px 8px 8px;
-  margin-bottom: 8px;
   border: 2px solid @base2;
   border-radius: 12px;
   min-height: 20px;
@@ -58,7 +57,7 @@ button:hover {
   padding: 0;
 }
 
-#workspaces button#niri-workspace-stash, #workspaces button#niri-workspace-11 {
+#workspaces button:not(#niri-workspace-1):not(#niri-workspace-2):not(#niri-workspace-3):not(#niri-workspace-4):not(#niri-workspace-5):not(#niri-workspace-6):not(#niri-workspace-7):not(#niri-workspace-8):not(#niri-workspace-9):not(.active):not(.focused):not(.urgent) {
   background: none;
   border: 0;
   padding: 0;
@@ -99,6 +98,31 @@ button:hover {
   padding: 0 12px;
 }
 
+box#network {
+  padding: 0;
+  border: 0;
+}
+
+label#network {
+  margin: 0;
+  border: 0;
+  box-shadow: none;
+}
+
+box#network :not(:first-child) label {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+box#network :not(:last-child) label {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+#network.vpn {
+  color: @green;
+}
+
 #battery.warning {
   background: @yellow;
   border-color: @yellow;
@@ -113,7 +137,7 @@ button:hover {
   color: @base3;
 }
 
-#battery.charging, #battery.full {
+#battery.charging, #battery.full, #battery.plugged {
   background: @blue;
   border-color: @blue;
   box-shadow: 0px 0px 6px @blue;

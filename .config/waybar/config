@@ -11,7 +11,7 @@
     "modules-right": [
         "pulseaudio#spk",
         "pulseaudio#mic",
-        "network",
+        "group/network",
         "backlight",
         "battery",
         "clock",
@@ -34,6 +34,7 @@
         "interval": 10,
         "format": "{capacity}% {icon} {time}",
         "format-full": "\uf1e6",
+        "format-plugged": "\uf1e6",
         "format-charging": "{capacity}% \uf0e7 {time}",
         "format-time": "{H}:{m}",
         "format-icons": [
@@ -50,13 +51,36 @@
         },
         "tooltip-format": "{capacity}% • {power}W • {timeTo} • {health}% health"
     },
-    "network": {
+    "group/network": {
+        "orientation": "horizontal",
+        "modules": [
+            "network#wifi",
+            "network#eth",
+            "network#vpn"
+        ]
+    },
+    "network#wifi": {
         "interval": 5,
-        "format-wifi": "<span foreground='#6c71c4'></span> {essid}",
-        "format-ethernet": "<span foreground='#6c71c4'></span> {ifname}",
-        "format-disconnected": "<span foreground='#dc322f'></span> offline",
+        "interface": "wlp0s2*",
+        "format": "\uf1eb {essid}",
+        "format-disconnected": "\uf1eb —",
         "tooltip-format-wifi": "{essid} ({signal}%)",
         "on-click": "nm-connection-editor"
+    },
+    "network#eth": {
+        "interval": 5,
+        "interface": "enp0s2*",
+        "format": "\uf0e8",
+        "format-disconnected": "",
+        "tooltip-format": "{ifname}",
+        "on-click": "nm-connection-editor"
+    },
+    "network#vpn": {
+        "interval": 5,
+        "interface": "tun0",
+        "format": "\uf13e",
+        "tooltip-format": "{ifname}",
+        "format-disconnected": ""
     },
     "pulseaudio#spk": {
         "format": "\uf028 {volume}%",
