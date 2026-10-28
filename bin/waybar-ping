@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# Ping quality indicator for waybar (custom module).
+# Usage: waybar-ping [host]
+
+HOST=${1:-google.com}
+OUT=$(ping -c 1 -W 2 "$HOST" 2>/dev/null)
+
+MS=$(printf '%s' "$OUT" | sed -n 's/.*time=\([0-9.]*\) ms.*/\1/p')
+IP=$(printf '%s' "$OUT" | sed -n '/^64 bytes/s/.*(\([0-9a-fA-F.:]*\)).*/\1/p')
+
+if [ -z "$MS" ]; then
+	printf '{"text":"\\uf012 \\u2014","class":"down","tooltip":"%s: unreachable"}\n' "$HOST"
+	exit 0
+fi
+
+MS_INT=${MS%.*}
+if [ "$MS_INT" -lt 60 ]; then
+	CLASS=good
+elif [ "$MS_INT" -lt 150 ]; then
+	CLASS=warning
+else
+	CLASS=critical
+fi
+
+printf '{"text":"\\uf012 %sms","class":"%s","tooltip":"%s (%s): %s ms"}\n' "$MS_INT" "$CLASS" "$HOST" "$IP" "$MS"

@@ -144,6 +144,21 @@ box#network :not(:last-child) label {
   color: @base3;
 }
 
+#custom-ping.warning {
+  background: @yellow;
+  border-color: @yellow;
+  box-shadow: 0px 0px 6px @yellow;
+  color: @base3;
+}
+
+#custom-ping.critical,
+#custom-ping.down {
+  background: @red;
+  border-color: @red;
+  box-shadow: 0px 0px 6px @red;
+  color: @base3;
+}
+
 #pulseaudio.spk {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;

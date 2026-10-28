@@ -12,6 +12,7 @@
         "pulseaudio#spk",
         "pulseaudio#mic",
         "group/network",
+        "custom/ping",
         "backlight",
         "battery",
         "clock",
@@ -81,6 +82,12 @@
         "format": "\uf13e",
         "tooltip-format": "{ifname}",
         "format-disconnected": ""
+    },
+    "custom/ping": {
+        "exec": "waybar-ping google.com",
+        "return-type": "json",
+        "interval": 5,
+        "tooltip": true
     },
     "pulseaudio#spk": {
         "format": "\uf028 {volume}%",
