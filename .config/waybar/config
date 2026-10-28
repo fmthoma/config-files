@@ -26,6 +26,9 @@
     },
     "niri/window": {
         "format": "{title}",
+        "icon": true,
+        "icon-size": 20,
+        "separate-outputs": true,
         "max-length": 100
     },
     "clock": {
